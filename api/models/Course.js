@@ -24,6 +24,10 @@ module.exports = {
       unique: true,
     },
 
+    courseTime: {
+      type: "string",
+    }
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
