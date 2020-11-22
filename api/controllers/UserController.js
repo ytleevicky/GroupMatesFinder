@@ -5,6 +5,8 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const Course = require("../models/Course");
+
 module.exports = {
 
     login: async function (req, res) {
@@ -56,11 +58,6 @@ module.exports = {
         });
     },
 
-    homepage: async function (req, res) {
-
-       return res.view('user/homepage');
-
-    },
 
     profile: async function (req, res) {
 

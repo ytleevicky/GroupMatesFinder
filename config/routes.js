@@ -23,12 +23,21 @@ module.exports.routes = {
 
   '/': 'UserController.login',
 
-  '/homepage': 'UserController.homepage',
+  '/homepage': 'CourseController.homepage',
 
   'GET /user/login': 'UserController.login',
   'POST /user/login': 'UserController.login',
   'POST /user/logout': 'UserController.logout',
   'GET /user/profile': 'UserController.profile',
+
+
+
+  // Associations
+
+  'GET /teacher/:id/instruct': 'TeacherController.populate',
+  'GET /course/:id/teachBy': 'CourseController.populate',
+  // 'POST /user/:id/supervises/add/:fk': 'UserController.add',
+  // 'POST /user/:id/supervises/remove/:fk': 'UserController.remove',
 
 
   /***************************************************************************

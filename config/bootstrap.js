@@ -9,6 +9,8 @@
  * https://sailsjs.com/config/bootstrap
  */
 
+
+
 module.exports.bootstrap = async function () {
 
   // if (await Person.count() == 0) {
@@ -39,6 +41,42 @@ module.exports.bootstrap = async function () {
     ]);
 
   }
+
+  if (await Teacher.count() == 0) {
+
+    const hash = await sails.bcrypt.hash('123456', saltRounds);
+
+    await Teacher.createEach([
+      { givenId: 't20201234', password: hash, role: 'teacher', preferred_name: 'Dr. Christina Lee', fullName: 'Lee Sum Wing'},
+      { givenId: 't20202345', password: hash, role: 'teacher', preferred_name: 'Dr. Alex Wong', fullName: 'Wong Siu Ming'},
+      { givenId: 't20203456', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ma', fullName: 'Ma Kok Ming'},
+    
+    ]);
+
+  }
+
+  if (await Course.count() == 0) {
+
+    await Course.createEach([
+      { courseID: 'COMP4115', courseName: 'Data Visualization' },
+      { courseID: 'COMP4116', courseName: 'Information System' },
+      { courseID: 'COMP4117', courseName: 'Software Developement and Testing' },
+    
+    ]);
+
+  }
+
+  const course1 = await Course.findOne({courseID: 'COMP4115'});
+  const course2 = await Course.findOne({courseID: 'COMP4116'});
+  const course3 = await Course.findOne({courseID: 'COMP4117'});
+  const teacher1 = await Teacher.findOne({givenId: 't20201234'});
+  const teacher2 = await Teacher.findOne({givenId: 't20202345'});
+  const teacher3 = await Teacher.findOne({givenId: 't20203456'});
+
+  await Teacher.addToCollection(teacher1.id, 'instruct').members(course1.id);
+  await Teacher.addToCollection(teacher2.id, 'instruct').members(course2.id);
+  await Teacher.addToCollection(teacher3.id, 'instruct').members(course3.id);
+
 
   return;
 
