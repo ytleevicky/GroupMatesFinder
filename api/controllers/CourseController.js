@@ -29,6 +29,19 @@ module.exports = {
 
     },
 
+    teacherHomepage: async function (req, res) {
+
+        var userID = req.params.id;
+
+        var courses = await Teacher.findOne(userID).populate('instruct');
+
+        console.log("Teacher Homepage course :");
+        console.log(courses);
+
+       return res.view('teacher/homepage', { allCourses: courses });
+
+    },
+
     // Course teachBy Teacher
     populate: async function (req, res) {
 

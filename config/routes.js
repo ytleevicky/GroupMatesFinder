@@ -24,6 +24,7 @@ module.exports.routes = {
   '/': 'UserController.login',
 
   '/homepage/:id': 'CourseController.homepage',
+  '/teacher/homepage/:id': 'CourseController.teacherHomepage',
 
   'GET /user/login': 'UserController.login',
   'POST /user/login': 'UserController.login',

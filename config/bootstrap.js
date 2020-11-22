@@ -35,8 +35,7 @@ module.exports.bootstrap = async function () {
 
       { givenId: 's17228336', password: hash, role: 'student', preferred_name: 'Vicky Lee', fullName: 'LEE Yui Tung', gender: 'Female', contact_mobile: '9430 2848', contact_mail: 's17228336@life.hkbu.edu.hk', study_year: 4, study_programme: "BSC COMPUTER SCI ISA" },
       { givenId: 's17227337', password: hash, role: 'student', preferred_name: 'Jonas Wong', fullName: 'WONG Ming Hong', gender: 'Male', contact_mobile: '9930 2338', contact_mail: 's17227337@life.hkbu.edu.hk', study_year: 3, study_programme: "BSC COMPUTER SCI CST" },
-      { givenId: 't18220990', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ko', fullName: 'Ko Pak Ho', gender: 'Male', contact_mobile: '9470 2318', contact_mail: 'T90000@life.hkbu.edu.hk' },
-      { givenId: 't19338772', password: hash, role: 'teacher', preferred_name: 'Dr. Sam Tong', fullName: 'Tong Ka Ming', gender: 'Male', contact_mobile: '6623 9810', contact_mail: 'T80000@life.hkbu.edu.hk' },
+
       // etc.
     ]);
 
@@ -61,6 +60,7 @@ module.exports.bootstrap = async function () {
       { courseID: 'COMP4115', courseName: 'Data Visualization' },
       { courseID: 'COMP4116', courseName: 'Information System' },
       { courseID: 'COMP4117', courseName: 'Software Developement and Testing' },
+      { courseID: 'GDIT1016', courseName: 'Big Data Analysis' },
     
     ]);
 
@@ -69,11 +69,13 @@ module.exports.bootstrap = async function () {
   const course1 = await Course.findOne({courseID: 'COMP4115'});
   const course2 = await Course.findOne({courseID: 'COMP4116'});
   const course3 = await Course.findOne({courseID: 'COMP4117'});
+  const course4 = await Course.findOne({courseID: 'GDIT1016'});
   const teacher1 = await Teacher.findOne({givenId: 't20201234'});
   const teacher2 = await Teacher.findOne({givenId: 't20202345'});
   const teacher3 = await Teacher.findOne({givenId: 't20203456'});
 
   await Teacher.addToCollection(teacher1.id, 'instruct').members(course1.id);
+  await Teacher.addToCollection(teacher1.id, 'instruct').members(course4.id);
   await Teacher.addToCollection(teacher2.id, 'instruct').members(course2.id);
   await Teacher.addToCollection(teacher3.id, 'instruct').members(course3.id);
 

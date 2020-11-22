@@ -5,7 +5,6 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const Course = require("../models/Course");
 
 module.exports = {
 
@@ -15,9 +14,17 @@ module.exports = {
 
         if (!req.body.givenId || !req.body.password) return res.badRequest();
 
-        var user = await User.findOne({ givenId: req.body.givenId });
+        var student = await User.findOne({ where: { givenId: req.body.givenId, role: 'student'} });
 
-        if (!user) return res.status(401).send("User not found");
+        var teacher = await Teacher.findOne({ where: { givenId: req.body.givenId, role: 'teacher'} });
+
+        if (!student && !teacher) return res.status(401).send("User not found");
+
+        if (student){
+            var user = student;
+        } else {
+            var user = teacher;
+        }
 
         const match = await sails.bcrypt.compare(req.body.password, user.password);
 
@@ -31,12 +38,23 @@ module.exports = {
             req.session.givenId = user.givenId;
             req.session.password = user.password;
             req.session.role = user.role;
-            req.session.name = user.fullName;
+            req.session.name = user.preferred_name;
 
             sails.log("[Session] ", req.session);
 
             if(req.wantsJSON){
-                return res.redirect('/homepage/' + req.session.userid);
+
+                if(req.session.role == 'student') {
+
+                    return res.redirect('/homepage/' + req.session.userid);
+
+                } else {
+
+                    return res.redirect('/teacher/homepage/' + req.session.userid);
+
+                }
+
+              
             }
 
 
