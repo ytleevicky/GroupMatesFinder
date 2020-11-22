@@ -78,6 +78,19 @@ module.exports.bootstrap = async function () {
   await Teacher.addToCollection(teacher3.id, 'instruct').members(course3.id);
 
 
+
+  const student1 = await User.findOne({givenId: 's17228336'});
+  const student2 = await User.findOne({givenId: 's17227337'});
+
+  await User.addToCollection(student1.id, 'enroll').members(course1.id);
+  await User.addToCollection(student1.id, 'enroll').members(course2.id);
+  await User.addToCollection(student1.id, 'enroll').members(course3.id);
+
+  await User.addToCollection(student2.id, 'enroll').members(course1.id);
+  await User.addToCollection(student2.id, 'enroll').members(course2.id);
+
+
+
   return;
 
 };

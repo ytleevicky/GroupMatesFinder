@@ -10,9 +10,20 @@ module.exports = {
 
     homepage: async function (req, res) {
 
-        var courses = await Course.find();
+        var userID = req.params.id;
 
-        var courseInfo = await Course.find(courses.map(c => c.id)).populate('teachBy');
+        console.log("User ID is :");
+        console.log(userID);
+
+        var courses = await User.findOne(userID).populate('enroll');
+
+        console.log("Selected Course :");
+        console.log(courses);
+
+
+        // var courses = await Course.find();
+
+        var courseInfo = await Course.find(courses.enroll.map(c => c.id)).populate('teachBy');
 
        return res.view('user/homepage', { allCourses: courseInfo });
 
@@ -22,6 +33,17 @@ module.exports = {
     populate: async function (req, res) {
 
         var model = await Course.findOne(req.params.id).populate("teachBy");
+    
+        if (!model) return res.notFound();
+    
+        return res.json(model);
+    
+    },
+
+      // Course contain User
+      populate: async function (req, res) {
+
+        var model = await Course.findOne(req.params.id).populate("contain");
     
         if (!model) return res.notFound();
     

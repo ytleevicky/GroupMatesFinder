@@ -28,7 +28,6 @@ module.exports = {
             if (err) return res.serverError(err);
 
             req.session.userid = user.id;
-            // req.session.username = req.body.username;
             req.session.givenId = user.givenId;
             req.session.password = user.password;
             req.session.role = user.role;
@@ -37,7 +36,7 @@ module.exports = {
             sails.log("[Session] ", req.session);
 
             if(req.wantsJSON){
-                return res.redirect('/homepage');
+                return res.redirect('/homepage/' + req.session.userid);
             }
 
 
@@ -72,6 +71,18 @@ module.exports = {
 
        return res.view('user/profile', { userinfo: user });
 
+    },
+
+
+       // User enroll Course
+       populate: async function (req, res) {
+
+        var model = await User.findOne(req.params.id).populate("enroll");
+    
+        if (!model) return res.notFound();
+    
+        return res.json(model);
+    
     },
 
 

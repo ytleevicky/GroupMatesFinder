@@ -39,6 +39,10 @@ module.exports = {
       via: 'instruct'
     },
 
+    contain: {
+      collection: 'User',
+      via: 'enroll'
+    },
 
   },
 

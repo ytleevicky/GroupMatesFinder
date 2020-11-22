@@ -23,7 +23,7 @@ module.exports.routes = {
 
   '/': 'UserController.login',
 
-  '/homepage': 'CourseController.homepage',
+  '/homepage/:id': 'CourseController.homepage',
 
   'GET /user/login': 'UserController.login',
   'POST /user/login': 'UserController.login',
@@ -38,6 +38,9 @@ module.exports.routes = {
   'GET /course/:id/teachBy': 'CourseController.populate',
   // 'POST /user/:id/supervises/add/:fk': 'UserController.add',
   // 'POST /user/:id/supervises/remove/:fk': 'UserController.remove',
+
+  'GET /user/:id/enroll': 'UserController.populate',
+  'GET /course/:id/contain': 'CourseController.populate',
 
 
   /***************************************************************************
