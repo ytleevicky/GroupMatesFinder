@@ -1,0 +1,145 @@
+<body>
+<br>
+
+<h1>Edit Profile</h1>
+    <!-- breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/homepage/<%= userid %>">Home</a></li>
+            <li class="breadcrumb-item"><a href="/user/profile">Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+        </ol>
+    </nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+            <div class="my-4">
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Profile</a>
+                    </li>
+                </ul>
+                <form action="/user/<%= userid %>" method="POST"
+                    onsubmit="createForm(this);return false">
+                    <div class="row mt-5 align-items-center">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="<%= userinfo.imgURL %>" alt="Admin" class="rounded-circle" width="150">
+                            <div class="mt-3">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h4><%= userinfo.fullName %></h4>
+                                <p class="text-secondary mb-1">Year <%= userinfo.study_year %></p>
+                                <p class="text-muted font-size-sm"><%= userinfo.study_programme %></p>
+                        </div>
+                    </div>
+                    <hr class="my-4" />
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">Preferred Name</label>
+                            <input type="text" id="firstname" class="form-control" placeholder="Input preferred name" name="User[preferred_name]" value="<%= userinfo.preferred_name %>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="inputInst">Instagram</label>
+                                <input type="text" class="form-control" id="inputInst" placeholder="Please input your Instagram account" name="User[instagram]" value="<%= userinfo.instagram %>" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="inputFace">Facebook</label>
+                                <input type="text" class="form-control" id="inputFace" placeholder="Please input your Facebook account" name="User[facebook]" value="<%= userinfo.facebook %>"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea class="form-control" rows="5" placeholder="My Bio" name="User[bio]"><%= userinfo.bio %></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputFace">Interest</label>
+                        <input type="text" class="form-control" id="inputFace" placeholder="Please input your interest." name="User[interest]" value="<%= userinfo.interest %>" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputFace">Strength</label>
+                        <input type="text" class="form-control" id="inputFace" placeholder="Please input your strength." name="User[strength]" value="<%= userinfo.strength %>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputFace">Skills</label>
+                        <input type="text" class="form-control" id="inputFace" placeholder="Please input your skills." name="User[skills]" value="<%= userinfo.skills %>" />
+                    </div>
+
+                    <hr class="my-4" />
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputPassword4">Old Password</label>
+                                <input type="password" class="form-control" id="inputPassword5" />
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword5">New Password</label>
+                                <input type="password" class="form-control" id="inputPassword5" />
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword6">Confirm Password</label>
+                                <input type="password" class="form-control" id="inputPassword6" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-2">Password requirements</p>
+                            <p class="small text-muted mb-2">To create a new password, you have to meet all of the following requirements:</p>
+                            <ul class="small text-muted pl-4 mb-0">
+                                <li>Minimum 8 character</li>
+                                <li>At least one special character</li>
+                                <li>At least one number</li>
+                                <li>Can’t be the same as a previous password</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Change</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+</body>
+
+<script>
+
+    async function createForm(oFormElement) {
+
+        console.log("Gogo");
+
+        var response = await fetch("/user/<%= userid %>", {
+            method: "PATCH",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
+</script>

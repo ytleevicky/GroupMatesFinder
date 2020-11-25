@@ -66,6 +66,38 @@ module.exports = {
       type: "string"
     },
 
+    imgURL: {
+      type: "string"
+    },
+
+    instagram: {
+      type: "string"
+    },
+
+    facebook: {
+      type: "string"
+    },
+
+    bio: {
+      type: "string"
+    },
+
+    interest: {
+      type: "string"
+
+    },
+
+    strength: {
+      type: "string"
+
+    },
+
+    skills: {
+      type: "string"
+
+    },
+
+
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

@@ -30,7 +30,8 @@ module.exports.routes = {
   'POST /user/login': 'UserController.login',
   'POST /user/logout': 'UserController.logout',
   'GET /user/profile': 'UserController.profile',
-
+  'GET /user/editProfile/:id': 'UserController.editProfile',
+  'PATCH /user/:id': 'UserController.editProfile',
 
 
   // Associations

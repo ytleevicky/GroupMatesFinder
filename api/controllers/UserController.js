@@ -78,7 +78,7 @@ module.exports = {
 
     profile: async function (req, res) {
 
-        console.log(req.session.userid);
+        // console.log(req.session.userid);
 
         var user = await User.findOne(req.session.userid);
 
@@ -87,7 +87,57 @@ module.exports = {
         console.log(user);
         // console.log(user.name);
 
-       return res.view('user/profile', { userinfo: user });
+       return res.view('user/profile', { userinfo: user, userid: req.session.userid });
+
+    },
+
+    editProfile: async function (req, res) {
+
+        if(req.method == 'GET') {
+
+            console.log("Update Profile is here GET");
+            console.log(req.params.id);
+
+            var user = await User.findOne(req.params.id);
+
+            if (!user) { return res.notFound(); }
+    
+            console.log("Edit Profile Here:")
+            console.log(user);
+            // console.log(user.name);
+    
+           return res.view('user/editProfile', { userinfo: user, userid: req.params.id });
+
+        } else {
+
+            console.log("Update Profile is here POST");
+            console.log(req.params.id);
+
+            var user = await User.findOne(req.params.id);
+    
+            if (!user) { return res.notFound(); }
+    
+          
+            var updateUser = await User.update(req.params.id).set({
+                preferred_name: req.body.User.preferred_name,
+                instagram: req.body.User.instagram,
+                facebook: req.body.User.facebook,
+                bio: req.body.User.bio,
+                interest: req.body.User.interest,
+                strength: req.body.User.strength,
+                skills: req.body.User.skills,
+
+            }).fetch();
+
+           return res.json({ message: 'The profile is successfully updated.', url: '/user/profile' });
+
+        }
+
+    },
+
+    updateProfile: async function (req, res) {
+
+        
 
     },
 

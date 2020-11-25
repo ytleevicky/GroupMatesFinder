@@ -33,8 +33,8 @@ module.exports.bootstrap = async function () {
 
     await User.createEach([
 
-      { givenId: 's17228336', password: hash, role: 'student', preferred_name: 'Vicky Lee', fullName: 'LEE Yui Tung', gender: 'Female', contact_mobile: '9430 2848', contact_mail: 's17228336@life.hkbu.edu.hk', study_year: 4, study_programme: "BSC COMPUTER SCI ISA" },
-      { givenId: 's17227337', password: hash, role: 'student', preferred_name: 'Jonas Wong', fullName: 'WONG Ming Hong', gender: 'Male', contact_mobile: '9930 2338', contact_mail: 's17227337@life.hkbu.edu.hk', study_year: 3, study_programme: "BSC COMPUTER SCI CST" },
+      { givenId: 's17228336', password: hash, role: 'student', preferred_name: 'Vicky Lee', fullName: 'LEE Yui Tung', gender: 'Female', contact_mobile: '9430 2848', contact_mail: 's17228336@life.hkbu.edu.hk', study_year: 4, study_programme: "BSC COMPUTER SCI ISA", imgURL: "/images/user1.png" },
+      { givenId: 's17227337', password: hash, role: 'student', preferred_name: 'Jonas Wong', fullName: 'WONG Ming Hong', gender: 'Male', contact_mobile: '9930 2338', contact_mail: 's17227337@life.hkbu.edu.hk', study_year: 3, study_programme: "BSC COMPUTER SCI CST", imgURL: "/images/user4.png" },
 
       // etc.
     ]);
