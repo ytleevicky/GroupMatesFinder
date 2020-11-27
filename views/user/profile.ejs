@@ -18,7 +18,6 @@
     <!-- breadcrumb -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/homepage/<%= userid %>">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Profile</li>
         </ol>
     </nav>
@@ -216,21 +215,29 @@
 
                                 <div class="row gutters-sm">
                                     <!-- Left -->
-                                    <div class="col-sm-6 mb-3">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-                                                <h6 class="d-flex align-items-center mb-3"><i
-                                                        class="material-icons text-info mr-2">About</i>
-                                                </h6>
 
-                                                <p>Bio: <%= userinfo.bio %></p>
-                                                <p>Interest: <%= userinfo.interest %></p>
-                                                <p>Strength: <%= userinfo.strength %></p>
-                                                <p>Skills: <%= userinfo.skills %></p>
+                                    <% if(userinfo.bio == '' && userinfo.interest == '' && userinfo.strength == '' && userinfo.skills == '') { %>
+                                   
 
+                                    <% } else { %>
+
+                                        <div class="col-sm-6 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-body">
+                                                    <h6 class="d-flex align-items-center mb-3"><i
+                                                            class="material-icons text-info mr-2">About</i>
+                                                    </h6>
+    
+                                                    <p>Bio: <%= userinfo.bio %></p>
+                                                    <p>Interest: <%= userinfo.interest %></p>
+                                                    <p>Strength: <%= userinfo.strength %></p>
+                                                    <p>Skills: <%= userinfo.skills %></p>
+    
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                    <% } %>
 
                                     <!-- Right -->
                                     <div class="col-sm-6 mb-3">

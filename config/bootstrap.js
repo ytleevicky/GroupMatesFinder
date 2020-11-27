@@ -33,8 +33,8 @@ module.exports.bootstrap = async function () {
 
     await User.createEach([
 
-      { givenId: 's17228336', password: hash, role: 'student', preferred_name: 'Vicky Lee', fullName: 'LEE Yui Tung', gender: 'Female', contact_mobile: '9430 2848', contact_mail: 's17228336@life.hkbu.edu.hk', study_year: 4, study_programme: "BSC COMPUTER SCI ISA", imgURL: "/images/user1.png" },
-      { givenId: 's17227337', password: hash, role: 'student', preferred_name: 'Jonas Wong', fullName: 'WONG Ming Hong', gender: 'Male', contact_mobile: '9930 2338', contact_mail: 's17227337@life.hkbu.edu.hk', study_year: 3, study_programme: "BSC COMPUTER SCI CST", imgURL: "/images/user4.png" },
+      { givenId: '17228336', password: hash, role: 'student', preferred_name: 'Vicky Lee', fullName: 'LEE Yui Tung', gender: 'Female', contact_mobile: '9430 2848', contact_mail: '17228336@life.hkbu.edu.hk', study_year: 4, study_programme: "BSC COMPUTER SCI ISA", imgURL: "/images/user1.png" },
+      { givenId: '17227337', password: hash, role: 'student', preferred_name: 'Jonas Wong', fullName: 'WONG Ming Hong', gender: 'Male', contact_mobile: '9930 2338', contact_mail: '17227337@life.hkbu.edu.hk', study_year: 3, study_programme: "BSC COMPUTER SCI CST", imgURL: "/images/user4.png" },
 
       // etc.
     ]);
@@ -46,9 +46,9 @@ module.exports.bootstrap = async function () {
     const hash = await sails.bcrypt.hash('123456', saltRounds);
 
     await Teacher.createEach([
-      { givenId: 't20201234', password: hash, role: 'teacher', preferred_name: 'Dr. Christina Lee', fullName: 'Lee Sum Wing'},
-      { givenId: 't20202345', password: hash, role: 'teacher', preferred_name: 'Dr. Alex Wong', fullName: 'Wong Siu Ming'},
-      { givenId: 't20203456', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ma', fullName: 'Ma Kok Ming'},
+      { givenId: 'chrislee', password: hash, role: 'teacher', preferred_name: 'Dr. Chris Lee', fullName: 'Lee Sum Wing'},
+      { givenId: 'alexwong', password: hash, role: 'teacher', preferred_name: 'Dr. Alex Wong', fullName: 'Wong Siu Ming'},
+      { givenId: 'kennethma', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ma', fullName: 'Ma Kok Ming'},
     
     ]);
 
@@ -70,9 +70,9 @@ module.exports.bootstrap = async function () {
   const course2 = await Course.findOne({courseID: 'COMP4116'});
   const course3 = await Course.findOne({courseID: 'COMP4117'});
   const course4 = await Course.findOne({courseID: 'GDIT1016'});
-  const teacher1 = await Teacher.findOne({givenId: 't20201234'});
-  const teacher2 = await Teacher.findOne({givenId: 't20202345'});
-  const teacher3 = await Teacher.findOne({givenId: 't20203456'});
+  const teacher1 = await Teacher.findOne({givenId: 'chrislee'});
+  const teacher2 = await Teacher.findOne({givenId: 'alexwong'});
+  const teacher3 = await Teacher.findOne({givenId: 'kennethma'});
 
   await Teacher.addToCollection(teacher1.id, 'instruct').members(course1.id);
   await Teacher.addToCollection(teacher1.id, 'instruct').members(course4.id);
@@ -81,8 +81,8 @@ module.exports.bootstrap = async function () {
 
 
 
-  const student1 = await User.findOne({givenId: 's17228336'});
-  const student2 = await User.findOne({givenId: 's17227337'});
+  const student1 = await User.findOne({givenId: '17228336'});
+  const student2 = await User.findOne({givenId: '17227337'});
 
   await User.addToCollection(student1.id, 'enroll').members(course1.id);
   await User.addToCollection(student1.id, 'enroll').members(course2.id);

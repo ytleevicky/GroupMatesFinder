@@ -87,7 +87,7 @@
       <ul class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <%= req.session.name %>
+          <%= req.session.role == 'teacher' ? req.session.pName : req.session.fName %>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="/user/profile">Profile</a>

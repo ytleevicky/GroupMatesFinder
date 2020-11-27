@@ -38,7 +38,8 @@ module.exports = {
             req.session.givenId = user.givenId;
             req.session.password = user.password;
             req.session.role = user.role;
-            req.session.name = user.preferred_name;
+            req.session.pName = user.preferred_name;
+            req.session.fName = user.fullName;
 
             sails.log("[Session] ", req.session);
 
