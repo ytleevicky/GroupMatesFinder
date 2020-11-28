@@ -12,18 +12,11 @@ module.exports = {
 
         var userID = req.params.id;
 
-        console.log("User ID is :");
-        console.log(userID);
-
-        var courses = await User.findOne(userID).populate('enroll');
-
-        console.log("Selected Course :");
-        console.log(courses);
-
-
-        // var courses = await Course.find();
-
-        var courseInfo = await Course.find(courses.enroll.map(c => c.id)).populate('teachBy');
+        var d = await User.findOne(userID).populate('enroll', { sort: 'courseTerm DESC'});
+  
+        var courseInfo = await Course.find(d.enroll.map(c => c.id)).populate('teachBy').sort('courseTerm DESC');
+        console.log("Test");
+        console.log(courseInfo);
 
        return res.view('user/homepage', { allCourses: courseInfo });
 
@@ -57,6 +50,17 @@ module.exports = {
       populate: async function (req, res) {
 
         var model = await Course.findOne(req.params.id).populate("contain");
+    
+        if (!model) return res.notFound();
+    
+        return res.json(model);
+    
+    },
+
+    // Course belongTo AcademicYear
+    populate: async function (req, res) {
+
+        var model = await Course.findOne(req.params.id).populate("belongTo");
     
         if (!model) return res.notFound();
     

@@ -44,6 +44,12 @@ module.exports.routes = {
   'GET /user/:id/enroll': 'UserController.populate',
   'GET /course/:id/contain': 'CourseController.populate',
 
+  'GET /user/:id/enrollAt': 'UserController.populate',
+  'GET /academicYear/:id/haveStudent': 'AcademicYear.populate',
+
+  'GET /course/:id/belongTo': 'CourseController.populate',
+  'GET /academicYear/:id/have': 'AcademicYear.populate',
+
 
   /***************************************************************************
   *                                                                          *

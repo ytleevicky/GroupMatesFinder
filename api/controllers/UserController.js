@@ -136,15 +136,9 @@ module.exports = {
 
     },
 
-    updateProfile: async function (req, res) {
 
-        
-
-    },
-
-
-       // User enroll Course
-       populate: async function (req, res) {
+    // User enroll Course
+    populate: async function (req, res) {
 
         var model = await User.findOne(req.params.id).populate("enroll");
     
@@ -153,6 +147,19 @@ module.exports = {
         return res.json(model);
     
     },
+
+    // User enrollAt AcademicYear
+    populate: async function (req, res) {
+
+        var model = await User.findOne(req.params.id).populate("enrollAt");
+    
+        if (!model) return res.notFound();
+    
+        return res.json(model);
+    
+    },
+
+
 
 
 

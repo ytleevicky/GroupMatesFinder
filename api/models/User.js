@@ -113,6 +113,11 @@ module.exports = {
       via: 'contain'
     },
 
+    enrollAt: {
+      collection: 'AcademicYear',
+      via: 'haveStudent'
+    },
+
   },
 
 };
