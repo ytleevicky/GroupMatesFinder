@@ -1,5 +1,5 @@
 /**
- * Course.js
+ * Section.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -13,26 +13,13 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    courseName: {
-      type: "string",
-      required: true,
-    },
-
-    courseID: {
-      type: "string",
-      required: true,
-    },
-
-    courseTerm: {
-      type: 'string',
-      required: true
-    },
-
-    numOfSection: {
+    sectionNum: {
       type: 'number',
-      required: true
     },
 
+    numOfStudent: {
+      type: 'number',
+    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -43,25 +30,20 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    teachBy: {
-      collection: 'Teacher',
-      via: 'instruct'
+    in: {
+      collection: 'Course',
+      via: 'haveSection'
     },
 
-    contain: {
+    haveStudent: {
       collection: 'User',
-      via: 'enroll'
+      via: 'enrollSection'
     },
 
-    haveSection: {
-      collection: 'Section',
-      via: 'in'
+    haveTeacher: {
+      collection: 'Teacher',
+      via: 'instructSection'
     },
-
-    // belongTo: {
-    //   collection: 'AcademicYear',
-    //   via: 'have'
-    // },
 
   },
 

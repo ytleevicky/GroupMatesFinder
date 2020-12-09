@@ -26,15 +26,15 @@ module.exports.bootstrap = async function () {
   sails.bcrypt = require('bcryptjs');
   const saltRounds = 10;
 
-  if (await AcademicYear.count() == 0) {
+  // if (await AcademicYear.count() == 0) {
 
-    await AcademicYear.createEach([
-      { termID: '2019-S1' },
-      { termID: '2019-S2' },
-    
-    ]);
+  //   await AcademicYear.createEach([
+  //     { termID: '2019-S1' },
+  //     { termID: '2019-S2' },
 
-  }
+  //   ]);
+
+  // }
 
 
   if (await User.count() == 0) {
@@ -56,10 +56,10 @@ module.exports.bootstrap = async function () {
     const hash = await sails.bcrypt.hash('123456', saltRounds);
 
     await Teacher.createEach([
-      { givenId: 'chrislee', password: hash, role: 'teacher', preferred_name: 'Dr. Chris Lee', fullName: 'Lee Sum Wing'},
-      { givenId: 'alexwong', password: hash, role: 'teacher', preferred_name: 'Dr. Alex Wong', fullName: 'Wong Siu Ming'},
-      { givenId: 'kennethma', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ma', fullName: 'Ma Kok Ming'},
-    
+      { givenId: 'chrislee', password: hash, role: 'teacher', preferred_name: 'Dr. Chris Lee', fullName: 'Lee Sum Wing' },
+      { givenId: 'alexwong', password: hash, role: 'teacher', preferred_name: 'Dr. Alex Wong', fullName: 'Wong Siu Ming' },
+      { givenId: 'kennethma', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ma', fullName: 'Ma Kok Ming' },
+
     ]);
 
   }
@@ -67,50 +67,44 @@ module.exports.bootstrap = async function () {
   if (await Course.count() == 0) {
 
     await Course.createEach([
-      { courseID: 'COMP4115', courseName: 'Data Visualization', courseTerm: '2019-S1' },
-      { courseID: 'COMP4116', courseName: 'Information System', courseTerm: '2019-S1' },
-      { courseID: 'COMP4117', courseName: 'Software Developement and Testing', courseTerm: '2019-S1' },
-      { courseID: 'GDIT1016', courseName: 'Big Data Analysis', courseTerm: '2019-S2' },
-    
+      { courseID: 'COMP4115', courseName: 'Data Visualization', courseTerm: '2019-2020 Semester 1', numOfSection: 1 },
+      { courseID: 'COMP4116', courseName: 'Information System', courseTerm: '2019-2020 Semester 1', numOfSection: 1 },
+      { courseID: 'COMP4117', courseName: 'Software Developement and Testing', courseTerm: '2019-2020 Semester 1', numOfSection: 1 },
+
     ]);
 
   }
 
-  const Yr2019S1 = await AcademicYear.findOne({termID: '2019-S1'});
-  const Yr2019S2 = await AcademicYear.findOne({termID: '2019-S2'});
+  // const Yr2019S1 = await AcademicYear.findOne({termID: '2019-S1'});
+  // const Yr2019S2 = await AcademicYear.findOne({termID: '2019-S2'});
 
-  const student1 = await User.findOne({givenId: '17228336'});
-  const student2 = await User.findOne({givenId: '17227337'});
+  const student1 = await User.findOne({ givenId: '17228336' });
+  const student2 = await User.findOne({ givenId: '17227337' });
 
-  const course1 = await Course.findOne({courseID: 'COMP4115'});
-  const course2 = await Course.findOne({courseID: 'COMP4116'});
-  const course3 = await Course.findOne({courseID: 'COMP4117'});
-  const course4 = await Course.findOne({courseID: 'GDIT1016'});
+  const course1 = await Course.findOne({ courseID: 'COMP4115' });
+  const course2 = await Course.findOne({ courseID: 'COMP4116' });
+  const course3 = await Course.findOne({ courseID: 'COMP4117' });
 
-  const teacher1 = await Teacher.findOne({givenId: 'chrislee'});
-  const teacher2 = await Teacher.findOne({givenId: 'alexwong'});
-  const teacher3 = await Teacher.findOne({givenId: 'kennethma'});
+  const teacher1 = await Teacher.findOne({ givenId: 'chrislee' });
+  const teacher2 = await Teacher.findOne({ givenId: 'alexwong' });
+  const teacher3 = await Teacher.findOne({ givenId: 'kennethma' });
 
-  await User.addToCollection(student1.id, 'enrollAt').members(Yr2019S1.id);
-  await User.addToCollection(student1.id, 'enrollAt').members(Yr2019S2.id);
-  await User.addToCollection(student2.id, 'enrollAt').members(Yr2019S1.id);
-  await User.addToCollection(student2.id, 'enrollAt').members(Yr2019S2.id);
+  // await User.addToCollection(student1.id, 'enrollAt').members(Yr2019S1.id);
+  // await User.addToCollection(student1.id, 'enrollAt').members(Yr2019S2.id);
+  // await User.addToCollection(student2.id, 'enrollAt').members(Yr2019S1.id);
+  // await User.addToCollection(student2.id, 'enrollAt').members(Yr2019S2.id);
 
-  await Teacher.addToCollection(teacher1.id, 'instruct').members(course1.id);
-  await Teacher.addToCollection(teacher1.id, 'instruct').members(course4.id);
+  await Teacher.addToCollection(teacher1.id, 'instruct').members([course1.id, course3.id]);
   await Teacher.addToCollection(teacher2.id, 'instruct').members(course2.id);
   await Teacher.addToCollection(teacher3.id, 'instruct').members(course3.id);
-  await Teacher.addToCollection(teacher1.id, 'instruct').members(course3.id);
 
-  await AcademicYear.addToCollection(Yr2019S1.id, 'have').members([course1.id, course2.id, course3.id]);
-  await AcademicYear.addToCollection(Yr2019S2.id, 'have').members([course4.id]);
+  // await AcademicYear.addToCollection(Yr2019S1.id, 'have').members([course1.id, course2.id, course3.id]);
+  // await AcademicYear.addToCollection(Yr2019S2.id, 'have').members([course4.id]);
 
 
-  await User.addToCollection(student1.id, 'enroll').members([course1.id, course2.id, course3.id, course4.id]);
-  
+  // await User.addToCollection(student1.id, 'enroll').members([course1.id, course2.id, course3.id]);
+  // await User.addToCollection(student2.id, 'enroll').members([course2.id]);
 
-  await User.addToCollection(student2.id, 'enroll').members([course2.id, course4.id]);
- 
 
 
 

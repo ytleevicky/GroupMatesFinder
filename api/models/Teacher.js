@@ -24,7 +24,7 @@ module.exports = {
     },
 
     givenId: {
-      type: "string", 
+      type: "string",
       required: true,
       unique: true,
     },
@@ -52,6 +52,11 @@ module.exports = {
     instruct: {
       collection: 'Course',
       via: 'teachBy'
+    },
+
+    instructSection: {
+      collection: 'Section',
+      via: 'haveTeacher'
     },
 
 

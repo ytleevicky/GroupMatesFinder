@@ -1,6 +1,6 @@
 <body>
 
-    <br>
+    <!-- <br>
     <div class="container row">
 
         <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-person text-info" fill="currentColor"
@@ -15,282 +15,300 @@
 
     </div>
 
-    <!-- breadcrumb -->
+   
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+    </nav> -->
+
+    <br>
+    <h1><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person text-info" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+        </svg> User Profile</h1>
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">Profile</li>
         </ol>
     </nav>
 
-    
+    <!-- Navigation (Profile, Past Performance) -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="home"
+                aria-selected="true">
 
-        <!-- Navigation (Profile, Past Performance) -->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#profile" role="tab"
-                    aria-controls="home" aria-selected="true">
+                <svg class="bi bi-alert-triangle text-success" width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                    class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg>
 
-                    <svg class="bi bi-alert-triangle text-success" width="1.5em" height="1.5em" viewBox="0 0 16 16"
-                        class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                    </svg>
+                &nbsp
 
-                    &nbsp
+                User Info</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#performance" role="tab"
+                aria-controls="profile" aria-selected="false">
 
-                    User Info</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#performance" role="tab"
-                    aria-controls="profile" aria-selected="false">
+                <svg class="bi bi-alert-triangle text-warning" width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                    class="bi bi-clock-history" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z" />
+                    <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z" />
+                    <path fill-rule="evenodd"
+                        d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+                </svg>
 
-                    <svg class="bi bi-alert-triangle text-warning" width="1.5em" height="1.5em" viewBox="0 0 16 16"
-                        class="bi bi-clock-history" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z" />
-                        <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z" />
-                        <path fill-rule="evenodd"
-                            d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
-                    </svg>
+                &nbsp
 
-                    &nbsp
+                Past Performance</a>
+        </li>
 
-                    Past Performance</a>
-            </li>
-
-        </ul>
+    </ul>
 
 
-        <div class="tab-content" id="myTabContent">
+    <div class="tab-content" id="myTabContent">
 
-            <!-- Profile -->
+        <!-- Profile -->
 
-            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="home-tab">
+        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="home-tab">
 
-                <div class="container">
-                    <div class="main-body">
+            <div class="container">
+                <div class="main-body">
 
-                        <div class="row">
-                            <div class="col">
-                                <a href="/user/editProfile/<%= userid %>" class="btn btn-link" style="float: right;">Edit Profile</a>
+                    <div class="row">
+                        <div class="col">
+                            <a href="/user/editProfile/<%= userid %>" class="btn btn-link" style="float: right;">Edit
+                                Profile</a>
+                        </div>
+                    </div>
+
+                    <div class="row gutters-sm">
+
+                        <div class="col-md-4 mb-3">
+                            <!-- User name card -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- <button class="btn btn-outline-primary disabled">RANKINGS</button> -->
+                                    <div class="d-flex flex-column align-items-center text-center">
+                                        <img src="<%= userinfo.imgURL %>" alt="Admin" class="rounded-circle"
+                                            width="150">
+                                        <div class="mt-3">
+                                            <h4><%= userinfo.preferred_name %></h4>
+                                            <p class="text-secondary mb-1">Year <%= userinfo.study_year %></p>
+                                            <p class="text-muted font-size-sm"><%= userinfo.study_programme %></p>
+                                            <!-- <button class="btn btn-primary">Follow</button>
+                                                <button class="btn btn-outline-primary">Message</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Contact information Card -->
+                            <div class="card mt-3">
+                                <ul class="list-group list-group-flush">
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-globe mr-2 icon-inline">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                                <path
+                                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                                </path>
+                                            </svg> Email</h6>
+                                        <span class="text-secondary"><%= userinfo.contact_mail %></span>
+                                    </li>
+                                    <% if (userinfo.instagram == '') { %>
+
+                                    <% } else { %>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-instagram mr-2 icon-inline text-danger">
+                                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                            </svg> Instagram</h6>
+                                        <span class="text-secondary"><%= userinfo.instagram %></span>
+                                    </li>
+                                    <% } %>
+
+                                    <% if (userinfo.facebook == '') { %>
+
+                                    <% } else { %>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-facebook mr-2 icon-inline text-primary">
+                                                <path
+                                                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
+                                                </path>
+                                            </svg> Facebook</h6>
+                                        <span class="text-secondary"><%= userinfo.facebook %></span>
+                                    </li>
+                                    <% } %>
+                                </ul>
                             </div>
                         </div>
 
-                        <div class="row gutters-sm">
 
-                            <div class="col-md-4 mb-3">
-                                <!-- User name card -->
-                                <div class="card">
-                                    <div class="card-body">
+                        <div class="col-md-8">
 
-                                        <!-- <button class="btn btn-outline-primary disabled">RANKINGS</button> -->
+                            <!-- User's Details  -->
 
-                                        <div class="d-flex flex-column align-items-center text-center">
-                                            <img src="<%= userinfo.imgURL %>" alt="Admin" class="rounded-circle" width="150">
-                                            <div class="mt-3">
-                                                <h4><%= userinfo.preferred_name %></h4>
-                                                <p class="text-secondary mb-1">Year <%= userinfo.study_year %></p>
-                                                <p class="text-muted font-size-sm"><%= userinfo.study_programme %></p>
-                                                <!-- <button class="btn btn-primary">Follow</button>
-                                                <button class="btn btn-outline-primary">Message</button> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Contact information Card -->
-                                <div class="card mt-3">
-                                    <ul class="list-group list-group-flush">
-                                        <li
-                                            class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-globe mr-2 icon-inline">
-                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                                                    <path
-                                                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                                                    </path>
-                                                </svg>Email</h6>
-                                            <span class="text-secondary"><%= userinfo.contact_mail %></span>
-                                        </li>
-                                        <% if (userinfo.instagram == '') { %>
-
-                                        <% } else { %>
-                                        <li
-                                            class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-instagram mr-2 icon-inline text-danger">
-                                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                                </svg>Instagram</h6>
-                                            <span class="text-secondary"><%= userinfo.instagram %></span>
-                                        </li>
-                                        <% } %>
-
-                                        <% if (userinfo.facebook == '') { %>
-
-                                        <% } else { %>
-                                        <li
-                                            class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-facebook mr-2 icon-inline text-primary">
-                                                    <path
-                                                        d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
-                                                    </path>
-                                                </svg>Facebook</h6>
-                                            <span class="text-secondary"><%= userinfo.facebook %></span>
-                                        </li>
-                                        <% } %>
-                                    </ul>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-8">
-
-                                <!-- User's Details  -->
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-3">
+                            <div class="card mb-3">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="row m-2">
+                                            <div class="col-sm-4">
                                                 <h6 class="mb-0">Full Name</h6>
                                             </div>
-                                            <div class="col-sm-9 text-secondary">
+                                            <div class="col-sm-8 text-secondary">
                                                 <%= userinfo.fullName %>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row m-2">
+                                            <div class="col-sm-4">
                                                 <h6 class="mb-0">Gender</h6>
                                             </div>
-                                            <div class="col-sm-9 text-secondary">
+                                            <div class="col-sm-8 text-secondary">
                                                 <%= userinfo.gender %>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row m-2">
+                                            <div class="col-sm-4">
                                                 <h6 class="mb-0">Student ID</h6>
                                             </div>
-                                            <div class="col-sm-9 text-secondary">
+                                            <div class="col-sm-8 text-secondary">
                                                 <%= userinfo.givenId %>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row m-2">
+                                            <div class="col-sm-4">
                                                 <h6 class="mb-0">Study Programme</h6>
                                             </div>
-                                            <div class="col-sm-9 text-secondary">
+                                            <div class="col-sm-8 text-secondary">
                                                 <%= userinfo.study_programme %>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row m-2">
+                                            <div class="col-sm-4">
                                                 <h6 class="mb-0">Study Year</h6>
                                             </div>
-                                            <div class="col-sm-9 text-secondary">
+                                            <div class="col-sm-8 text-secondary">
                                                 <%= userinfo.study_year %>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row m-2">
+                                            <div class="col-sm-4">
                                                 <h6 class="mb-0">Phone</h6>
                                             </div>
-                                            <div class="col-sm-9 text-secondary">
+                                            <div class="col-sm-8 text-secondary">
                                                 <%= userinfo.contact_mobile %>
                                             </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <div class="row gutters-sm">
+                                <!-- Left -->
+
+                                <% if(userinfo.bio == '' && userinfo.interest == '' && userinfo.strength == '' && userinfo.skills == '') { %>
+
+
+                                <% } else { %>
+
+                                <div class="col-sm-6 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h6 class="d-flex align-items-center mb-3"><i
+                                                    class="material-icons text-info mr-2">About</i>
+                                            </h6>
+
+                                            <p>Bio: <small class="text-muted"><%= userinfo.bio %></small></p>
+                                            <p>Interest: <small class="text-muted"><%= userinfo.interest %></small></p>
+                                            <p>Strength: <small class="text-muted"><%= userinfo.strength %></small></p>
+                                            <p>Skills: <small class="text-muted"><%= userinfo.skills %></small></p>
+
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row gutters-sm">
-                                    <!-- Left -->
+                                <% } %>
 
-                                    <% if(userinfo.bio == '' && userinfo.interest == '' && userinfo.strength == '' && userinfo.skills == '') { %>
-                                   
-
-                                    <% } else { %>
-
-                                        <div class="col-sm-6 mb-3">
-                                            <div class="card h-100">
-                                                <div class="card-body">
-                                                    <h6 class="d-flex align-items-center mb-3"><i
-                                                            class="material-icons text-info mr-2">About</i>
-                                                    </h6>
-    
-                                                    <p>Bio: <%= userinfo.bio %></p>
-                                                    <p>Interest: <%= userinfo.interest %></p>
-                                                    <p>Strength: <%= userinfo.strength %></p>
-                                                    <p>Skills: <%= userinfo.skills %></p>
-    
-                                                </div>
+                                <!-- Right -->
+                                <div class="col-sm-6 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h6 class="d-flex align-items-center mb-3"><i
+                                                    class="material-icons text-info mr-2">Professional Skills</i>
+                                            </h6>
+                                            <div class="row">
+                                                <div class="col-8"><small>Positive Behaviour</small></div>
+                                                <div class="col-4 text-right"><small>80%</small></div>
                                             </div>
-                                        </div>
-
-                                    <% } %>
-
-                                    <!-- Right -->
-                                    <div class="col-sm-6 mb-3">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-                                                <h6 class="d-flex align-items-center mb-3"><i
-                                                        class="material-icons text-info mr-2">Professional Skills</i>
-                                                </h6>
-                                                <div class="row">
-                                                    <div class="col-8"><small>Positive Behaviour</small></div>
-                                                    <div class="col-4 text-right"><small>80%</small></div>
-                                                </div>
-                                                <div class="progress mb-3" style="height: 5px">
-                                                    <div class="progress-bar bg-primary" role="progressbar"
-                                                        style="width: 80%" aria-valuenow="80" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-8"><small>Teamworking Ability</small></div>
-                                                    <div class="col-4 text-right"><small>72%</small></div>
-                                                </div>
-                                                <div class="progress mb-3" style="height: 5px">
-                                                    <div class="progress-bar bg-success" role="progressbar"
-                                                        style="width: 72%" aria-valuenow="72" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-8"><small>Time Management</small></div>
-                                                    <div class="col-4 text-right"><small>89%</small></div>
-                                                </div>
-                                                <div class="progress mb-3" style="height: 5px">
-                                                    <div class="progress-bar bg-danger" role="progressbar"
-                                                        style="width: 89%" aria-valuenow="89" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-8"><small>Excellent Communication</small></div>
-                                                    <div class="col-4 text-right"><small>55%</small></div>
-                                                </div>
-                                                <div class="progress mb-3" style="height: 5px">
-                                                    <div class="progress-bar bg-warning" role="progressbar"
-                                                        style="width: 55%" aria-valuenow="55" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-8"><small>Leadership</small></div>
-                                                    <div class="col-4 text-right"><small>66%</small></div>
-                                                </div>
-                                                <div class="progress mb-3" style="height: 5px">
-                                                    <div class="progress-bar bg-info" role="progressbar"
-                                                        style="width: 66%" aria-valuenow="66" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
+                                            <div class="progress mb-3" style="height: 5px">
+                                                <div class="progress-bar bg-primary" role="progressbar"
+                                                    style="width: 80%" aria-valuenow="80" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-8"><small>Teamworking Ability</small></div>
+                                                <div class="col-4 text-right"><small>72%</small></div>
+                                            </div>
+                                            <div class="progress mb-3" style="height: 5px">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                    style="width: 72%" aria-valuenow="72" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-8"><small>Time Management</small></div>
+                                                <div class="col-4 text-right"><small>89%</small></div>
+                                            </div>
+                                            <div class="progress mb-3" style="height: 5px">
+                                                <div class="progress-bar bg-danger" role="progressbar"
+                                                    style="width: 89%" aria-valuenow="89" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-8"><small>Excellent Communication</small></div>
+                                                <div class="col-4 text-right"><small>55%</small></div>
+                                            </div>
+                                            <div class="progress mb-3" style="height: 5px">
+                                                <div class="progress-bar bg-warning" role="progressbar"
+                                                    style="width: 55%" aria-valuenow="55" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-8"><small>Leadership</small></div>
+                                                <div class="col-4 text-right"><small>66%</small></div>
+                                            </div>
+                                            <div class="progress mb-3" style="height: 5px">
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: 66%"
+                                                    aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -299,21 +317,21 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
-
-            <!-- Past Performance -->
-            <div class="tab-pane fade" id="performance" role="tabpanel" aria-labelledby="profile-tab">
-                <br>
-                Here is the past performance</div>
-
 
 
         </div>
 
- 
+
+        <!-- Past Performance -->
+        <div class="tab-pane fade" id="performance" role="tabpanel" aria-labelledby="profile-tab">
+            <br>
+            Here is the past performance</div>
+
+
+
+    </div>
+
 
 
 </body>

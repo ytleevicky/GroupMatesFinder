@@ -14,13 +14,13 @@ module.exports = {
 
         if (!req.body.givenId || !req.body.password) return res.badRequest();
 
-        var student = await User.findOne({ where: { givenId: req.body.givenId, role: 'student'} });
+        var student = await User.findOne({ where: { givenId: req.body.givenId, role: 'student' } });
 
-        var teacher = await Teacher.findOne({ where: { givenId: req.body.givenId, role: 'teacher'} });
+        var teacher = await Teacher.findOne({ where: { givenId: req.body.givenId, role: 'teacher' } });
 
         if (!student && !teacher) return res.status(401).send("User not found");
 
-        if (student){
+        if (student) {
             var user = student;
         } else {
             var user = teacher;
@@ -43,9 +43,9 @@ module.exports = {
 
             sails.log("[Session] ", req.session);
 
-            if(req.wantsJSON){
+            if (req.wantsJSON) {
 
-                if(req.session.role == 'student') {
+                if (req.session.role == 'student') {
 
                     return res.redirect('/homepage/' + req.session.userid);
 
@@ -55,7 +55,7 @@ module.exports = {
 
                 }
 
-              
+
             }
 
 
@@ -88,13 +88,13 @@ module.exports = {
         console.log(user);
         // console.log(user.name);
 
-       return res.view('user/profile', { userinfo: user, userid: req.session.userid });
+        return res.view('user/profile', { userinfo: user, userid: req.session.userid });
 
     },
 
     editProfile: async function (req, res) {
 
-        if(req.method == 'GET') {
+        if (req.method == 'GET') {
 
             console.log("Update Profile is here GET");
             console.log(req.params.id);
@@ -102,12 +102,12 @@ module.exports = {
             var user = await User.findOne(req.params.id);
 
             if (!user) { return res.notFound(); }
-    
+
             console.log("Edit Profile Here:")
             console.log(user);
             // console.log(user.name);
-    
-           return res.view('user/editProfile', { userinfo: user, userid: req.params.id });
+
+            return res.view('user/editProfile', { userinfo: user, userid: req.params.id });
 
         } else {
 
@@ -115,10 +115,10 @@ module.exports = {
             console.log(req.params.id);
 
             var user = await User.findOne(req.params.id);
-    
+
             if (!user) { return res.notFound(); }
-    
-          
+
+
             var updateUser = await User.update(req.params.id).set({
                 preferred_name: req.body.User.preferred_name,
                 instagram: req.body.User.instagram,
@@ -130,7 +130,7 @@ module.exports = {
 
             }).fetch();
 
-           return res.json({ message: 'The profile is successfully updated.', url: '/user/profile' });
+            return res.json({ message: 'The profile is successfully updated.', url: '/user/profile' });
 
         }
 
@@ -141,23 +141,34 @@ module.exports = {
     populate: async function (req, res) {
 
         var model = await User.findOne(req.params.id).populate("enroll");
-    
+
         if (!model) return res.notFound();
-    
+
         return res.json(model);
-    
+
+    },
+
+    // User enrollSection Section
+    populate: async function (req, res) {
+
+        var model = await User.findOne(req.params.id).populate("enrollSection");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
     },
 
     // User enrollAt AcademicYear
-    populate: async function (req, res) {
+    // populate: async function (req, res) {
 
-        var model = await User.findOne(req.params.id).populate("enrollAt");
-    
-        if (!model) return res.notFound();
-    
-        return res.json(model);
-    
-    },
+    //     var model = await User.findOne(req.params.id).populate("enrollAt");
+
+    //     if (!model) return res.notFound();
+
+    //     return res.json(model);
+
+    // },
 
 
 

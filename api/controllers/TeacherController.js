@@ -7,17 +7,28 @@
 
 module.exports = {
 
-       // Teacher instruct Course
-       populate: async function (req, res) {
+    // Teacher instruct Course
+    populate: async function (req, res) {
 
         var model = await Teacher.findOne(req.params.id).populate("instruct");
-    
+
         if (!model) return res.notFound();
-    
+
         return res.json(model);
-    
+
     },
-  
+
+    // Teacher instructSection Section 
+    populate: async function (req, res) {
+
+        var model = await Teacher.findOne(req.params.id).populate("instructSection");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
 
 };
 

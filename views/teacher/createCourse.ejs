@@ -1,0 +1,113 @@
+<body>
+
+    <br>
+    <h1><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-list-check text-primary" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
+        </svg> Create Course</h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/teacher/homepage/<%= userid %>">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create Course</li>
+        </ol>
+    </nav>
+
+
+    <div class="box">
+
+        <br>
+
+        <form action="/createCourse" method="POST" onsubmit="createForm(this);return false">
+
+            <div class="mb-3">
+                <div class="form-group row">
+                    <label for="inputCourseName" class="col-sm-2 col-form-label">Course Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Please enter the course name"
+                            name="Course[courseName]" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-group row">
+                    <label for="inputCourseID" class="col-sm-2 col-form-label">Course Code:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Please enter the course code"
+                            name="Course[courseID]" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-group row">
+                    <label for="inputNumOfSection" class="col-sm-2 col-form-label">Number of Section:</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control"
+                            placeholder="Please enter the number of section in this course" name="Course[numOfSection]"
+                            required min="1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-group row">
+                    <label for="inputeventLocation" class="col-sm-2 col-form-label">Academic Year:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="Course[courseTerm]" required>
+                            <option value="">Please choose the academic year for this course</option>
+                            <option value="2019-2020 Semester 1">2019-2020 Semester 1</option>
+                            <option value="2019-2020 Semester 2">2019-2020 Semester 2</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-success" style="float:right;">Save</button>
+                <a href="/teacher/homepage/<%= userid %>" class="btn btn-danger" style="float:right;">Cancel</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+<style>
+    .box {
+
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+</style>
+
+<script>
+    async function createForm(oFormElement) {
+
+        var response = await fetch(oFormElement.action, {
+            method: "POST",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
+</script>

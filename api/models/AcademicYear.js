@@ -13,11 +13,11 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    termID: {
-      type: "string",
-      required: true,
-      unique: true
-    },
+    // termID: {
+    //   type: "string",
+    //   required: true,
+    //   unique: true
+    // },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -28,15 +28,15 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    haveStudent: {
-      collection: 'User',
-      via: 'enrollAt'
-    },
+    // haveStudent: {
+    //   collection: 'User',
+    //   via: 'enrollAt'
+    // },
 
-    have: {
-      collection: 'Course',
-      via: 'belongTo'
-    },
+    // have: {
+    //   collection: 'Course',
+    //   via: 'belongTo'
+    // },
 
   },
 

@@ -39,7 +39,7 @@ module.exports = {
     },
 
     givenId: {
-      type: "string", 
+      type: "string",
       required: true,
       unique: true,
     },
@@ -113,10 +113,15 @@ module.exports = {
       via: 'contain'
     },
 
-    enrollAt: {
-      collection: 'AcademicYear',
+    enrollSection: {
+      collection: 'Section',
       via: 'haveStudent'
     },
+
+    // enrollAt: {
+    //   collection: 'AcademicYear',
+    //   via: 'haveStudent'
+    // },
 
   },
 

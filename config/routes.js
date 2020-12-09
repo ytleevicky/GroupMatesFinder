@@ -28,10 +28,17 @@ module.exports.routes = {
 
   'GET /user/login': 'UserController.login',
   'POST /user/login': 'UserController.login',
-  'POST /user/logout': 'UserController.logout',
+  'GET /user/logout': 'UserController.logout',
   'GET /user/profile': 'UserController.profile',
   'GET /user/editProfile/:id': 'UserController.editProfile',
   'PATCH /user/:id': 'UserController.editProfile',
+
+  '/createCourse': 'CourseController.createCourse',
+  'POST /createCourse': 'CourseController.createCourse',
+  '/teacher/viewCourse/:id': 'CourseController.viewCourse',
+  '/teacher/viewSection/:id': 'CourseController.viewSection',
+
+  '/import_student/:id': 'CourseController.import_student',
 
 
   // Associations
@@ -44,11 +51,21 @@ module.exports.routes = {
   'GET /user/:id/enroll': 'UserController.populate',
   'GET /course/:id/contain': 'CourseController.populate',
 
-  'GET /user/:id/enrollAt': 'UserController.populate',
-  'GET /academicYear/:id/haveStudent': 'AcademicYear.populate',
+  'GET /course/:id/haveSection': 'CourseController.populate',
+  'GET /section/:id/in': 'SectionController.populate',
 
-  'GET /course/:id/belongTo': 'CourseController.populate',
-  'GET /academicYear/:id/have': 'AcademicYear.populate',
+  'GET /user/:id/enrollSection': 'UserController.populate',
+  'GET /section/:id/haveStudent': 'SectionController.populate',
+
+  'GET /teacher/:id/instructSection': 'TeacherController.populate',
+  'GET /section/:id/haveTeacher': 'SectionController.populate',
+
+
+  // 'GET /user/:id/enrollAt': 'UserController.populate',
+  // 'GET /academicYear/:id/haveStudent': 'AcademicYear.populate',
+
+  // 'GET /course/:id/belongTo': 'CourseController.populate',
+  // 'GET /academicYear/:id/have': 'AcademicYear.populate',
 
 
   /***************************************************************************
