@@ -40,6 +40,17 @@ module.exports = {
 
     },
 
+    // Section haveProject Project
+    populate: async function (req, res) {
+
+        var model = await Section.findOne(req.params.id).populate("haveProject");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
 
 };
 

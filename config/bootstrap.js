@@ -43,8 +43,12 @@ module.exports.bootstrap = async function () {
 
     await User.createEach([
 
-      { givenId: '17228336', password: hash, role: 'student', preferred_name: 'Vicky Lee', fullName: 'LEE Yui Tung', gender: 'Female', contact_mobile: '9430 2848', contact_mail: '17228336@life.hkbu.edu.hk', study_year: 4, study_programme: "BSC COMPUTER SCI ISA", imgURL: "/images/user1.png" },
-      { givenId: '17227337', password: hash, role: 'student', preferred_name: 'Jonas Wong', fullName: 'WONG Ming Hong', gender: 'Male', contact_mobile: '9930 2338', contact_mail: '17227337@life.hkbu.edu.hk', study_year: 3, study_programme: "BSC COMPUTER SCI CST", imgURL: "/images/user4.png" },
+      { givenId: '17228336', password: hash, role: 'student', preferred_name: 'Vicky Lee', fullName: 'LEE Yui Tung', gender: 'Female', contact_mobile: '9430 2848', contact_mail: '17228336@life.hkbu.edu.hk', study_year: 4, study_programme: "Bachelor of Computer Science", imgURL: "/images/user1.png" },
+      { givenId: '18222333', password: hash, role: 'student', preferred_name: 'Rachel Yu', fullName: 'Yu Wing San', gender: 'Female', contact_mobile: '9981 2244', contact_mail: '18222333@life.hkbu.edu.hk', study_year: 3, study_programme: "Bachelor of Business", imgURL: "/images/user2.png" },
+      { givenId: '19333444', password: hash, role: 'student', preferred_name: 'Tina Cheung', fullName: 'Cheung Hoi Ting', gender: 'Female', contact_mobile: '9772 2286', contact_mail: '19333444@life.hkbu.edu.hk', study_year: 2, study_programme: "Bachelor of Music", imgURL: "/images/user3.png" },
+      { givenId: '17227337', password: hash, role: 'student', preferred_name: 'Jonas Wong', fullName: 'WONG Ming Hong', gender: 'Male', contact_mobile: '9930 2338', contact_mail: '17227337@life.hkbu.edu.hk', study_year: 3, study_programme: "Bachelor of Computer Science", imgURL: "/images/user4.png" },
+      { givenId: '17555666', password: hash, role: 'student', preferred_name: 'Isaac Lee', fullName: 'Lee Chi Ming', gender: 'Male', contact_mobile: '9877 2900', contact_mail: '17555666@life.hkbu.edu.hk', study_year: 4, study_programme: "Bachelor of Architecture", imgURL: "/images/user5.png" },
+      { givenId: '20331441', password: hash, role: 'student', preferred_name: 'Barry Lam', fullName: 'Lam Pui Kin', gender: 'Male', contact_mobile: '9933 2277', contact_mail: '20331441@life.hkbu.edu.hk', study_year: 1, study_programme: "Bachelor of Accountancy", imgURL: "/images/user6.png" },
 
       // etc.
     ]);

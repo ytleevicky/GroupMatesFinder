@@ -76,39 +76,41 @@
 
     <% allCourses.forEach( function(course) { %>
 
-    <div class="card mt-2 px-3">
-        <div class="card-body ">
-            <div class="row">
-                <div class="col-12 ">
-                    <h4 class="card-title "><b><%= course.in[0].courseID %> - <%= course.in[0].courseName %>
-                            [<%= course.in[0].courseTerm %>]</b></h4>
+        <div class="card mt-2 px-3">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="mb-2 ">
+                        <h4 class="card-title "><b><a href="/viewProject/<%= course.id %>">
+                                    <%= course.in[0].courseID %> - <%= course.in[0].courseName %>
+                                            [<%= course.in[0].courseTerm %>]
+                                </a></b></h4>
+                    </div>
+
+                    <% if (course.in.length> 0) { %>
+
+                        <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                <p class="card-text text-muted small ">
+
+                                    <% course.haveTeacher.forEach( function(model) { %>
+                                        Teacher: <span class="font-weight-bold"></span>
+                                        <%= model.preferred_name %>
+                                            <br>
+                                            <% }); %>
+
+                                                </span>
+                                </p>
+                            </h6>
+                        </div>
+
+
+                        <% } %>
+
                 </div>
-
-                <% if (course.in.length > 0) { %>
-
-                <div class="col">
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        <p class="card-text text-muted small ">
-
-                            <% course.haveTeacher.forEach( function(model) { %>
-                            Teacher: <span class="font-weight-bold"></span>
-                            <%= model.preferred_name %>
-                            <br>
-                            <% }); %>
-
-                            </span>
-                        </p>
-                    </h6>
-                </div>
-
-
-                <% }  %>
-
             </div>
         </div>
-    </div>
-    <br>
+        <br>
 
-    <% }); %>
+        <% }); %>
 
 </body>

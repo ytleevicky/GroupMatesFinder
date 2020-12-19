@@ -40,6 +40,12 @@ module.exports.routes = {
 
   '/import_student/:id': 'CourseController.import_student',
 
+  // '/createProject': 'ProjectController.createProject',
+  'POST /createProject/:id': 'ProjectController.createProject',
+
+
+  '/viewProject/:id': 'ProjectController.viewProject',
+
 
   // Associations
 
@@ -59,6 +65,9 @@ module.exports.routes = {
 
   'GET /teacher/:id/instructSection': 'TeacherController.populate',
   'GET /section/:id/haveTeacher': 'SectionController.populate',
+
+  'GET /project/:id/inSection': 'ProjectController.populate',
+  'GET /section/:id/haveProject': 'SectionController.populate',
 
 
   // 'GET /user/:id/enrollAt': 'UserController.populate',

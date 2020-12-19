@@ -1,5 +1,5 @@
 /**
- * Section.js
+ * Project.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -13,13 +13,41 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    sectionNum: {
-      type: 'number',
+    // projectID: {
+    //   type: 'string',
+    //   required: true,
+    // },
+
+    projectName: {
+      type: 'string',
+      required: true,
     },
 
-    // numOfStudent: {
-    //   type: 'number',
-    // },
+    numOfStudentMin: {
+      type: 'number',
+      required: true,
+    },
+
+    numOfStudentMax: {
+      type: 'number',
+      required: true,
+    },
+
+    groupFormationDate: {
+      type: 'string',
+      required: true,
+    },
+
+    projectSubmitDate: {
+      type: 'string',
+      required: true,
+    },
+
+    projectDescription: {
+      type: 'string',
+    },
+
+
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -30,24 +58,9 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    in: {
-      collection: 'Course',
-      via: 'haveSection'
-    },
-
-    haveStudent: {
-      collection: 'User',
-      via: 'enrollSection'
-    },
-
-    haveTeacher: {
-      collection: 'Teacher',
-      via: 'instructSection'
-    },
-
-    haveProject: {
-      collection: 'Project',
-      via: 'inSection'
+    inSection: {
+      collection: 'Section',
+      via: 'haveProject'
     },
 
   },

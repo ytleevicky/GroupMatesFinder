@@ -14,7 +14,7 @@ module.exports = {
 
         var userID = req.params.id;
 
-        var d = await User.findOne(userID).populate('enroll', { sort: 'courseTerm DESC' });
+        // var d = await User.findOne(userID).populate('enroll', { sort: 'courseTerm DESC' });
 
         // var courseInfo = await Course.find(d.enroll.map(c => c.id)).populate('teachBy').populate('haveSection');
         // console.log("Test");
@@ -109,7 +109,7 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-            var viewSelectedSection = await Section.findOne({ id: req.params.id }).populate('in').populate('haveStudent');
+            var viewSelectedSection = await Section.findOne({ id: req.params.id }).populate('in').populate('haveStudent').populate('haveProject');
 
             console.log(viewSelectedSection);
 
