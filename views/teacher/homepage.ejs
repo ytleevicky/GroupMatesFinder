@@ -29,25 +29,28 @@
 
     <% allCourses.instruct.forEach( function(course) { %>
 
-    <div class="card mt-2 px-3 mb-3">
-        <div class="card-body ">
-            <div class="row">
-                <div class="col-12 ">
-                    <h4 class="card-title "><b><a href="/teacher/viewCourse/<%= course.id %>"><%= course.courseID %> -
-                                <%= course.courseName %>
-                                [<%= course.courseTerm %>]</a></b></h4>
-                </div>
-                <div class="col">
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        <p class="card-text text-muted small "> Teacher: <span
-                                class="font-weight-bold"><%= allCourses.preferred_name %></span>
-                        </p>
-                    </h6>
+        <div class="card mt-2 px-3 mb-3">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-12 ">
+                        <h4 class="card-title "><b><a href="/teacher/<%= userid %>/viewCourse/<%= course.id %>">
+                                    <%= course.courseID %> -
+                                        <%= course.courseName %>
+                                            [<%= course.courseTerm %>]
+                                </a></b></h4>
+                    </div>
+                    <div class="col">
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <p class="card-text text-muted small "> Teacher: <span class="font-weight-bold">
+                                    <%= allCourses.preferred_name %>
+                                </span>
+                            </p>
+                        </h6>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <% }); %>
+        <% }); %>
 
 </body>

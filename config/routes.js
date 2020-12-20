@@ -35,8 +35,8 @@ module.exports.routes = {
 
   '/createCourse': 'CourseController.createCourse',
   'POST /createCourse': 'CourseController.createCourse',
-  '/teacher/viewCourse/:id': 'CourseController.viewCourse',
-  '/teacher/viewSection/:id': 'CourseController.viewSection',
+  '/teacher/:fk/viewCourse/:id': 'CourseController.viewCourse',
+  '/teacher/:fk/viewSection/:id': 'CourseController.viewSection',
 
   '/import_student/:id': 'CourseController.import_student',
 

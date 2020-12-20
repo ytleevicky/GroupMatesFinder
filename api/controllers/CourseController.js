@@ -14,12 +14,6 @@ module.exports = {
 
         var userID = req.params.id;
 
-        // var d = await User.findOne(userID).populate('enroll', { sort: 'courseTerm DESC' });
-
-        // var courseInfo = await Course.find(d.enroll.map(c => c.id)).populate('teachBy').populate('haveSection');
-        // console.log("Test");
-        // console.log(courseInfo);
-
         var d = await User.findOne(userID).populate('enrollSection');
 
         var courseInfo = await Section.find(d.enrollSection.map(c => c.id)).populate('in').populate('haveTeacher');
@@ -99,7 +93,7 @@ module.exports = {
 
             console.log(viewSelectedCourse);
 
-            return res.view('teacher/viewCourse', { userid: req.session.userid, courseinfo: viewSelectedCourse });
+            return res.view('teacher/viewCourse', { userid: req.params.fk, courseinfo: viewSelectedCourse });
 
         }
 
@@ -113,7 +107,7 @@ module.exports = {
 
             console.log(viewSelectedSection);
 
-            return res.view('teacher/viewSection', { userid: req.session.userid, sectioninfo: viewSelectedSection });
+            return res.view('teacher/viewSection', { userid: req.params.fk, sectioninfo: viewSelectedSection });
 
         }
 

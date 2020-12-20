@@ -42,6 +42,8 @@ module.exports = {
             req.session.fName = user.fullName;
 
             sails.log("[Session] ", req.session);
+            sails.log("Login User:" + req.session.fName);
+            sails.log("Login User ID:" + req.session.userid);
 
             if (req.wantsJSON) {
 
@@ -66,6 +68,8 @@ module.exports = {
     logout: async function (req, res) {
 
         console.log("Logout");
+        sails.log("Logout User:" + req.session.fullName);
+        sails.log("Logout User ID:" + req.session.userid);
 
         req.session.destroy(function (err) {
 

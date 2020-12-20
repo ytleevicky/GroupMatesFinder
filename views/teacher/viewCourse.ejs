@@ -61,7 +61,7 @@
 
         <% courseinfo.haveSection.forEach( function(section){ %>
 
-            <li class="list-group-item"><a href="/teacher/viewSection/<%= section.id %>">Section:
+            <li class="list-group-item"><a href="/teacher/<%= userid %>/viewSection/<%= section.id %>">Section:
                     <%= section.sectionNum %>
                 </a>
             </li>
