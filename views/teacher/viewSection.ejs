@@ -23,6 +23,7 @@
 
     <br>
 
+    <!-- Alert 1 -->
     <% if (sectioninfo.haveStudent.length==0 ) { %>
 
         <div class="alert alert-secondary alert-dismissible fade show" role="alert">
@@ -31,205 +32,314 @@
         </div>
         <% } %>
 
+            <!-- Alert 2 -->
+            <% if(sectioninfo.haveProject.length==0) { %>
 
-            <form action="/import_student/<%= sectioninfo.id %>/<%= userid %>" method="post"
-                enctype="multipart/form-data">
-
-                <h6><b>Import Student List (.xlsx):</b></h6>
-
-                <div class="row">
-                    <div class="col-6">
-                        <div class="input-group">
-                            <input type="file" class="form-control"
-                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="file"
-                                id="formFile">
-
-                            <button type="sumbit" class="btn btn-outline-secondary"><svg width="1.2em" height="1.2em"
-                                    viewBox="0 0 16 16" class="bi bi-cloud-upload" fill="currentColor"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z" />
-                                </svg> Upload File</button>
-                        </div>
-                    </div>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    No group project has been created at this moment.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
-            </form>
+                <% } %>
 
-            <br>
+                    <!-- Import Student -->
+                    <form action="/import_student/<%= sectioninfo.id %>/<%= userid %>" method="post"
+                        enctype="multipart/form-data">
 
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                data-bs-whatever="@mdo"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                    fill="currentColor" class="bi bi-lightning" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z" />
-                </svg> Initiate Group Project</button>
+                        <h6><b>Import Student List (.xlsx):</b></h6>
 
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <input type="file" class="form-control"
+                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                        name="file" id="formFile">
 
-            <% sectioninfo.haveProject.forEach( function(project){ %>
-                <div class="mt-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Group Project: <%= project.projectName %>
-                            </h3>
-
-                        </div>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-link" style="float: right;">Edit
-                                Project</a>
-                            <!-- <h3 class="card-title">
-                                <%= project.projectName %>
-                            </h3> -->
-
-                            <p class="card-text">
-                                <%= project.projectDescription %>
-                            </p>
-
-                            <p class="card-text">
-                                <b>Number of Student Per Group:</b>
-                                <%= project.numOfStudentMin %> to <%= project.numOfStudentMax %>
-                            </p>
-                            <p class="card-text">
-                                <b>Group Formation Deadline:</b>
-                                <%= project.groupFormationDate %>
-                            </p>
-                            <p class="card-text">
-                                <b>Project Submision Deadline:</b>
-                                <%= project.projectSubmitDate %>
-                            </p>
-                            <a href="#" class="btn btn-primary">Group Formation Progress</a>
-                            <a href="#" class="btn btn-success">Peer Evaluation</a>
-                        </div>
-                    </div>
-                </div>
-
-                <% }); %>
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Initiate Group Project</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <button type="sumbit" class="btn btn-outline-secondary"><svg width="1.2em"
+                                            height="1.2em" viewBox="0 0 16 16" class="bi bi-cloud-upload"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
+                                            <path fill-rule="evenodd"
+                                                d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z" />
+                                        </svg> Upload File</button>
                                 </div>
-                                <form action="/createProject/<%= sectioninfo.id %>/<%= userid %>" method="POST"
-                                    onsubmit="createForm(this);return false">
-                                    <div class="modal-body">
-
-                                        <div class="mb-3">
-                                            <label for="recipient-name" class="col-form-label">Project Name:</label>
-                                            <input type="text" class="form-control" name="Project[projectName]"
-                                                required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="row"><label for="numberOfStudent" class="col-form-label">Number
-                                                    of
-                                                    Student Per
-                                                    Group:</label></div>
-
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="row">
-                                                            <label class="col-3" for="numberOfStudentMin"
-                                                                class="col-form-label">Min:</label>
-                                                            <div class="col-5"><input type="number" class="form-control"
-                                                                    name="Project[numOfStudentMin]" required min="1">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="row">
-                                                            <label class="col-3" for="numberOfStudentMax"
-                                                                class="col-form-label">Max:</label>
-                                                            <div class="col-5"><input type="number" class="form-control"
-                                                                    name="Project[numOfStudentMax]" required min="1">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="numberOfStudent" class="col-form-label">Group Formation
-                                                Deadline:</label>
-                                            <input type="date" class="form-control" name="Project[groupFormationDate]"
-                                                required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="numberOfStudent" class="col-form-label">Group Project Submision
-                                                Date:</label>
-                                            <input type="date" class="form-control" name="Project[projectSubmitDate]"
-                                                required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="message-text" class="col-form-label">Project
-                                                Description:</label>
-                                            <textarea class="form-control" name="Project[projectDescription]"
-                                                required></textarea>
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Create</button>
-                                    </div>
-
-                                </form>
                             </div>
                         </div>
-                    </div>
+
+                    </form>
+
+                    <br>
+
+                    <!-- Initialize Group Project Button -->
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" data-bs-whatever="@mdo"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" fill="currentColor" class="bi bi-lightning" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z" />
+                        </svg> Initiate Group Project</button>
 
 
-                    <% if (sectioninfo.haveStudent.length !=0 ) { %>
+                    <!-- Display project in this section (accordion) -->
+                    <div class="my-4">
+                        <% if(sectioninfo.haveProject.length==0) { %>
 
-                        <!-- Table (Display Student List) -->
-                        <br>
-                        <table class="table table-hover">
-                            <br>
-                            <thead class="table-light">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Student ID:</th>
-                                    <th scope="col">Student Full Name</th>
+                            <% } else { %>
 
-                                </tr>
-                            </thead>
+                                <% var i=0; %>
 
-                            <tbody>
+                                    <div class="accordion" id="accordionExample">
 
-                                <% var n=1; %>
+                                        <% sectioninfo.haveProject.forEach( function(project){ %>
 
-                                    <% sectioninfo.haveStudent.forEach( function(model) { %>
-                                        <tr>
-                                            <td>
-                                                <%= n %>
-                                            </td>
-                                            <td>
-                                                <%= model.givenId %>
-                                            </td>
-                                            <td>
-                                                <%= model.fullName %>
-                                            </td>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="heading_<%= i %>">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapse_<%= i %>"
+                                                        aria-expanded="false" aria-controls="collapse_<%= i %>">
+                                                        <h3>
+                                                            <%= project.projectName %>
+                                                        </h3>
+                                                    </button>
+                                                </h2>
 
-                                            <% n++; %>
+                                                <% if (sectioninfo.haveProject.length==1) { %>
+                                                    <div id="collapse_<%= i %>" class="accordion-collapse show"
+                                                        aria-labelledby="heading_<%= i %>"
+                                                        data-bs-parent="#accordionExample">
+                                                        <% } else { %>
 
-                                                <% }); %>
-                                        </tr>
+                                                            <div id="collapse_<%= i %>"
+                                                                class="accordion-collapse collapse"
+                                                                aria-labelledby="heading_<%= i %>"
+                                                                data-bs-parent="#accordionExample">
 
-                            </tbody>
-                        </table>
+                                                                <% } %>
+                                                                    <div class="accordion-body">
+                                                                        <a href="#" class="btn btn-link"
+                                                                            style="float: right;">Edit
+                                                                            Project</a>
+                                                                        <p class="card-text">
+                                                                            <%= project.projectDescription %>
+                                                                        </p>
+                                                                        <p class="card-text">
+                                                                            <b>Number of Student Per Group:</b>
+                                                                            <%= project.numOfStudentMin %> to <%=
+                                                                                    project.numOfStudentMax %>
+                                                                        </p>
+                                                                        <p class="card-text">
+                                                                            <b>Group Formation Deadline:</b>
+                                                                            <%= project.groupFormationDate %>
+                                                                        </p>
+                                                                        <p class="card-text">
+                                                                            <b>Project Submision Deadline:</b>
+                                                                            <%= project.projectSubmitDate %>
+                                                                        </p>
+                                                                        <a href="#" class="btn btn-primary">Group
+                                                                            Formation
+                                                                            Progress</a>
+                                                                        <a href="#" class="btn btn-success">Peer
+                                                                            Evaluation</a>
+                                                                    </div>
+                                                            </div>
+                                                    </div>
 
-                        <% } %>
+                                                    <% i++; %>
+                                                        <% }); %>
+
+                                            </div>
+
+                                            <% } %>
+
+                                    </div>
+
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Initiate
+                                                        Group
+                                                        Project</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <form action="/createProject/<%= sectioninfo.id %>/<%= userid %>"
+                                                    method="POST" onsubmit="createForm(this);return false">
+                                                    <div class="modal-body">
+
+                                                        <div class="mb-3">
+                                                            <label for="recipient-name" class="col-form-label">Project
+                                                                Name:</label>
+                                                            <input type="text" class="form-control"
+                                                                name="Project[projectName]" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <div class="row"><label for="numberOfStudent"
+                                                                    class="col-form-label">Number
+                                                                    of
+                                                                    Student Per
+                                                                    Group:</label></div>
+
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <div class="row">
+                                                                            <label class="col-3"
+                                                                                for="numberOfStudentMin"
+                                                                                class="col-form-label">Min:</label>
+                                                                            <div class="col-5"><input type="number"
+                                                                                    class="form-control"
+                                                                                    name="Project[numOfStudentMin]"
+                                                                                    required min="1">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="row">
+                                                                            <label class="col-3"
+                                                                                for="numberOfStudentMax"
+                                                                                class="col-form-label">Max:</label>
+                                                                            <div class="col-5"><input type="number"
+                                                                                    class="form-control"
+                                                                                    name="Project[numOfStudentMax]"
+                                                                                    required min="1">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="numberOfStudent" class="col-form-label">Group
+                                                                Formation
+                                                                Deadline:</label>
+                                                            <input type="date" class="form-control"
+                                                                name="Project[groupFormationDate]" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="numberOfStudent" class="col-form-label">Group
+                                                                Project Submision
+                                                                Date:</label>
+                                                            <input type="date" class="form-control"
+                                                                name="Project[projectSubmitDate]" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">Project
+                                                                Description:</label>
+                                                            <textarea class="form-control"
+                                                                name="Project[projectDescription]" required></textarea>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">Ways to
+                                                                form group:</label>
+
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="flexRadioDefault" id="flexRadioDefault1">
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    Let students organise their own groups
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="flexRadioDefault" id="flexRadioDefault2">
+                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                    Assign groups to students randomly
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="flexRadioDefault" id="flexRadioDefault3">
+                                                                <label class="form-check-label" for="flexRadioDefault3">
+                                                                    Assign groups to students manually
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Create</button>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Table (Display Student List) -->
+                                    <% if (sectioninfo.haveStudent.length !=0 ) { %>
+                                        <br>
+                                        <table class="table table-hover table-striped">
+                                            <br>
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col" span="1" style="width: 7%;">Select</th>
+                                                    <th scope="col" span="1" style="width: 7%;">#</th>
+                                                    <th scope="col" span="1" style="width: 20%;">Student ID:
+                                                    </th>
+                                                    <th scope="col">Student Full Name</th>
+                                                    <th scope="col">Groups</th>
+                                                    <th scope="col">Actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                                <% var n=1; %>
+
+                                                    <% sectioninfo.haveStudent.forEach( function(model) { %>
+                                                        <tr>
+                                                            <td>
+                                                                <input class="form-check-input" type="checkbox" value=""
+                                                                    id="defaultCheck1">
+                                                            </td>
+                                                            <td>
+                                                                <%= n %>
+                                                            </td>
+                                                            <td>
+                                                                <%= model.givenId %>
+                                                            </td>
+                                                            <td>
+                                                                <%= model.fullName %>
+                                                            </td>
+                                                            <td>
+                                                                No groups
+                                                            </td>
+                                                            <td>
+
+
+                                                                <button type="button" class="btn btn-outline-danger"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModal"
+                                                                    data-bs-whatever="@mdo"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                        height="16" fill="currentColor"
+                                                                        class="bi bi-trash" viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                                    </svg></button>
+
+
+                                                            </td>
+
+                                                            <% n++; %>
+
+                                                                <% }); %>
+                                                        </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                        <% } %>
 
 </body>
-
 
 
 <script>
