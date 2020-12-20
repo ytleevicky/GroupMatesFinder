@@ -17,9 +17,8 @@ module.exports = {
         var d = await User.findOne(userID).populate('enrollSection');
 
         var courseInfo = await Section.find(d.enrollSection.map(c => c.id)).populate('in').populate('haveTeacher');
-        console.log("Test");
-        console.log(courseInfo);
-        return res.view('user/homepage', { allCourses: courseInfo });
+
+        return res.view('user/homepage', { allCourses: courseInfo, userid: userID });
 
     },
 
@@ -27,10 +26,7 @@ module.exports = {
 
         var userID = req.params.id;
 
-        var courses = await Teacher.findOne(userID).populate('instruct', { sort: 'courseTerm DESC' });
-
-        console.log("Teacher Homepage course :");
-        console.log(courses);
+        var courses = await User.findOne(userID).populate('instruct', { sort: 'courseTerm DESC' });
 
         return res.view('teacher/homepage', { allCourses: courses, userid: userID });
 
@@ -38,11 +34,11 @@ module.exports = {
 
     createCourse: async function (req, res) {
 
-        // var userID = req.params.id;
+        var userID = req.params.id;
 
         if (req.method == 'GET') {
 
-            return res.view('teacher/createCourse', { userid: req.session.userid });
+            return res.view('teacher/createCourse', { userid: userID });
 
         } else {
 
@@ -50,15 +46,9 @@ module.exports = {
 
             var createCourse = await Course.create(req.body.Course).fetch();
 
-            console.log(createCourse);
-
-            console.log(createCourse.numOfSection);
-
             var assignSectionNum = 1;
 
             for (i = 0; i < createCourse.numOfSection; i++) {
-
-                console.log("Test 1: " + assignSectionNum)
 
                 var section = await Section.create(req.body.Section).fetch();
 
@@ -66,19 +56,21 @@ module.exports = {
                     sectionNum: assignSectionNum
                 }).fetch();
 
+                var uid = parseInt(req.params.id);
+
+                var thisUser = await User.findOne({ where: { id: uid, role: 'teacher' } });
+
                 await Course.addToCollection(createCourse.id, 'haveSection').members(section.id);
-                await Teacher.addToCollection(req.session.userid, 'instructSection').members(section.id);
+                await User.addToCollection(thisUser.id, 'instructSection').members(section.id);
 
                 assignSectionNum++;
-                console.log("Test 2: " + assignSectionNum)
 
             }
 
-
-            await Teacher.addToCollection(req.session.userid, 'instruct').members(createCourse.id);
+            await User.addToCollection(thisUser.id, 'instruct').members(createCourse.id);
 
             if (req.wantsJSON) {
-                return res.json({ message: 'Course has been successfully created.', url: '/teacher/homepage/' + req.session.userid });    // for ajax request
+                return res.json({ message: 'Course has been successfully created.', url: '/teacher/homepage/' + thisUser.id });    // for ajax request
             }
 
         }
@@ -90,8 +82,6 @@ module.exports = {
         if (req.method == 'GET') {
 
             var viewSelectedCourse = await Course.findOne({ id: req.params.id }).populate('haveSection');
-
-            console.log(viewSelectedCourse);
 
             return res.view('teacher/viewCourse', { userid: req.params.fk, courseinfo: viewSelectedCourse });
 
@@ -105,8 +95,6 @@ module.exports = {
 
             var viewSelectedSection = await Section.findOne({ id: req.params.id }).populate('in').populate('haveStudent').populate('haveProject');
 
-            console.log(viewSelectedSection);
-
             return res.view('teacher/viewSection', { userid: req.params.fk, sectioninfo: viewSelectedSection });
 
         }
@@ -116,8 +104,6 @@ module.exports = {
     import_student: async function (req, res) {
 
         if (req.method == 'GET') { return res.view('teacher/viewSection'); }
-
-        console.log("Import student");
 
         req.file('file').upload({ maxBytes: 10000000 }, async function whenDone(err, uploadedFiles) {
             if (err) { return res.serverError(err); }
@@ -132,7 +118,7 @@ module.exports = {
 
             await Section.addToCollection(req.params.id, 'haveStudent').members(findStudent.map(d => d.id));
 
-            return res.redirect('/teacher/viewSection/' + req.params.id);
+            return res.redirect('/teacher/' + req.params.fk + '/viewSection/' + req.params.id);
 
 
         });
@@ -169,17 +155,6 @@ module.exports = {
         return res.json(model);
 
     },
-
-    // Course belongTo AcademicYear
-    // populate: async function (req, res) {
-
-    //     var model = await Course.findOne(req.params.id).populate("belongTo");
-
-    //     if (!model) return res.notFound();
-
-    //     return res.json(model);
-
-    // },
 
 
 };

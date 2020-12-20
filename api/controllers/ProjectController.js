@@ -20,15 +20,11 @@ module.exports = {
 
     createProject: async function (req, res) {
 
-        console.log("Here... Create project.");
-
         if (req.method == 'GET') {
 
             console.log("GET");
 
         } else {
-
-            console.log("Here... POST");
 
             console.log(req.params.id);
 
@@ -41,7 +37,7 @@ module.exports = {
             await Project.addToCollection(createProject.id, 'inSection').members(req.params.id);
 
             if (req.wantsJSON) {
-                return res.json({ message: 'Project has been successfully initialized.', url: '/teacher/viewSection/' + req.params.id });    // for ajax request
+                return res.json({ message: 'Project has been successfully initialized.', url: '/teacher/' + req.params.fk + '/viewSection/' + req.params.id });    // for ajax request
             }
 
         }
@@ -50,20 +46,11 @@ module.exports = {
 
     viewProject: async function (req, res) {
 
-        console.log("Here... view project.");
-
         if (req.method == 'GET') {
-
-            console.log("GET");
 
             var section = await Section.findOne(req.params.id).populate("haveProject").populate('in');
 
-            console.log(section);
-
-
-            return res.view('project/viewProject', { sectionInfo: section, userid: req.session.userid });
-
-
+            return res.view('project/viewProject', { sectionInfo: section, userid: req.params.fk });
 
         }
 

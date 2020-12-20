@@ -50,23 +50,27 @@ module.exports.bootstrap = async function () {
       { givenId: '17555666', password: hash, role: 'student', preferred_name: 'Isaac Lee', fullName: 'Lee Chi Ming', gender: 'Male', contact_mobile: '9877 2900', contact_mail: '17555666@life.hkbu.edu.hk', study_year: 4, study_programme: "Bachelor of Architecture", imgURL: "/images/user5.png" },
       { givenId: '20331441', password: hash, role: 'student', preferred_name: 'Barry Lam', fullName: 'Lam Pui Kin', gender: 'Male', contact_mobile: '9933 2277', contact_mail: '20331441@life.hkbu.edu.hk', study_year: 1, study_programme: "Bachelor of Accountancy", imgURL: "/images/user6.png" },
 
+      { givenId: 'chrislee', password: hash, role: 'teacher', preferred_name: 'Dr. Chris Lee', fullName: 'Lee Sum Wing', gender: 'Male', contact_mail: 'chriselee@life.hkbu.edu.hk' },
+      { givenId: 'alexwong', password: hash, role: 'teacher', preferred_name: 'Dr. Alex Wong', fullName: 'Wong Siu Ming', gender: 'Male', contact_mail: 'alexwong@life.hkbu.edu.hk' },
+      { givenId: 'kennethma', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ma', fullName: 'Ma Kok Ming', gender: 'Male', contact_mail: 'kennethma@life.hkbu.edu.hk' },
+
       // etc.
     ]);
 
   }
 
-  if (await Teacher.count() == 0) {
+  // if (await Teacher.count() == 0) {
 
-    const hash = await sails.bcrypt.hash('123456', saltRounds);
+  //   const hash = await sails.bcrypt.hash('123456', saltRounds);
 
-    await Teacher.createEach([
-      { givenId: 'chrislee', password: hash, role: 'teacher', preferred_name: 'Dr. Chris Lee', fullName: 'Lee Sum Wing' },
-      { givenId: 'alexwong', password: hash, role: 'teacher', preferred_name: 'Dr. Alex Wong', fullName: 'Wong Siu Ming' },
-      { givenId: 'kennethma', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ma', fullName: 'Ma Kok Ming' },
+  //   await Teacher.createEach([
+  //     { givenId: 'chrislee', password: hash, role: 'teacher', preferred_name: 'Dr. Chris Lee', fullName: 'Lee Sum Wing' },
+  //     { givenId: 'alexwong', password: hash, role: 'teacher', preferred_name: 'Dr. Alex Wong', fullName: 'Wong Siu Ming' },
+  //     { givenId: 'kennethma', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ma', fullName: 'Ma Kok Ming' },
 
-    ]);
+  //   ]);
 
-  }
+  // }
 
   if (await Course.count() == 0) {
 
@@ -89,18 +93,18 @@ module.exports.bootstrap = async function () {
   const course2 = await Course.findOne({ courseID: 'COMP4116' });
   const course3 = await Course.findOne({ courseID: 'COMP4117' });
 
-  const teacher1 = await Teacher.findOne({ givenId: 'chrislee' });
-  const teacher2 = await Teacher.findOne({ givenId: 'alexwong' });
-  const teacher3 = await Teacher.findOne({ givenId: 'kennethma' });
+  const teacher1 = await User.findOne({ givenId: 'chrislee' });
+  const teacher2 = await User.findOne({ givenId: 'alexwong' });
+  const teacher3 = await User.findOne({ givenId: 'kennethma' });
 
   // await User.addToCollection(student1.id, 'enrollAt').members(Yr2019S1.id);
   // await User.addToCollection(student1.id, 'enrollAt').members(Yr2019S2.id);
   // await User.addToCollection(student2.id, 'enrollAt').members(Yr2019S1.id);
   // await User.addToCollection(student2.id, 'enrollAt').members(Yr2019S2.id);
 
-  await Teacher.addToCollection(teacher1.id, 'instruct').members([course1.id, course3.id]);
-  await Teacher.addToCollection(teacher2.id, 'instruct').members(course2.id);
-  await Teacher.addToCollection(teacher3.id, 'instruct').members(course3.id);
+  await User.addToCollection(teacher1.id, 'instruct').members([course1.id, course3.id]);
+  await User.addToCollection(teacher2.id, 'instruct').members(course2.id);
+  await User.addToCollection(teacher3.id, 'instruct').members(course3.id);
 
   // await AcademicYear.addToCollection(Yr2019S1.id, 'have').members([course1.id, course2.id, course3.id]);
   // await AcademicYear.addToCollection(Yr2019S2.id, 'have').members([course4.id]);

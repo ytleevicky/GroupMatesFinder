@@ -41,7 +41,7 @@ module.exports = {
     },
 
     haveTeacher: {
-      collection: 'Teacher',
+      collection: 'User',
       via: 'instructSection'
     },
 

@@ -44,7 +44,7 @@ module.exports = {
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
     teachBy: {
-      collection: 'Teacher',
+      collection: 'User',
       via: 'instruct'
     },
 

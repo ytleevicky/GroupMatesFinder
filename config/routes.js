@@ -33,23 +33,23 @@ module.exports.routes = {
   'GET /user/editProfile/:id': 'UserController.editProfile',
   'PATCH /user/:id': 'UserController.editProfile',
 
-  '/createCourse': 'CourseController.createCourse',
-  'POST /createCourse': 'CourseController.createCourse',
+  '/createCourse/:id': 'CourseController.createCourse',
+  'POST /createCourse/:id': 'CourseController.createCourse',
   '/teacher/:fk/viewCourse/:id': 'CourseController.viewCourse',
   '/teacher/:fk/viewSection/:id': 'CourseController.viewSection',
 
-  '/import_student/:id': 'CourseController.import_student',
+  '/import_student/:id/:fk': 'CourseController.import_student',
 
   // '/createProject': 'ProjectController.createProject',
-  'POST /createProject/:id': 'ProjectController.createProject',
+  'POST /createProject/:id/:fk': 'ProjectController.createProject',
 
 
-  '/viewProject/:id': 'ProjectController.viewProject',
+  '/viewProject/:id/:fk': 'ProjectController.viewProject',
 
 
   // Associations
 
-  'GET /teacher/:id/instruct': 'TeacherController.populate',
+  'GET /teacher/:id/instruct': 'UserController.populate',
   'GET /course/:id/teachBy': 'CourseController.populate',
   // 'POST /user/:id/supervises/add/:fk': 'UserController.add',
   // 'POST /user/:id/supervises/remove/:fk': 'UserController.remove',
@@ -63,7 +63,7 @@ module.exports.routes = {
   'GET /user/:id/enrollSection': 'UserController.populate',
   'GET /section/:id/haveStudent': 'SectionController.populate',
 
-  'GET /teacher/:id/instructSection': 'TeacherController.populate',
+  'GET /teacher/:id/instructSection': 'UserController.populate',
   'GET /section/:id/haveTeacher': 'SectionController.populate',
 
   'GET /project/:id/inSection': 'ProjectController.populate',

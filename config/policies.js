@@ -23,6 +23,8 @@ module.exports.policies = {
 
     homepage: 'isStudent',
 
+    teacherHomepage: 'isTeacher',
+
   },
 
 };

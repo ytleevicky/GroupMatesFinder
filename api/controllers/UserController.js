@@ -14,17 +14,9 @@ module.exports = {
 
         if (!req.body.givenId || !req.body.password) return res.badRequest();
 
-        var student = await User.findOne({ where: { givenId: req.body.givenId, role: 'student' } });
+        var user = await User.findOne({ where: { givenId: req.body.givenId } });
 
-        var teacher = await Teacher.findOne({ where: { givenId: req.body.givenId, role: 'teacher' } });
-
-        if (!student && !teacher) return res.status(401).send("User not found");
-
-        if (student) {
-            var user = student;
-        } else {
-            var user = teacher;
-        }
+        if (!user) return res.status(401).send("User not found");
 
         const match = await sails.bcrypt.compare(req.body.password, user.password);
 
@@ -42,24 +34,17 @@ module.exports = {
             req.session.fName = user.fullName;
 
             sails.log("[Session] ", req.session);
-            sails.log("Login User:" + req.session.fName);
-            sails.log("Login User ID:" + req.session.userid);
+            sails.log("Login User:" + req.session.fName + ', ' + "Userid: " + req.session.userid);
 
             if (req.wantsJSON) {
 
                 if (req.session.role == 'student') {
-
                     return res.redirect('/homepage/' + req.session.userid);
-
                 } else {
-
                     return res.redirect('/teacher/homepage/' + req.session.userid);
-
                 }
 
-
             }
-
 
         });
 
@@ -67,9 +52,7 @@ module.exports = {
 
     logout: async function (req, res) {
 
-        console.log("Logout");
-        sails.log("Logout User:" + req.session.fullName);
-        sails.log("Logout User ID:" + req.session.userid);
+        sails.log("Logout User:" + req.session.fName);
 
         req.session.destroy(function (err) {
 
@@ -156,6 +139,28 @@ module.exports = {
     populate: async function (req, res) {
 
         var model = await User.findOne(req.params.id).populate("enrollSection");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
+    // User-T instruct Course
+    populate: async function (req, res) {
+
+        var model = await User.findOne(req.params.id).populate("instruct");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
+    // User-T instructSection Section 
+    populate: async function (req, res) {
+
+        var model = await User.findOne(req.params.id).populate("instructSection");
 
         if (!model) return res.notFound();
 

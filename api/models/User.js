@@ -13,11 +13,6 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    // username: {
-    //   type: "string",
-    //   required: true,
-    // },
-
     password: {
       type: "string",
       required: true,
@@ -116,6 +111,16 @@ module.exports = {
     enrollSection: {
       collection: 'Section',
       via: 'haveStudent'
+    },
+
+    instruct: {
+      collection: 'Course',
+      via: 'teachBy'
+    },
+
+    instructSection: {
+      collection: 'Section',
+      via: 'haveTeacher'
     },
 
     // enrollAt: {
