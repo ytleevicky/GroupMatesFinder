@@ -44,17 +44,18 @@
 
                     <!-- Initialize Group Project Button -->
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal" data-bs-whatever="@mdo"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="16" height="16" fill="currentColor" class="bi bi-lightning" viewBox="0 0 16 16">
+                        data-bs-target="#exampleModal" data-bs-target="#staticBackdrop"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-lightning" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z" />
                         </svg> Initiate Group Project</button>
 
                     <a href="/teacher/<%= userid %>/section/<%= sectioninfo.id %>/participants"
                         class="btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+                            fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
-                                d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                         </svg> Participants</a>
 
 
@@ -132,7 +133,8 @@
                                     </div>
 
                                     <div class="modal fade" id="exampleModal" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true"
+                                        data-bs-backdrop="static">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -143,7 +145,8 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <form action="/createProject/<%= sectioninfo.id %>/<%= userid %>"
-                                                    method="POST" onsubmit="createForm(this);return false">
+                                                    method="POST" onsubmit="createForm(this);return false"
+                                                    class="was-validated">
                                                     <div class="modal-body">
 
                                                         <div class="mb-3">
