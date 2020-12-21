@@ -34,46 +34,40 @@ module.exports = {
 
     createCourse: async function (req, res) {
 
-        var userID = req.params.id;
+        if (req.method == 'GET') { return res.forbidden(); }
 
-        if (req.method == 'GET') {
+        if (!req.body.Course) { return res.badRequest('Form-data not received.'); }
 
-            return res.view('teacher/createCourse', { userid: userID });
+        var createCourse = await Course.create(req.body.Course).fetch();
 
-        } else {
+        var assignSectionNum = 1;
 
-            if (!req.body.Course) { return res.badRequest('Form-data not received.'); }
+        for (i = 0; i < createCourse.numOfSection; i++) {
 
-            var createCourse = await Course.create(req.body.Course).fetch();
+            var section = await Section.create(req.body.Section).fetch();
 
-            var assignSectionNum = 1;
+            await Section.update(section.id).set({
+                sectionNum: assignSectionNum
+            }).fetch();
 
-            for (i = 0; i < createCourse.numOfSection; i++) {
+            var uid = parseInt(req.params.id);
 
-                var section = await Section.create(req.body.Section).fetch();
+            var thisUser = await User.findOne({ where: { id: uid, role: 'teacher' } });
 
-                await Section.update(section.id).set({
-                    sectionNum: assignSectionNum
-                }).fetch();
+            await Course.addToCollection(createCourse.id, 'haveSection').members(section.id);
+            await User.addToCollection(thisUser.id, 'instructSection').members(section.id);
 
-                var uid = parseInt(req.params.id);
-
-                var thisUser = await User.findOne({ where: { id: uid, role: 'teacher' } });
-
-                await Course.addToCollection(createCourse.id, 'haveSection').members(section.id);
-                await User.addToCollection(thisUser.id, 'instructSection').members(section.id);
-
-                assignSectionNum++;
-
-            }
-
-            await User.addToCollection(thisUser.id, 'instruct').members(createCourse.id);
-
-            if (req.wantsJSON) {
-                return res.json({ message: 'Course has been successfully created.', url: '/teacher/homepage/' + thisUser.id });    // for ajax request
-            }
+            assignSectionNum++;
 
         }
+
+        await User.addToCollection(thisUser.id, 'instruct').members(createCourse.id);
+
+        if (req.wantsJSON) {
+            return res.json({ message: 'Course has been successfully created.', url: '/teacher/homepage/' + thisUser.id });    // for ajax request
+        }
+
+
 
     },
 
