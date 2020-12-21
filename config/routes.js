@@ -44,8 +44,10 @@ module.exports.routes = {
   'POST /createProject/:id/:fk': 'ProjectController.createProject',
 
 
-  '/viewProject/:id/:fk': 'ProjectController.viewProject',
+  '/student/:sid/viewProject/:id': 'ProjectController.viewProject',
+  '/student/:sid/section/:id/project/:pid': 'ProjectController.groupFormation',
   '/teacher/:id/section/:fk/participants': 'CourseController.addParticipants',
+  '/student/:sid/section/:fk/project/:pid/viewStudentProfile/:id': 'ProjectController.viewStudentProfile',
   'POST /addParticipant/:id/:fk': 'CourseController.addParticipants',
   'POST /participant/:id/:fk/:uid': 'CourseController.removeParticipants',
 
