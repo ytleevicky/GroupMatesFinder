@@ -154,13 +154,8 @@ module.exports = {
     removeParticipants: async function (req, res) {
 
         if (req.method == 'GET') { return res.forbidden(); }
-        console.log("Test 1");
 
         var student = await User.findOne({ where: { givenId: req.params.id } });
-
-        console.log(student);
-        console.log('get req.params.fk');
-        console.log(req.params.fk);
 
         var sessionid = parseInt(req.params.fk);
 
@@ -171,7 +166,6 @@ module.exports = {
         if (req.wantsJSON) {
             return res.json({ url: '/teacher/' + req.params.uid + '/section/' + req.params.fk + '/participants' });    // for ajax request
         }
-
 
     },
 
