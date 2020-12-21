@@ -45,7 +45,9 @@ module.exports.routes = {
 
 
   '/viewProject/:id/:fk': 'ProjectController.viewProject',
-
+  '/teacher/:id/section/:fk/participants': 'CourseController.addParticipants',
+  'POST /addParticipant/:id/:fk': 'CourseController.addParticipants',
+  'POST /participant/:id/:fk/:uid': 'CourseController.removeParticipants',
 
   // Associations
 

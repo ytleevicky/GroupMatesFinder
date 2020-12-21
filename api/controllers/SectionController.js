@@ -7,17 +7,6 @@
 
 module.exports = {
 
-    // Section in Course
-    populate: async function (req, res) {
-
-        var model = await Section.findOne(req.params.id).populate("in");
-
-        if (!model) return res.notFound();
-
-        return res.json(model);
-
-    },
-
     // Section haveStudent User
     populate: async function (req, res) {
 

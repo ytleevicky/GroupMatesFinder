@@ -118,10 +118,61 @@ module.exports = {
 
             await Section.addToCollection(req.params.id, 'haveStudent').members(findStudent.map(d => d.id));
 
-            return res.redirect('/teacher/' + req.params.fk + '/viewSection/' + req.params.id);
+            return res.redirect('/teacher/' + req.params.fk + '/section/' + req.params.id + '/participants');
 
 
         });
+    },
+
+    addParticipants: async function (req, res) {
+
+        if (req.method == 'GET') {
+
+            var section = await Section.findOne(req.params.fk).populate('in').populate('haveStudent');
+
+            return res.view('teacher/addParticipants', { userid: req.params.id, sectionid: req.params.fk, sectioninfo: section });
+
+        } else {
+
+            var student = await User.findOne({ where: { givenId: req.body.studentid } });
+
+            if (!student) return res.redirect('/teacher/' + req.params.fk + '/section/' + req.params.id + '/participants');
+
+            var sessionid = parseInt(req.params.id);
+
+            var thisSection = await Section.findOne({ where: { id: sessionid } });
+
+            await Section.addToCollection(thisSection.id, 'haveStudent').members(student.id);
+
+            return res.redirect('/teacher/' + req.params.fk + '/section/' + req.params.id + '/participants');
+
+        }
+
+
+    },
+
+    removeParticipants: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+        console.log("Test 1");
+
+        var student = await User.findOne({ where: { givenId: req.params.id } });
+
+        console.log(student);
+        console.log('get req.params.fk');
+        console.log(req.params.fk);
+
+        var sessionid = parseInt(req.params.fk);
+
+        var thisSection = await Section.findOne({ where: { id: sessionid } });
+
+        await Section.removeFromCollection(thisSection.id, 'haveStudent').members(student.id);
+
+        if (req.wantsJSON) {
+            return res.json({ url: '/teacher/' + req.params.uid + '/section/' + req.params.fk + '/participants' });    // for ajax request
+        }
+
+
     },
 
     // Course teachBy Teacher

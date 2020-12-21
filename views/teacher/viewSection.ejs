@@ -7,7 +7,7 @@
             <path fill-rule="evenodd"
                 d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
         </svg>
-        <%= sectioninfo.in[0].courseName %>
+        <%= sectioninfo.in[0].courseName %> (Section: <%= sectioninfo.sectionNum %>)
     </h1>
 
     <nav aria-label="breadcrumb">
@@ -27,7 +27,7 @@
     <% if (sectioninfo.haveStudent.length==0 ) { %>
 
         <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-            <strong>No student in this section!</strong> You should upload the student list first.
+            <strong>No student in this section!</strong> You should add student in this section first.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } %>
@@ -42,35 +42,6 @@
 
                 <% } %>
 
-                    <!-- Import Student -->
-                    <form action="/import_student/<%= sectioninfo.id %>/<%= userid %>" method="post"
-                        enctype="multipart/form-data">
-
-                        <h6><b>Import Student List (.xlsx):</b></h6>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="input-group">
-                                    <input type="file" class="form-control"
-                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                                        name="file" id="formFile">
-
-                                    <button type="sumbit" class="btn btn-outline-secondary"><svg width="1.2em"
-                                            height="1.2em" viewBox="0 0 16 16" class="bi bi-cloud-upload"
-                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
-                                            <path fill-rule="evenodd"
-                                                d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z" />
-                                        </svg> Upload File</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
-
-                    <br>
-
                     <!-- Initialize Group Project Button -->
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                         data-bs-target="#exampleModal" data-bs-whatever="@mdo"><svg xmlns="http://www.w3.org/2000/svg"
@@ -78,6 +49,13 @@
                             <path fill-rule="evenodd"
                                 d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z" />
                         </svg> Initiate Group Project</button>
+
+                    <a href="/teacher/<%= userid %>/section/<%= sectioninfo.id %>/participants"
+                        class="btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                        </svg> Participants</a>
 
 
                     <!-- Display project in this section (accordion) -->
@@ -155,7 +133,7 @@
 
                                     <div class="modal fade" id="exampleModal" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Initiate
@@ -271,73 +249,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Table (Display Student List) -->
-                                    <% if (sectioninfo.haveStudent.length !=0 ) { %>
-                                        <br>
-                                        <table class="table table-hover table-striped">
-                                            <br>
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th scope="col" span="1" style="width: 7%;">Select</th>
-                                                    <th scope="col" span="1" style="width: 7%;">#</th>
-                                                    <th scope="col" span="1" style="width: 20%;">Student ID:
-                                                    </th>
-                                                    <th scope="col">Student Full Name</th>
-                                                    <th scope="col">Groups</th>
-                                                    <th scope="col">Actions</th>
-                                                </tr>
-                                            </thead>
 
-                                            <tbody>
-
-                                                <% var n=1; %>
-
-                                                    <% sectioninfo.haveStudent.forEach( function(model) { %>
-                                                        <tr>
-                                                            <td>
-                                                                <input class="form-check-input" type="checkbox" value=""
-                                                                    id="defaultCheck1">
-                                                            </td>
-                                                            <td>
-                                                                <%= n %>
-                                                            </td>
-                                                            <td>
-                                                                <%= model.givenId %>
-                                                            </td>
-                                                            <td>
-                                                                <%= model.fullName %>
-                                                            </td>
-                                                            <td>
-                                                                No groups
-                                                            </td>
-                                                            <td>
-
-
-                                                                <button type="button" class="btn btn-outline-danger"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#exampleModal"
-                                                                    data-bs-whatever="@mdo"><svg
-                                                                        xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                        height="16" fill="currentColor"
-                                                                        class="bi bi-trash" viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                                                        <path fill-rule="evenodd"
-                                                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                                                    </svg></button>
-
-
-                                                            </td>
-
-                                                            <% n++; %>
-
-                                                                <% }); %>
-                                                        </tr>
-
-                                            </tbody>
-                                        </table>
-
-                                        <% } %>
 
 </body>
 
