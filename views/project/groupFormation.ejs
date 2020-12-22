@@ -20,15 +20,88 @@
         </ol>
     </nav>
 
-    <h3>
-        <%= sectionInfo.haveProject[0].projectName %>
-    </h3>
+    <div class="row">
+        <div class="col-6">
+            <h3>
+                <%= sectionInfo.haveProject[0].projectName %>
+            </h3>
+        </div>
+        <div class="col-6" style="padding-right: 150px;">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-dark mb-4" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" style="float: right;">
+                View all students
+            </button>
+        </div>
+    </div>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-outline-secondary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        View all students
-    </button>
 
+    <!-- Display available group here -->
+
+    <div class="container my-5" style="width:900px;">
+
+        <div class="row g-0 mb-2">
+            <div class="col-md-9">
+                <h5>Available Groups</h5>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-link" style="font-size: 18px; text-decoration: none;"
+                    data-bs-toggle="modal" data-bs-target="#createGroupModal"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                    </svg> Create Group</button>
+            </div>
+        </div>
+
+        <% if(groupInfo.length==0 ) { %>
+
+            <div class="alert alert-secondary" role="alert">
+                No group has been formed at this moment.
+            </div>
+
+            <% } else { %>
+                <div class="col-sm-9">
+                    <table class="table table-hover table-striped" style="width:800px;">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" span="1" style="width: 30%; text-align: center;">Group</th>
+                                <th scope="col" span="1" style="width: 30%; text-align: center;">Members
+                                </th>
+                                <th scope="col" span="1" style="width: 30%; text-align: center;">Recommended %</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% groupInfo.forEach( function(model) { %>
+                                <tr>
+                                    <td>
+                                        <div style="text-align:center">
+                                            <a href="#">Group <%= model.groupNum %></a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="text-align:center">
+                                            <%= model.createdBy.length %> / <%=
+                                                    sectionInfo.haveProject[0].numOfStudentMax %>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="text-align:center">
+                                            ?</div>
+                                    </td>
+
+                                    <% }); %>
+                                </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <% } %>
+    </div>
 
 
     <!-- Triggered Modal (Student List) -->
@@ -57,11 +130,13 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th scope="col" span="1" style="width: 7%;">#</th>
-                                            <th scope="col" span="1" style="width: 20%;">Student ID:
+                                            <th scope="col" span="1" style="width: 13%;">Student ID:
                                             </th>
-                                            <th scope="col">Student Full Name</th>
-                                            <th scope="col">Groups</th>
-
+                                            <th scope="col" span="1" style="width: 28%;">Student Full Name</th>
+                                            <th scope="col" span="1" style="width: 15%;">Gender</th>
+                                            <th scope="col" span="1" style="width: 30%;">Study Programme</th>
+                                            <th scope="col" span="1" style="width: 13%; text-align: center;">Study Year
+                                            </th>
                                         </tr>
                                     </thead>
 
@@ -75,19 +150,30 @@
                                                         <%= n %>
                                                     </td>
                                                     <td>
-                                                        <a
-                                                            href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= projectid %>/viewStudentProfile/<%= model.givenId %>">
+                                                        <a href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= projectid %>/viewStudentProfile/<%= model.givenId %>"
+                                                            target="_blank" rel="noopener noreferrer">
                                                             <%= model.givenId %>
                                                         </a>
 
                                                     </td>
                                                     <td>
+                                                        <img src="<%= model.imgURL %>" alt="Admin"
+                                                            class="rounded-circle" width="40">
                                                         <%= model.fullName %>
                                                     </td>
                                                     <td>
-                                                        No groups
+                                                        <%= model.gender %>
                                                     </td>
+                                                    <td>
 
+                                                        <%= model.study_programme %>
+
+                                                    </td>
+                                                    <td>
+                                                        <div style="text-align:center">
+                                                            <%= model.study_year %>
+                                                        </div>
+                                                    </td>
                                                     <% n++; %>
 
                                                         <% }); %>
@@ -107,6 +193,65 @@
     </div>
 
 
+    <!-- Triggered Modal - Confirm create group Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="createGroupModal" tabindex="-1" aria-labelledby="createGroupModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createGroupModalLabel">Create Group</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Confirm to create a group ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form
+                        action="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/createGroup"
+                        method="POST" onsubmit="createForm(this);return false">
+                        <button type="submit" class="btn btn-primary">Create group</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 </body>
+
+<script>
+
+    async function createForm(oFormElement) {
+
+        var response = await fetch(oFormElement.action, {
+            method: "POST",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            // alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        }
+        // else if (response.status == 401) {
+        //     var data = await response.text();   // for res.send()
+        //     alert(data);
+        // } else {
+        //     alert(response.statusText);
+        // }
+
+    };
+
+
+
+</script>

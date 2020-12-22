@@ -1,5 +1,5 @@
 /**
- * Project.js
+ * Group.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -13,40 +13,13 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    // projectID: {
-    //   type: 'string',
-    //   required: true,
-    // },
-
-    projectName: {
+    groupDescription: {
       type: 'string',
-      required: true,
     },
 
-    numOfStudentMin: {
+    groupNum: {
       type: 'number',
-      required: true,
     },
-
-    numOfStudentMax: {
-      type: 'number',
-      required: true,
-    },
-
-    groupFormationDate: {
-      type: 'string',
-      required: true,
-    },
-
-    projectSubmitDate: {
-      type: 'string',
-      required: true,
-    },
-
-    projectDescription: {
-      type: 'string',
-    },
-
 
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -58,14 +31,14 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    inSection: {
-      collection: 'Section',
-      via: 'haveProject'
+    inProject: {
+      collection: 'Project',
+      via: 'haveGroup'
     },
 
-    haveGroup: {
-      collection: 'Group',
-      via: 'inProject'
+    createdBy: {
+      collection: 'User',
+      via: 'create'
     },
 
   },

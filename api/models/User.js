@@ -123,6 +123,11 @@ module.exports = {
       via: 'haveTeacher'
     },
 
+    create: {
+      collection: 'Group',
+      via: 'createdBy'
+    },
+
     // enrollAt: {
     //   collection: 'AcademicYear',
     //   via: 'haveStudent'

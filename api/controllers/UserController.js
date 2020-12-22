@@ -168,6 +168,17 @@ module.exports = {
 
     },
 
+    // User-S create Group 
+    populate: async function (req, res) {
+
+        var model = await User.findOne(req.params.id).populate("create");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
     // User enrollAt AcademicYear
     // populate: async function (req, res) {
 

@@ -5,6 +5,7 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+
 module.exports = {
 
     createProject: async function (req, res) {
@@ -41,7 +42,11 @@ module.exports = {
 
             var section = await Section.findOne(req.params.id).populate("haveProject", { where: { id: req.params.pid } }).populate('in').populate('haveStudent');
 
-            return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid });
+            var project = await Project.findOne(req.params.pid).populate('haveGroup');
+
+            var groups = await Group.find(project.haveGroup.map(v => v.id)).populate('createdBy');
+
+            return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid, groupInfo: groups });
 
         }
 
@@ -67,6 +72,17 @@ module.exports = {
     populate: async function (req, res) {
 
         var model = await Project.findOne(req.params.id).populate("inSection");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
+    // Project haveGroup Group
+    populate: async function (req, res) {
+
+        var model = await Project.findOne(req.params.id).populate("haveGroup");
 
         if (!model) return res.notFound();
 
