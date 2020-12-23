@@ -41,6 +41,11 @@ module.exports = {
       via: 'create'
     },
 
+    invite: {
+      collection: 'User',
+      via: 'apply'
+    },
+
   },
 
 };

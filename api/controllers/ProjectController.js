@@ -16,6 +16,13 @@ module.exports = {
 
         var createProject = await Project.create(req.body.Project).fetch();
 
+        var section = await Section.findOne(req.params.id).populate('in');
+
+        await Project.update(createProject.id).set({
+            courseName: section.in[0].courseName,
+            courseID: section.in[0].courseID
+        }).fetch();
+
         await Project.addToCollection(createProject.id, 'inSection').members(req.params.id);
 
         if (req.wantsJSON) {
@@ -46,7 +53,10 @@ module.exports = {
 
             var groups = await Group.find(project.haveGroup.map(v => v.id)).populate('createdBy');
 
-            return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid, groupInfo: groups });
+            console.log("here");
+            console.log(groups);
+
+            return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid, groupInfo: groups, projectInfo: project });
 
         }
 

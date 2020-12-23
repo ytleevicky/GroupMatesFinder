@@ -47,6 +47,14 @@ module.exports = {
       type: 'string',
     },
 
+    courseName: {
+      type: 'string',
+    },
+
+    courseID: {
+      type: 'string'
+    },
+
 
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

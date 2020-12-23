@@ -6,6 +6,7 @@
  */
 
 
+
 module.exports = {
 
     createGroup: async function (req, res) {
@@ -13,7 +14,6 @@ module.exports = {
         if (req.method == 'GET') { return res.forbidden(); }
 
         var group;
-        //  await Group.create(req.body.Group).fetch();
 
         var pid = parseInt(req.params.pid);
         var project = await Project.findOne({ where: { id: pid } });
@@ -105,6 +105,74 @@ module.exports = {
 
     },
 
+    inviteMember: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        console.log("POST");
+
+        var sectionid = parseInt(req.params.sid);
+
+        // student does not exist in this sytem.
+        var studentExist = await User.findOne({ where: { givenId: req.body.studentid } });
+
+        if (!studentExist) return res.json({ message: 'Invalid student ID', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+
+        // student does not exist in this course
+        var inSection = await User.findOne(studentExist.id).populate('enrollSection', { where: { id: sectionid } });
+
+        if (inSection.enrollSection.length == 0) {
+            return res.json({ message: 'Could not find this student in this course. Please check the student ID again.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+        }
+
+
+
+        await Group.addToCollection(req.params.gid, 'invite').members(studentExist.id);
+
+        return res.json({ message: 'Invitation has been sent. ', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+
+
+
+    },
+
+    invitation: async function (req, res) {
+
+        if (req.method == 'GET') {
+
+            var user = await User.findOne(req.params.id).populate('apply');
+
+            console.log(user.apply);
+
+            var project = await Group.find(user.apply.map(v => v.id)).populate('inProject').populate('createdBy');
+
+            return res.view('project/invitation', { projectInfo: project, userid: req.params.id });
+        }
+
+    },
+
+    acceptInvitation: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        var project = await Group.findOne(req.params.gid).populate('inProject');
+
+        var group = await Project.findOne(project.inProject[0].id).populate('haveGroup');
+
+        var alreadyFormGroup = await User.findOne(req.params.uid).populate('create', { where: { id: group.haveGroup.map(v => v.id) } });
+
+        if (alreadyFormGroup.create.length > 0) {
+
+            return res.json({ message: 'You cannot accept the invitation. You have already formed group in this project.', url: '/invitation/' + req.params.uid })
+        }
+
+        await User.removeFromCollection(req.params.uid, 'apply').members(req.params.gid);
+
+        await Group.addToCollection(req.params.gid, 'createdBy').members(req.params.uid);
+
+        return res.json({ message: 'You have accepted the invitation.', url: '/invitation/' + req.params.uid });
+
+    },
+
     // Group inProject Project
     populate: async function (req, res) {
 
@@ -120,6 +188,17 @@ module.exports = {
     populate: async function (req, res) {
 
         var model = await Group.findOne(req.params.id).populate("createdBy");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
+    // Group invite User
+    populate: async function (req, res) {
+
+        var model = await Group.findOne(req.params.id).populate("invite");
 
         if (!model) return res.notFound();
 

@@ -1,0 +1,124 @@
+<body>
+    <br>
+    <h2>Invitations</h2>
+
+
+    <h4>Group(s) that invite you to join...</h4>
+    <br>
+
+    <% projectInfo.forEach( function(model) { %>
+
+        <div class="card" style="width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title"><b>Group <%= model.groupNum %></b>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">from course <b>
+                        <%= model.inProject[0].courseID %>
+                            <%= model.inProject[0].courseName %>
+                    </b>
+                </h6>
+                <br>
+                <div class="container">
+                    <% model.createdBy.forEach( function(user) { %>
+
+                        <p class="card-text text-center">
+                            <img src="<%= user.imgURL %>" alt="Admin" class="rounded-circle" width="40">
+                            <%= user.fullName %>
+                        </p>
+
+                        <% }); %>
+                </div>
+                <br>
+                <button type="button" class="btn btn-success" style="float: right;" data-bs-toggle="modal"
+                    data-bs-target="#acceptInvitation" data-bs-studentid="<%= userid %>"
+                    data-bs-groupid="<%= model.id %>">Accept
+                    Invitation</button>
+                <button type="button" class="btn btn-danger">Reject Invitation</button>
+
+            </div>
+        </div>
+
+        <% }); %>
+
+            <!-- Triggered Modal (Accept Invitation) -->
+            <div class="modal fade" id="acceptInvitation" tabindex="-1" aria-labelledby="acceptInvitationLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="acceptInvitationLabel">Accept Invitation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Confirm to accept invitation ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            <button type="button" class="btn btn-primary" onclick="acceptInvitation()">Confirm to
+                                accept</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+</body>
+
+<style>
+    .card {
+        margin: 0 auto;
+        /* Added */
+        float: none;
+        /* Added */
+        margin-bottom: 10px;
+        /* Added */
+    }
+</style>
+
+<script>
+
+    var exampleModal = document.getElementById('acceptInvitation');
+
+    var studentid;
+    var groupid;
+
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+
+        studentid = button.getAttribute('data-bs-studentid');
+        groupid = button.getAttribute('data-bs-groupid');
+
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+
+        // var modalbody = exampleModal.querySelector('.modal-body');
+        // var modalButton = exampleModal.querySelector('.modal-footer');
+
+        // modalbody.textContent = 'Confirm to delete participant - ' + studentName + ' ?';
+
+    });
+
+    async function acceptInvitation() {
+
+        var response = await fetch("/student/" + studentid + '/acceptInvitation/' + groupid, {
+            method: "POST",
+            credentials: 'same-origin',
+        });
+
+        if (response.ok) {
+            var data = await response.json();
+            alert(data.message);
+            window.location = data.url;
+        }
+
+    };
+
+
+</script>

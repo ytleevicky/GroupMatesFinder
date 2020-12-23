@@ -40,7 +40,6 @@ module.exports.routes = {
 
   '/import_student/:id/:fk': 'CourseController.import_student',
 
-  // '/createProject': 'ProjectController.createProject',
   'POST /createProject/:id/:fk': 'ProjectController.createProject',
   'POST /student/:uid/section/:sid/project/:pid/createGroup': 'GroupController.createGroup',
   '/student/:uid/section/:sid/project/:pid/viewCreatedGroup/:gid': 'GroupController.viewCreatedGroup',
@@ -52,8 +51,13 @@ module.exports.routes = {
   '/student/:sid/section/:fk/project/:pid/viewStudentProfile/:id': 'ProjectController.viewStudentProfile',
   'POST /addParticipant/:id/:fk': 'CourseController.addParticipants',
   'POST /participant/:id/:fk/:uid': 'CourseController.removeParticipants',
+  'POST /student/:uid/section/:sid/project/:pid/group/:gid/inviteMember': 'GroupController.inviteMember',
 
 
+
+  // Invitation
+  '/invitation/:id': 'GroupController.invitation',
+  'POST /student/:uid/acceptInvitation/:gid': 'GroupController.acceptInvitation',
 
 
 
@@ -85,6 +89,8 @@ module.exports.routes = {
   'GET /user/:id/create': 'UserController.populate',
   'GET /group/:id/createdBy': 'GroupController.populate',
 
+  'GET /user/:id/apply': 'UserController.populate',
+  'GET /group/:id/invite': 'GroupController.populate',
 
 
 

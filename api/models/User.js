@@ -128,6 +128,11 @@ module.exports = {
       via: 'createdBy'
     },
 
+    apply: {
+      collection: 'Group',
+      via: 'invite'
+    }
+
     // enrollAt: {
     //   collection: 'AcademicYear',
     //   via: 'haveStudent'

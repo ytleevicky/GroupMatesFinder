@@ -52,7 +52,7 @@
 
                     <a href="#" class="list-group-item list-group-item-action"><button type="button"
                             class="btn btn-link" style="font-size: 18px; text-decoration: none;" data-bs-toggle="modal"
-                            data-bs-target="#createGroupModal" style="float: right;"><svg
+                            data-bs-target="#inviteUserModal" style="float: right;"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
                                 class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -74,4 +74,67 @@
         </div>
     </div>
 
+
+
+    <!-- Triggered Modal (Invite user) -->
+    <div class="modal fade" id="inviteUserModal" tabindex="-1" aria-labelledby="inviteUserModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="inviteUserModalLabel">Invite group members</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form
+                    action="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/group/<%= groupInfo.id %>/inviteMember"
+                    method="POST" onsubmit="createForm(this);return false">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Please input the member's
+                                student ID:</label>
+                            <input type="text" class="form-control" id="recipient-name" name="studentid">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Invite members</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
 </body>
+
+<script>
+    async function createForm(oFormElement) {
+
+        var response = await fetch(oFormElement.action, {
+            method: "POST",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
+</script>

@@ -46,25 +46,42 @@
             </div>
             <div class="col-md-3">
 
-                <% var n=false; var i=0; groupInfo.forEach( function(model) { if(model.createdBy[0].id==userid){ n=true;
-                    i=model.id; return; } }); %>
+                <% if (projectInfo.haveGroup.length> 0 ){ %>
 
-                    <% if(n==true) { %>
+                    <% var n=false; var a=0; groupInfo.forEach( function(model) {
+                        model.createdBy.forEach(function(member) { if(member.id==userid) { n=true; } }); if(n==true) {
+                        a=model.id; n=false; } }); %>
 
-                        <a href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/viewCreatedGroup/<%= i %>"
-                            style="font-size: 18px;">View my Group</a>
+                        <% if(a!=0) { %>
 
-                        <% }else { %>
+                            <a href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/viewCreatedGroup/<%= a %>"
+                                style="font-size: 18px;">View my Group</a>
 
-                            <button type="button" class="btn btn-link" style="font-size: 18px; text-decoration: none;"
-                                data-bs-toggle="modal" data-bs-target="#createGroupModal"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                    class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                                </svg> Create Group</button>
+                            <% }else { %>
 
-                            <% } %>
+                                <button type="button" class="btn btn-link"
+                                    style="font-size: 18px; text-decoration: none;" data-bs-toggle="modal"
+                                    data-bs-target="#createGroupModal"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                    </svg> Create Group</button>
+
+                                <% } %>
+
+                                    <% } else { %>
+
+                                        <button type="button" class="btn btn-link"
+                                            style="font-size: 18px; text-decoration: none;" data-bs-toggle="modal"
+                                            data-bs-target="#createGroupModal"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="25" height="25" fill="currentColor"
+                                                class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                            </svg> Create Group</button>
+
+                                        <% } %>
             </div>
         </div>
 
