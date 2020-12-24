@@ -98,9 +98,9 @@ module.exports = {
 
             var group = await Group.findOne(req.params.gid).populate('createdBy');
 
-            console.log(group);
+            var pplRequest = await Group.findOne(req.params.gid).populate('consider');
 
-            return res.view('project/viewCreatedGroup', { userid: req.params.uid, sectionInfo: section, groupInfo: group });
+            return res.view('project/viewCreatedGroup', { userid: req.params.uid, sectionInfo: section, groupInfo: group, requestToJoin: pplRequest });
         }
 
     },
@@ -173,6 +173,66 @@ module.exports = {
 
     },
 
+    viewGroup: async function (req, res) {
+
+        if (req.method == 'GET') {
+
+            var group = await Group.findOne(req.params.gid).populate('createdBy');
+
+            var section = await Section.findOne(req.params.sid).populate("haveProject", { where: { id: req.params.pid } }).populate('in').populate('haveStudent');
+
+            var project = await Project.findOne(req.params.pid).populate('haveGroup');
+
+            var ppl = await Group.find(project.haveGroup.map(v => v.id)).populate('createdBy');
+
+            return res.view('project/viewGroup', { userid: req.params.uid, groupInfo: group, sectionInfo: section, peopleHaveGroup: ppl });
+
+
+        } else {
+
+            await User.addToCollection(req.params.uid, 'applyGroup').members(req.params.gid);
+
+            var group = await Group.findOne(req.params.gid);
+
+            return res.json({ message: 'You have successfully sent the request to Group ' + group.groupNum + '.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+
+        }
+
+    },
+
+    acceptToGroup: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        var project = await Group.findOne(req.params.gid).populate('inProject');
+
+        var group = await Project.findOne(project.inProject[0].id).populate('haveGroup');
+
+        var alreadyFormGroup = await User.findOne(req.params.tid).populate('create', { where: { id: group.haveGroup.map(v => v.id) } });
+
+        if (alreadyFormGroup.create.length > 0) {
+
+            return res.json({
+                message: 'You cannot add this user to your group. This user has already formed group in this project.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid
+            });
+        }
+
+        // Remove all the association between others group and this user. 
+
+        // await User.removeFromCollection(req.params.tid, 'applyGroup').members(group.haveGroup.map(g => g.id));
+
+        // await User.removeFromCollection(req.params.tid, 'apply').members(group.haveGroup.map(g => g.id));
+
+        //------------------------------------------------------------
+
+        await Group.removeFromCollection(req.params.gid, 'consider').members(req.params.tid);
+
+        await Group.addToCollection(req.params.gid, 'createdBy').members(req.params.tid);
+
+        return res.json({ message: 'You have successfully added this member to your group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+
+    },
+
     // Group inProject Project
     populate: async function (req, res) {
 
@@ -199,6 +259,17 @@ module.exports = {
     populate: async function (req, res) {
 
         var model = await Group.findOne(req.params.id).populate("invite");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
+    // Group consider User
+    populate: async function (req, res) {
+
+        var model = await Group.findOne(req.params.id).populate("consider");
 
         if (!model) return res.notFound();
 

@@ -131,7 +131,12 @@ module.exports = {
     apply: {
       collection: 'Group',
       via: 'invite'
-    }
+    },
+
+    applyGroup: {
+      collection: 'Group',
+      via: 'consider'
+    },
 
     // enrollAt: {
     //   collection: 'AcademicYear',

@@ -46,6 +46,13 @@ module.exports = {
       via: 'apply'
     },
 
+    consider: {
+      collection: 'User',
+      via: 'applyGroup'
+    },
+
+
+
   },
 
 };

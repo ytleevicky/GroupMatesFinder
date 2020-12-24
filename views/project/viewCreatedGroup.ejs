@@ -38,20 +38,21 @@
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
-                    aria-controls="profile" aria-selected="false">Waiting</a>
+                    aria-controls="profile" aria-selected="false">Waiting (<%= requestToJoin.consider.length %>)</a>
             </li>
 
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                <p class="my-3">Participants: </p>
+                <p class="my-3">Participants: <%= groupInfo.createdBy.length %>
+                </p>
 
                 <div class="list-group" style="width: 300px;">
 
 
-                    <a href="#" class="list-group-item list-group-item-action"><button type="button"
-                            class="btn btn-link" style="font-size: 18px; text-decoration: none;" data-bs-toggle="modal"
+                    <a href="#" class="list-group-item"><button type="button" class="btn btn-link"
+                            style="font-size: 18px; text-decoration: none;" data-bs-toggle="modal"
                             data-bs-target="#inviteUserModal" style="float: right;"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
                                 class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
@@ -60,7 +61,7 @@
                             </svg> &nbsp; Invite Members</button></a>
 
                     <% groupInfo.createdBy.forEach( function(model) { %>
-                        <a href="#" class="list-group-item list-group-item-action">
+                        <a href="#" class="list-group-item">
                             <img src="<%= model.imgURL %>" alt="Admin" class="rounded-circle" width="45">
                             &nbsp; <%= model.fullName %>
                                 <%= model.id==userid ? '(You)' : '' %>
@@ -69,7 +70,34 @@
                 </div>
 
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                <br>
+
+                <div class="list-group">
+
+                    <% requestToJoin.consider.forEach( function(model) { %>
+                        <a href="#" class="list-group-item">
+                            <img src="<%= model.imgURL %>" alt="Admin" class="rounded-circle" width="45">
+                            &nbsp; <%= model.fullName %>
+
+                                <button type="button" class="btn btn-danger mx-1 my-2 btn-sm" data-bs-toggle="modal"
+                                    style="float: right;">
+                                    Reject
+                                </button>
+
+                                <button type="button" class="btn btn-success mx-1 my-2 btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#acceptMemberModal" data-bs-studentName="<%= model.fullName %>"
+                                    data-bs-studentid="<%= model.id %>" style="float: right;">
+                                    Accept
+                                </button>
+                        </a>
+
+                        <% }); %>
+
+
+                </div>
+            </div>
 
         </div>
     </div>
@@ -107,11 +135,35 @@
     </div>
 
 
+    <!-- Triggered Modal - Accept Members -->
+    <div class="modal fade" id="acceptMemberModal" tabindex="-1" aria-labelledby="acceptMemberModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="acceptMemberModalLabel">Accept Member
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- xxx -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                    <button type="button" class="btn btn-primary" onclick="acceptToGroup()">Confirm</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 </body>
 
 <script>
+
     async function createForm(oFormElement) {
 
         var response = await fetch(oFormElement.action, {
@@ -129,12 +181,49 @@
             alert(data.message);
             window.location = data.url;
             //location.reload(true);
-        } else if (response.status == 401) {
-            var data = await response.text();   // for res.send()
-            alert(data);
-        } else {
-            alert(response.statusText);
+        }
+        // else if (response.status == 401) {
+        //     var data = await response.text();   // for res.send()
+        //     alert(data);
+        // } else {
+        //     alert(response.statusText);
+        // }
+
+    };
+
+
+    // For accept member modal
+    var exampleModal = document.getElementById('acceptMemberModal');
+
+    var studentid;
+
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        var studentName = button.getAttribute('data-bs-studentName');
+        studentid = button.getAttribute('data-bs-studentid');
+
+        var modalBodyInput = exampleModal.querySelector('.modal-body');
+
+        modalBodyInput.textContent = "Confirm to add " + studentName + " to your group ?";
+
+    });
+
+    async function acceptToGroup() {
+
+        var response = await fetch('/student/' + <%= userid %> + '/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/' + studentid + '/acceptToGroup/' + <%= groupInfo.id %>, {
+            method: "POST",
+            credentials: 'same-origin',
+        });
+
+        if (response.ok) {
+            var data = await response.json();
+            alert(data.message);
+            window.location = data.url;
         }
 
     };
+
+
 </script>

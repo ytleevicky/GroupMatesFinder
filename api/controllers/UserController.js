@@ -190,6 +190,17 @@ module.exports = {
 
     },
 
+    // User-S applyGroup Group 
+    populate: async function (req, res) {
+
+        var model = await User.findOne(req.params.id).populate("applyGroup");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
     // User enrollAt AcademicYear
     // populate: async function (req, res) {
 
