@@ -61,6 +61,7 @@ module.exports.routes = {
   '/student/:uid/section/:sid/project/:pid/viewGroup/:gid': 'GroupController.viewGroup',
   'POST /student/:uid/section/:sid/project/:pid/applyToGroup/:gid': 'GroupController.viewGroup',  // User apply to Group 
   'POST /student/:uid/section/:sid/project/:pid/:tid/acceptToGroup/:gid': 'GroupController.acceptToGroup', // Group accept User request
+  'POST /student/:uid/section/:sid/project/:pid/:tid/rejectFromGroup/:gid': 'GroupController.rejectFromGroup', // Group reject User request
 
 
 

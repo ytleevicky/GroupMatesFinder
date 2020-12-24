@@ -233,6 +233,16 @@ module.exports = {
 
     },
 
+    rejectFromGroup: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        await Group.removeFromCollection(req.params.gid, 'consider').members(req.params.tid);
+
+        return res.json({ url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+
+    },
+
     // Group inProject Project
     populate: async function (req, res) {
 
