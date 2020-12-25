@@ -33,7 +33,8 @@
                     data-bs-target="#acceptInvitation" data-bs-studentid="<%= userid %>"
                     data-bs-groupid="<%= model.id %>">Accept
                     Invitation</button>
-                <button type="button" class="btn btn-danger">Reject Invitation</button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectInvitation"
+                    data-bs-studentid="<%= userid %>" data-bs-groupid="<%= model.id %>">Reject Invitation</button>
 
             </div>
         </div>
@@ -57,6 +58,29 @@
 
                             <button type="button" class="btn btn-primary" onclick="acceptInvitation()">Confirm to
                                 accept</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Triggered Modal (Reject Invitation) -->
+            <div class="modal fade" id="rejectInvitation" tabindex="-1" aria-labelledby="rejectInvitationLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="rejectInvitationLabel">Reject Invitation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Confirm to reject invitation ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            <button type="button" class="btn btn-primary" onclick="rejectInvitation()">Confirm to
+                                reject</button>
 
                         </div>
                     </div>
@@ -108,6 +132,36 @@
     async function acceptInvitation() {
 
         var response = await fetch("/student/" + studentid + '/acceptInvitation/' + groupid, {
+            method: "POST",
+            credentials: 'same-origin',
+        });
+
+        if (response.ok) {
+            var data = await response.json();
+            alert(data.message);
+            window.location = data.url;
+        }
+
+    };
+
+    var exampleModal2 = document.getElementById('rejectInvitation');
+
+    var studentid;
+    var groupid;
+
+    exampleModal2.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+
+        studentid = button.getAttribute('data-bs-studentid');
+        groupid = button.getAttribute('data-bs-groupid');
+
+    });
+
+    async function rejectInvitation() {
+
+        var response = await fetch("/student/" + studentid + '/rejectInvitation/' + groupid, {
             method: "POST",
             credentials: 'same-origin',
         });

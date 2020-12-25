@@ -58,6 +58,7 @@ module.exports.routes = {
   // Invitation
   '/invitation/:id': 'GroupController.invitation',
   'POST /student/:uid/acceptInvitation/:gid': 'GroupController.acceptInvitation',
+  'POST /student/:uid/rejectInvitation/:gid': 'GroupController.rejectInvitation',
   '/student/:uid/section/:sid/project/:pid/viewGroup/:gid': 'GroupController.viewGroup',
   'POST /student/:uid/section/:sid/project/:pid/applyToGroup/:gid': 'GroupController.viewGroup',  // User apply to Group 
   'POST /student/:uid/section/:sid/project/:pid/:tid/acceptToGroup/:gid': 'GroupController.acceptToGroup', // Group accept User request

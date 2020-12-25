@@ -173,6 +173,16 @@ module.exports = {
 
     },
 
+    rejectInvitation: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        await Group.removeFromCollection(req.params.gid, 'invite').members(req.params.uid);
+
+        return res.json({ message: 'You have successfully reject the invitation.', url: '/invitation/' + req.params.uid });
+
+    },
+
     viewGroup: async function (req, res) {
 
         if (req.method == 'GET') {
