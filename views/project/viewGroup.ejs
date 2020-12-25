@@ -27,7 +27,7 @@
         </ol>
     </nav>
 
-    <div class="container my-5" style="width:800px;">
+    <div class="container my-4" style="width:800px;">
         <h2>Group <%= groupInfo.groupNum %>
         </h2>
         <div class="my-3">
@@ -46,7 +46,7 @@
                 <p class="my-3">Participants: <%= groupInfo.createdBy.length %>
                 </p>
 
-                <div class="list-group" style="width: 300px;">
+                <div class="list-group" style="width: 350px;">
 
                     <% groupInfo.createdBy.forEach( function(model) { %>
 
@@ -70,7 +70,7 @@
                                     <% }); %>
 
                                         <% if (a==false) { %>
-                                            <div class="my-4" style="padding-left: 80px;">
+                                            <div class="my-4" style="padding-left: 65px;">
                                                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                                     data-bs-target="#applyToGroupModal">Apply to Group <%=
                                                         groupInfo.groupNum %>

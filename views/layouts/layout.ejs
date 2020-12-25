@@ -87,10 +87,14 @@
                         <a class="nav-link" href="#">Discover</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="/invitation/<%= req.session.userid %>">Invitation <span
-                            class="badge rounded-pill bg-danger">
-                            <%= req.session.invitationNum %>
-                          </span></a>
+                        <% if(req.session.invitationNum> 0 ) { %>
+                          <a class="nav-link" href="/invitation/<%= req.session.userid %>">Invitation <span
+                              class="badge rounded-pill bg-danger">
+                              <%= req.session.invitationNum %>
+                            </span></a>
+                          <% } else { %>
+                            <a class="nav-link" href="/invitation/<%= req.session.userid %>">Invitation</a>
+                            <% } %>
                       </li>
                       <% } %>
                   </ul>

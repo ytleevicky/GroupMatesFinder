@@ -33,6 +33,7 @@ module.exports = {
 
             await Group.update(group.id).set({
                 groupNum: 1,
+                formationStatus: 'inCompleted',
             }).fetch();
 
             await Group.addToCollection(group.id, 'inProject').members(project.id);
@@ -75,11 +76,10 @@ module.exports = {
 
                 await Group.update(group.id).set({
                     groupNum: currentGroup.haveGroup.length + 1,
+                    formationStatus: 'inCompleted',
                 }).fetch();
 
             }
-
-
 
         }
 
@@ -296,6 +296,32 @@ module.exports = {
         await Group.removeFromCollection(req.params.gid, 'consider').members(req.params.tid);
 
         return res.json({ url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+
+    },
+
+    completeGroupFormation: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        // Check group 
+        var group = await Group.findOne(req.params.gid).populate('createdBy').populate('inProject');
+
+        var numPPLinGroup = group.createdBy.length;
+
+        var maxNum = group.inProject[0].numOfStudentMax;
+        var minNum = group.inProject[0].numOfStudentMin;
+
+        if (numPPLinGroup <= maxNum && numPPLinGroup >= minNum) {
+
+            await Group.update(req.params.gid).set({
+                formationStatus: 'completed',
+            }).fetch();
+
+            return res.json({ message: 'Group formation has been completed.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+
+        } else {
+            return res.json({ message: 'Fail to complete the group formation. Number of students in each group should be ' + minNum + '-' + maxNum + '. Please check again.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+        }
 
     },
 

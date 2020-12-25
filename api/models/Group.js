@@ -21,6 +21,10 @@ module.exports = {
       type: 'number',
     },
 
+    formationStatus: {
+      type: 'string',
+    },
+
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

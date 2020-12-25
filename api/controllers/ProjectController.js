@@ -53,10 +53,21 @@ module.exports = {
 
             var groups = await Group.find(project.haveGroup.map(v => v.id)).populate('createdBy');
 
-            console.log("here");
-            console.log(groups);
+            var project2 = await Project.findOne(req.params.pid).populate('haveGroup', { where: { formationStatus: 'completed' } });
 
-            return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid, groupInfo: groups, projectInfo: project });
+            var groups2 = await Group.find(project2.haveGroup.map(v => v.id)).populate('createdBy');
+
+            console.log("Have Group");
+            console.log(groups2);
+
+            var p = await Project.findOne(req.params.pid).populate('haveGroup', { where: { formationStatus: 'inCompleted' } });
+
+            var avaGroup = await Group.find(p.haveGroup.map(v => v.id)).populate('createdBy');
+
+            console.log("THIS");
+            console.log(avaGroup);
+
+            return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid, groupInfo: groups, projectInfo: project, completedGroup: groups2, availableGroup: avaGroup });
 
         }
 

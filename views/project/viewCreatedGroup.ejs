@@ -27,7 +27,7 @@
         </ol>
     </nav>
 
-    <div class="container my-5" style="width:800px;">
+    <div class="container my-4" style="width:800px;">
         <h2>Welcome to Group <%= groupInfo.groupNum %>
         </h2>
         <div class="my-3">
@@ -50,7 +50,7 @@
                 <p class="my-3">Participants: <%= groupInfo.createdBy.length %>
                 </p>
 
-                <div class="list-group" style="width: 300px;">
+                <div class="list-group" style="width: 350px;">
 
 
                     <a href="#" class="list-group-item"><button type="button" class="btn btn-link"
@@ -69,6 +69,14 @@
                                 <%= model.id==userid ? '(You)' : '' %>
                         </a>
                         <% }); %>
+                </div>
+
+                <!-- Complete group formation -->
+                <div class="my-4" style="padding-left: 65px;">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#completeFormationModal">
+                        Complete Group Formation
+                    </button>
                 </div>
 
             </div>
@@ -184,6 +192,29 @@
         </div>
     </div>
 
+    <!-- Triggered Modal - Complete Group Formation -->
+    <div class="modal fade" id="completeFormationModal" tabindex="-1" aria-labelledby="completeFormationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="completeFormationModalLabel">Confirm Group Completion
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Confirm to complete the group formation ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                    <button type="button" class="btn btn-primary" onclick="completeGroupFormation()">Confirm</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 </body>
@@ -281,6 +312,24 @@
         if (response.ok) {
             var data = await response.json();
             // alert(data.message);
+            window.location = data.url;
+        }
+
+    };
+
+
+    // For confirm group completion modal
+
+    async function completeGroupFormation() {
+
+        var response = await fetch('/student/' + <%= userid %> + '/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/completeGroupFormation/' + <%= groupInfo.id %>, {
+            method: "POST",
+            credentials: 'same-origin',
+        });
+
+        if (response.ok) {
+            var data = await response.json();
+            alert(data.message);
             window.location = data.url;
         }
 
