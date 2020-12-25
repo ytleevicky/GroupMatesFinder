@@ -141,11 +141,9 @@ module.exports = {
 
             var user = await User.findOne(req.params.id).populate('apply');
 
-            console.log(user.apply);
-
             var project = await Group.find(user.apply.map(v => v.id)).populate('inProject').populate('createdBy');
 
-            return res.view('project/invitation', { projectInfo: project, userid: req.params.id });
+            return res.view('project/invitation', { projectInfo: project, userid: req.params.id, invitationNum: req.session.invitationNum });
         }
 
     },
@@ -165,11 +163,35 @@ module.exports = {
             return res.json({ message: 'You cannot accept the invitation. You have already formed group in this project.', url: '/invitation/' + req.params.uid })
         }
 
-        await User.removeFromCollection(req.params.uid, 'apply').members(req.params.gid);
 
-        await Group.addToCollection(req.params.gid, 'createdBy').members(req.params.uid);
+        // Check how many people in this group now
 
-        return res.json({ message: 'You have accepted the invitation.', url: '/invitation/' + req.params.uid });
+        var pplInGroup = await Group.findOne(req.params.gid).populate('createdBy');
+
+        var numPPL = pplInGroup.createdBy.length;
+
+        var maxInGroup = project.inProject[0].numOfStudentMax;
+
+
+        if (maxInGroup > numPPL) {
+
+            await User.removeFromCollection(req.params.uid, 'apply').members(req.params.gid);
+
+            await Group.addToCollection(req.params.gid, 'createdBy').members(req.params.uid);
+
+            // Update the invitation Num 
+            var student = await User.findOne(req.params.uid).populate('apply');
+            req.session.invitationNum = student.apply.length;
+
+            return res.json({ message: 'You have accepted the invitation.', url: '/invitation/' + req.params.uid });
+
+        } else {
+
+            return res.json({ message: 'This group is full. You cannot accept this invitation.', url: '/invitation/' + req.params.uid });
+
+        }
+
+
 
     },
 
@@ -178,6 +200,10 @@ module.exports = {
         if (req.method == 'GET') { return res.forbidden(); }
 
         await Group.removeFromCollection(req.params.gid, 'invite').members(req.params.uid);
+
+        // Update the invitation Num 
+        var student = await User.findOne(req.params.uid).populate('apply');
+        req.session.invitationNum = student.apply.length;
 
         return res.json({ message: 'You have successfully reject the invitation.', url: '/invitation/' + req.params.uid });
 
@@ -235,11 +261,31 @@ module.exports = {
 
         //------------------------------------------------------------
 
-        await Group.removeFromCollection(req.params.gid, 'consider').members(req.params.tid);
+        // Check how many people in this group now
 
-        await Group.addToCollection(req.params.gid, 'createdBy').members(req.params.tid);
+        var pplInGroup = await Group.findOne(req.params.gid).populate('createdBy');
 
-        return res.json({ message: 'You have successfully added this member to your group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+        var numPPL = pplInGroup.createdBy.length;
+
+        var maxInGroup = project.inProject[0].numOfStudentMax;
+
+
+        if (maxInGroup > numPPL) {
+
+            await Group.removeFromCollection(req.params.gid, 'consider').members(req.params.tid);
+
+            await Group.addToCollection(req.params.gid, 'createdBy').members(req.params.tid);
+
+            return res.json({ message: 'You have successfully added this member to your group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+
+        } else {
+
+            return res.json({ message: 'This group is full. You cannot add this student to your group', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+
+        }
+
+
+
 
     },
 

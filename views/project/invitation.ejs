@@ -1,91 +1,108 @@
 <body>
     <br>
-    <h2>Invitations</h2>
-
+    <h1><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor"
+            class="bi bi-envelope text-primary" viewBox="0 0 16 16">
+            <path
+                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
+        </svg> &nbsp;Invitations</h1>
+    <br>
 
     <h4>Group(s) that invite you to join...</h4>
     <br>
 
-    <% projectInfo.forEach( function(model) { %>
-
-        <div class="card" style="width: 40rem;">
-            <div class="card-body">
-                <h5 class="card-title"><b>Group <%= model.groupNum %></b>
-                </h5>
-                <h6 class="card-subtitle mb-2 text-muted">from course <b>
-                        <%= model.inProject[0].courseID %>
-                            <%= model.inProject[0].courseName %>
-                    </b>
-                </h6>
-                <br>
-                <div class="container">
-                    <% model.createdBy.forEach( function(user) { %>
-
-                        <p class="card-text text-center">
-                            <img src="<%= user.imgURL %>" alt="Admin" class="rounded-circle" width="40">
-                            <%= user.fullName %>
-                        </p>
-
-                        <% }); %>
-                </div>
-                <br>
-                <button type="button" class="btn btn-success" style="float: right;" data-bs-toggle="modal"
-                    data-bs-target="#acceptInvitation" data-bs-studentid="<%= userid %>"
-                    data-bs-groupid="<%= model.id %>">Accept
-                    Invitation</button>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectInvitation"
-                    data-bs-studentid="<%= userid %>" data-bs-groupid="<%= model.id %>">Reject Invitation</button>
-
-            </div>
+    <% if(invitationNum==0) { %>
+        <div class="alert alert-warning" role="alert">
+            No invitation at this moment.
         </div>
+        <% } %>
 
-        <% }); %>
+            <% projectInfo.forEach( function(model) { %>
 
-            <!-- Triggered Modal (Accept Invitation) -->
-            <div class="modal fade" id="acceptInvitation" tabindex="-1" aria-labelledby="acceptInvitationLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="acceptInvitationLabel">Accept Invitation</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="card" style="width: 40rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Group <%= model.groupNum %></b>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">from course <b>
+                                <%= model.inProject[0].courseID %>
+                                    <%= model.inProject[0].courseName %>
+                            </b>
+                        </h6>
+                        <br>
+                        <div class="container">
+                            <% model.createdBy.forEach( function(user) { %>
+
+                                <p class="card-text text-center">
+                                    <img src="<%= user.imgURL %>" alt="Admin" class="rounded-circle" width="40">
+                                    <%= user.fullName %>
+                                </p>
+
+                                <% }); %>
                         </div>
-                        <div class="modal-body">
-                            Confirm to accept invitation ?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <br>
+                        <button type="button" class="btn btn-success" style="float: right;" data-bs-toggle="modal"
+                            data-bs-target="#acceptInvitation" data-bs-studentid="<%= userid %>"
+                            data-bs-groupid="<%= model.id %>">Accept
+                            Invitation</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#rejectInvitation" data-bs-studentid="<%= userid %>"
+                            data-bs-groupid="<%= model.id %>">Reject Invitation</button>
 
-                            <button type="button" class="btn btn-primary" onclick="acceptInvitation()">Confirm to
-                                accept</button>
-
-                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Triggered Modal (Reject Invitation) -->
-            <div class="modal fade" id="rejectInvitation" tabindex="-1" aria-labelledby="rejectInvitationLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="rejectInvitationLabel">Reject Invitation</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Confirm to reject invitation ?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <% }); %>
 
-                            <button type="button" class="btn btn-primary" onclick="rejectInvitation()">Confirm to
-                                reject</button>
+                    <!-- Triggered Modal (Accept Invitation) -->
+                    <div class="modal fade" id="acceptInvitation" tabindex="-1" aria-labelledby="acceptInvitationLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="acceptInvitationLabel">Accept Invitation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Confirm to accept invitation ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
 
+                                    <button type="button" class="btn btn-primary" onclick="acceptInvitation()">Confirm
+                                        to
+                                        accept</button>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
+                    <!-- Triggered Modal (Reject Invitation) -->
+                    <div class="modal fade" id="rejectInvitation" tabindex="-1" aria-labelledby="rejectInvitationLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="rejectInvitationLabel">Reject Invitation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Confirm to reject invitation ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+
+                                    <button type="button" class="btn btn-primary" onclick="rejectInvitation()">Confirm
+                                        to
+                                        reject</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 

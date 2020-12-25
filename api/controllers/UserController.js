@@ -22,6 +22,9 @@ module.exports = {
 
         if (!match) return res.status(401).send("Wrong Password");
 
+
+        var student = await User.findOne(user.id).populate('apply');
+
         req.session.regenerate(function (err) {
 
             if (err) return res.serverError(err);
@@ -36,9 +39,13 @@ module.exports = {
             sails.log("[Session] ", req.session);
             sails.log("Login User:" + req.session.fName + ', ' + "Userid: " + req.session.userid);
 
+
             if (req.wantsJSON) {
 
                 if (req.session.role == 'student') {
+
+                    req.session.invitationNum = student.apply.length;
+
                     return res.redirect('/homepage/' + req.session.userid);
                 } else {
                     return res.redirect('/teacher/homepage/' + req.session.userid);
