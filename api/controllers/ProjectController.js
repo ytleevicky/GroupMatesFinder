@@ -5,6 +5,8 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const { compareSync } = require("bcryptjs");
+
 
 module.exports = {
 
@@ -82,6 +84,48 @@ module.exports = {
             var section = await Section.findOne({ where: { id: req.params.fk } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
 
             return res.view('user/viewStudentProfile', { studentInfo: student, userid: req.params.sid, sectionInfo: section, projectid: req.params.pid });
+
+        }
+
+    },
+
+    viewProgress: async function (req, res) {
+
+        if (req.method == 'GET') {
+
+            var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
+
+            var project = await Project.findOne(req.params.pid).populate('haveGroup');
+
+            var group = await Group.find(project.haveGroup.map(v => v.id)).populate('createdBy');
+
+            // Completed 
+            var completed = await Project.findOne(req.params.pid).populate('haveGroup', { where: { formationStatus: 'completed' } });
+
+            // Incompleted
+            var inCompleted = await Project.findOne(req.params.pid).populate('haveGroup', { where: { formationStatus: 'inCompleted' } });
+
+            // Total student num 
+            var stu = await Section.findOne(req.params.sid).populate('haveStudent');
+
+            // Total form group student num
+            var p = await Project.findOne(req.params.pid).populate('haveGroup');
+
+            var cNum = await Group.find(p.haveGroup.map(v => v.id)).populate('createdBy');
+
+            var cnt = 0;
+
+            for (var i = 0; i < cNum.length; i++) {
+                cnt = cnt + cNum[i].createdBy.length;
+            }
+
+            var noGroupNum = stu.haveStudent.length - cnt;
+
+            var student = await Section.findOne(req.params.sid).populate('haveStudent');
+
+            var list = await User.find(student.haveStudent.map(v => v.id)).populate('create', { where: { id: p.haveGroup.map(a => a.id) } });
+
+            return res.view('teacher/viewProgress', { groupInfo: group, completedGroupNum: completed.haveGroup.length, inCompletedGroupNum: inCompleted.haveGroup.length, haveGroup: cnt, noGroup: noGroupNum, studentInfo: list, userid: req.params.uid, sectioninfo: section });
 
         }
 

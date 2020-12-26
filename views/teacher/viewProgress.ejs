@@ -1,0 +1,289 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+</head>
+
+<body>
+
+    <br>
+
+    <h1><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-book text-primary" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+        </svg> &nbsp;<%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %> (Section <%=
+                    sectioninfo.sectionNum %>)
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/teacher/homepage/<%= userid %>">Home</a></li>
+            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewCourse/<%= sectioninfo.in[0].id %>">
+                    <%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %>
+                </a></li>
+            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>">
+                    Section <%= sectioninfo.sectionNum %>
+                </a></li>
+            <li class="breadcrumb-item active" aria-current="page">Group Formation Progress
+            </li>
+        </ol>
+    </nav>
+
+    <br>
+
+
+    <h2><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" fill="currentColor"
+            class="bi bi-bar-chart-line text-info" viewBox="0 0 16 16">
+            <path
+                d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z" />
+        </svg> &nbsp;Group Formation Overview</h2>
+
+    <% if(haveGroup> 0 ){ %>
+
+        <div class="container my-4" style="width:80%;">
+            <div class="row">
+                <div class="col-6" style="padding: 0px; margin: 0px;">
+                    <canvas id="myChart" style="display: block; background-color: rgba(245, 245, 245, 0.568);"
+                        width="607" height="400" class="chartjs-render-monitor"></canvas>
+                </div>
+                <div class="col-6" style="padding: 0px; margin: 0px;">
+                    <canvas id="myChart2" style="display: block; background-color: rgba(245, 245, 245, 0.568);"
+                        width="607" height="400" class="chartjs-render-monitor"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <% } else { %>
+
+            <div class="alert alert-warning" role="alert">
+                No relevant information could be displayed at this moment.
+            </div>
+
+            <% } %>
+
+                <br>
+
+                <% if(studentInfo.length> 0) { %>
+
+
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col">
+                                <h3><svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em"
+                                        fill="currentColor" class="bi bi-people-fill text-danger" viewBox="0 0 16 16">
+                                        <path
+                                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                        <path fill-rule="evenodd"
+                                            d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                                    </svg> &nbsp;Student List</h3>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-default my-2">
+                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-default"
+                                        placeholder="Search for student names..." id="myInput" onkeyup="myFunction()">
+                                </div>
+                            </div>
+                            <div class="col col-lg-2">
+                                <button type="button" class="btn btn-outline-primary my-2" onclick="sortTable()"
+                                    style="float: right;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+                                    </svg> Sort by Group</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Table -->
+                    <table class="table table-hover" id="myTable">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" span="1" style="width: 15%; text-align: center;">Select</th>
+
+                                <th scope="col" span="1" style="width: 15%;">Student ID:
+                                </th>
+                                <th scope="col" span="1" style="width: 25%;">Student Full Name</th>
+                                <th scope="col" span="1" style="width: 30%;">Email address</th>
+                                <th scope="col" span="1" style="width: 20%;">Group</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% studentInfo.forEach( function(model) { %>
+
+                                <tr>
+                                    <td style="text-align:center">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    </td>
+
+                                    <td>
+                                        <%= model.givenId %>
+                                    </td>
+                                    <td>
+                                        <img src="<%= model.imgURL %>" alt="Admin" class="rounded-circle" width="40">
+                                        <%= model.fullName %>
+                                    </td>
+
+                                    <td>
+                                        <%= model.contact_mail %>
+                                    </td>
+
+                                    <td>
+                                        <%= model.create.length> 0 ? 'Group ' + model.create[0].groupNum : 'No Group' %>
+                                    </td>
+
+
+                                    <% }); %>
+                                </tr>
+
+                        </tbody>
+                    </table>
+
+                    <% } %>
+
+
+                        <script>
+
+                            var ctx = document.getElementById('myChart').getContext('2d');
+
+                            // For a pie chart
+                            var myPieChart = new Chart(ctx, {
+                                type: 'pie',
+                                data: {
+                                    datasets: [{
+                                        data: [<%= completedGroupNum %>, <%= inCompletedGroupNum %>],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132)',
+                                            'rgba(255, 206, 86)',
+
+                                        ],
+                                    }],
+
+                                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                                    labels: [
+                                        'Completed Group',
+                                        'Incompleted Group',
+
+                                    ]
+                                },
+
+                                options: {
+                                    title: {
+                                        display: true,
+                                        text: 'Group Formation Progress',
+                                        fontSize: 20,
+
+                                    },
+
+                                }
+
+                            });
+
+
+                            var ctx2 = document.getElementById('myChart2').getContext('2d');
+
+                            // For a pie chart
+                            var myPieChart = new Chart(ctx2, {
+                                type: 'doughnut',
+                                data: {
+                                    datasets: [{
+                                        data: [<%= haveGroup %>, <%= noGroup %>],
+                                        backgroundColor: [
+                                            'rgba(0, 142, 204)',
+                                            'rgba(192, 192, 192)',
+
+                                        ],
+                                    }],
+
+                                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                                    labels: [
+                                        'Have Group',
+                                        'No Group',
+
+                                    ]
+                                },
+
+                                options: {
+                                    title: {
+                                        display: true,
+                                        text: 'Students Participation',
+                                        fontSize: 20,
+                                    },
+
+                                }
+
+                            });
+
+
+
+
+
+
+                            function myFunction() {
+                                // Declare variables
+                                var input, filter, table, tr, td, i, txtValue;
+                                input = document.getElementById("myInput");
+                                filter = input.value.toUpperCase();
+                                table = document.getElementById("myTable");
+                                tr = table.getElementsByTagName("tr");
+
+                                // Loop through all table rows, and hide those who don't match the search query
+                                for (i = 0; i < tr.length; i++) {
+                                    td = tr[i].getElementsByTagName("td")[2];
+                                    if (td) {
+                                        txtValue = td.textContent || td.innerText;
+                                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                            tr[i].style.display = "";
+                                        } else {
+                                            tr[i].style.display = "none";
+                                        }
+                                    }
+                                }
+                            }
+
+                            function sortTable() {
+                                var table, rows, switching, i, x, y, shouldSwitch;
+                                table = document.getElementById("myTable");
+                                switching = true;
+                                /* Make a loop that will continue until
+                                no switching has been done: */
+                                while (switching) {
+                                    // Start by saying: no switching is done:
+                                    switching = false;
+                                    rows = table.rows;
+                                    /* Loop through all table rows (except the
+                                    first, which contains table headers): */
+                                    for (i = 1; i < (rows.length - 1); i++) {
+                                        // Start by saying there should be no switching:
+                                        shouldSwitch = false;
+                                        /* Get the two elements you want to compare,
+                                        one from current row and one from the next: */
+                                        x = rows[i].getElementsByTagName("TD")[4];
+                                        y = rows[i + 1].getElementsByTagName("TD")[4];
+                                        // Check if the two rows should switch place:
+                                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                            // If so, mark as a switch and break the loop:
+                                            shouldSwitch = true;
+                                            break;
+                                        }
+                                    }
+                                    if (shouldSwitch) {
+                                        /* If a switch has been marked, make the switch
+                                        and mark that a switch has been done: */
+                                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                        switching = true;
+                                    }
+                                }
+                            }
+
+
+                        </script>
+
+
+</body>
