@@ -44,6 +44,7 @@ module.exports.routes = {
   'POST /createProject/:id/:fk': 'ProjectController.createProject',
   'POST /student/:uid/section/:sid/project/:pid/createGroup': 'GroupController.createGroup',
   '/student/:uid/section/:sid/project/:pid/viewCreatedGroup/:gid': 'GroupController.viewCreatedGroup',
+  'POST /student/:uid/section/:sid/project/:pid/updateGrpDescription/:gid': 'GroupController.updateGrpDescription',
 
 
   '/student/:sid/viewProject/:id': 'ProjectController.viewProject',

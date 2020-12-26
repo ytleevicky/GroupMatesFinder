@@ -5,8 +5,6 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-
-
 module.exports = {
 
     createGroup: async function (req, res) {
@@ -322,6 +320,18 @@ module.exports = {
         } else {
             return res.json({ message: 'Fail to complete the group formation. Number of students in each group should be ' + minNum + '-' + maxNum + '. Please check again.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
         }
+
+    },
+
+    updateGrpDescription: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        await Group.update(req.params.gid).set({
+            groupDescription: req.body.Group.groupDescription,
+        }).fetch();
+
+        return res.redirect('/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid);
 
     },
 
