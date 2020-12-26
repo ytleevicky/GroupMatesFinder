@@ -25,14 +25,24 @@
     <div class="row">
         <div class="col-6">
             <h3>
-                <%= sectionInfo.haveProject[0].projectName %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-flag-fill text-danger" viewBox="0 0 16 16">
+                    <path
+                        d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
+                </svg> &nbsp;<%= sectionInfo.haveProject[0].projectName %>
             </h3>
         </div>
         <div class="col-6" style="padding-right: 150px;">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-outline-dark mb-4" data-bs-toggle="modal"
+            <button type="button" class="btn btn-outline-primary mb-4" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" style="float: right;">
-                View all students
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-people-fill" viewBox="0 0 16 16">
+                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    <path fill-rule="evenodd"
+                        d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                    <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                </svg> View all students
             </button>
         </div>
     </div>
@@ -159,7 +169,7 @@
         <!-- Display Group Formation Completed -->
         <div class="container my-5 text-secondary" style="width:900px;">
             <div class="col-sm-9">
-                <h5><b>Group Formation Completed</b></h5>
+                <h5><b>Completed Groups</b></h5>
                 <table class="table table-hover table-striped" style="width:800px;">
 
                     <thead class="table-light">
@@ -216,12 +226,13 @@
         <% } else { %>
 
             <div class="container my-5 text-secondary" style="width:900px;">
-                <h5><b>Group Formation Completed</b></h5>
+                <h5><b>Completed Groups</b></h5>
                 <div class="container" style="padding: 0px; width: 860px;">
                     <div class="row">
                         <div class="alert alert-success col-12" role="alert" style="width: 90%;">
                             No group has completed the formation at this moment.
                         </div>
+
                     </div>
                 </div>
             </div>
