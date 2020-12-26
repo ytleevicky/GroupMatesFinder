@@ -5,8 +5,6 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const { compareSync } = require("bcryptjs");
-
 
 module.exports = {
 
@@ -59,15 +57,9 @@ module.exports = {
 
             var groups2 = await Group.find(project2.haveGroup.map(v => v.id)).populate('createdBy');
 
-            console.log("Have Group");
-            console.log(groups2);
-
             var p = await Project.findOne(req.params.pid).populate('haveGroup', { where: { formationStatus: 'inCompleted' } });
 
             var avaGroup = await Group.find(p.haveGroup.map(v => v.id)).populate('createdBy');
-
-            console.log("THIS");
-            console.log(avaGroup);
 
             return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid, groupInfo: groups, projectInfo: project, completedGroup: groups2, availableGroup: avaGroup });
 
