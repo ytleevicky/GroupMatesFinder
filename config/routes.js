@@ -50,11 +50,11 @@ module.exports.routes = {
   '/student/:sid/viewProject/:id': 'ProjectController.viewProject',
   '/student/:sid/section/:id/project/:pid': 'ProjectController.groupFormation',
   '/teacher/:id/section/:fk/participants': 'CourseController.addParticipants',
-  '/student/:sid/section/:fk/project/:pid/viewStudentProfile/:id': 'ProjectController.viewStudentProfile',
+  '/viewStudentProfile/:id': 'ProjectController.viewStudentProfile',
   'POST /addParticipant/:id/:fk': 'CourseController.addParticipants',
   'POST /participant/:id/:fk/:uid': 'CourseController.removeParticipants',
   'POST /student/:uid/section/:sid/project/:pid/group/:gid/inviteMember': 'GroupController.inviteMember',
-
+  'POST /student/:uid/section/:sid/project/:pid/group/:gid/cancelInvitation': 'GroupController.cancelInvitation',  // Not in use
 
 
   // Invitation

@@ -71,11 +71,11 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-            var student = await User.findOne({ where: { givenId: req.params.id } });
+            var student = await User.findOne({ where: { id: req.params.id } });
 
-            var section = await Section.findOne({ where: { id: req.params.fk } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
+            //  var section = await Section.findOne({ where: { id: req.params.fk } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
 
-            return res.view('user/viewStudentProfile', { studentInfo: student, userid: req.params.sid, sectionInfo: section, projectid: req.params.pid });
+            return res.view('user/viewStudentProfile', { studentInfo: student });
 
         }
 

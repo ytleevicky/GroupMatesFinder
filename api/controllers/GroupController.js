@@ -94,7 +94,7 @@ module.exports = {
 
             var section = await Section.findOne(req.params.sid).populate("haveProject", { where: { id: req.params.pid } }).populate('in').populate('haveStudent');
 
-            var group = await Group.findOne(req.params.gid).populate('createdBy');
+            var group = await Group.findOne(req.params.gid).populate('createdBy').populate('invite');
 
             var pplRequest = await Group.findOne(req.params.gid).populate('consider');
 
@@ -138,6 +138,9 @@ module.exports = {
         if (req.method == 'GET') {
 
             var user = await User.findOne(req.params.id).populate('apply');
+
+            // Update the invitation Num 
+            req.session.invitationNum = user.apply.length;
 
             var project = await Group.find(user.apply.map(v => v.id)).populate('inProject').populate('createdBy');
 
@@ -204,6 +207,19 @@ module.exports = {
         req.session.invitationNum = student.apply.length;
 
         return res.json({ message: 'You have successfully reject the invitation.', url: '/invitation/' + req.params.uid });
+
+    },
+
+    // Not in use
+    cancelInvitation: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        var student = await User.findOne({ where: { id: req.body.cancelid } });
+
+        await Group.removeFromCollection(req.params.gid, 'invite').members(student.id);
+
+        return res.json({ message: 'Request has been cancelled ', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
 
     },
 
