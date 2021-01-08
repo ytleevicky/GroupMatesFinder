@@ -122,40 +122,45 @@
                         <tbody>
 
                             <% availableGroup.forEach( function(model) { %>
-                                <tr>
-                                    <td>
-                                        <% var s=[]; for(i=0; i < model.createdBy.length; i++) {
-                                            s[i]=model.createdBy[i]; } %>
 
+                                <% if (model.createdBy.length> 0) { %>
+                                    <tr>
+                                        <td>
+                                            <% var s=[]; for(i=0; i < model.createdBy.length; i++) {
+                                                s[i]=model.createdBy[i]; } %>
+
+                                                <div style="text-align:center">
+
+                                                    <% if (a==model.id) { %>
+                                                        <u>Group <%= model.groupNum %>
+                                                        </u>
+
+                                                        <% } else { %>
+                                                            <a
+                                                                href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= projectInfo.id %>/viewGroup/<%= model.id %>">Group
+                                                                <%= model.groupNum %>
+                                                            </a>
+                                                            <% } %>
+                                                </div>
+                                        </td>
+                                        <td>
                                             <div style="text-align:center">
-
-                                                <% if (a==model.id) { %>
-                                                    <u>Group <%= model.groupNum %>
-                                                    </u>
-
-                                                    <% } else { %>
-                                                        <a
-                                                            href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= projectInfo.id %>/viewGroup/<%= model.id %>">Group
-                                                            <%= model.groupNum %>
-                                                        </a>
-                                                        <% } %>
+                                                <%= model.createdBy.length %> / <%=
+                                                        sectionInfo.haveProject[0].numOfStudentMax %>
                                             </div>
-                                    </td>
-                                    <td>
-                                        <div style="text-align:center">
-                                            <%= model.createdBy.length %> / <%=
-                                                    sectionInfo.haveProject[0].numOfStudentMax %>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="text-align:center">
-                                            ?</div>
-                                    </td>
+                                        </td>
+                                        <td>
+                                            <div style="text-align:center">
+                                                ?</div>
+                                        </td>
 
-                                    <% }); %>
+                                        <% } %>
+
+                                            <% }); %>
 
 
-                                </tr>
+                                    </tr>
+
 
                         </tbody>
                     </table>

@@ -55,6 +55,8 @@ module.exports = {
 
                     await Group.addToCollection(findProject.haveGroup[0].id, 'createdBy').members(user.id);
 
+                    group = await Group.findOne(findProject.haveGroup[0].id);
+
                     assigned = true;
 
                     break;
@@ -334,7 +336,48 @@ module.exports = {
             return res.json({ message: 'Group formation has been completed.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
 
         } else {
-            return res.json({ message: 'Fail to complete the group formation. Number of students in each group should be ' + minNum + '-' + maxNum + '. Please check again.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+            return res.json({ message: 'Fail to complete the group formation. Number of students in each group should be ' + minNum + '-' + maxNum + '. Please check again.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+        }
+
+    },
+
+    exitGroup: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        // Check if the group formation is completed.
+
+        var exitGroup = await Group.findOne(req.params.gid);
+
+        if (exitGroup.formationStatus == "completed") {
+
+            return res.json({ message: 'Sorry! Since the group formation has been submitted, you cannot exit the group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+
+        }
+
+        // Remove User from Group
+        await User.removeFromCollection(req.params.uid, 'create').members(req.params.gid);
+
+        var g = await Group.findOne(req.params.gid).populate('createdBy');
+
+        if (g.createdBy.length > 0) {
+
+            return res.json({ message: 'Successfully exit from group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+
+        } else {
+
+            var assUser = await Group.findOne(req.params.gid).populate('invite').populate('consider');
+
+            await Group.update(req.params.gid).set({
+                groupDescription: '',
+            }).fetch();
+
+            await Group.removeFromCollection(req.params.gid, 'invite').members(assUser.invite.map(v => v.id));
+
+            await Group.removeFromCollection(req.params.gid, 'consider').members(assUser.consider.map(v => v.id));
+
+            return res.json({ message: 'Successfully exit from group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+
         }
 
     },

@@ -78,14 +78,28 @@
                 </div>
 
                 <!-- Complete group formation -->
-                <div class="my-4" style="padding-left: 65px;">
+                <div class="my-2" style="padding-left: 65px;">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                         data-bs-target="#completeFormationModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-check2 text-light" viewBox="0 0 16 16">
                             <path
                                 d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                        </svg> Mark as Completed
+                        </svg> &nbsp;Mark as Completed
+                    </button>
+                </div>
+
+                <!-- Exit group  -->
+                <div class="my-2" style="padding-left: 100px;">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#exitGroupModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                            <path fill-rule="evenodd"
+                                d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                        </svg> &nbsp;Exit Group
                     </button>
                 </div>
 
@@ -344,6 +358,29 @@
         </div>
     </div>
 
+    <!-- Triggered Modal - Complete Group Formation -->
+    <div class="modal fade" id="exitGroupModal" tabindex="-1" aria-labelledby="exitGroupModalModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exitGroupModalModalLabel">Exit Group
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Exit "Group <%= groupInfo.groupNum %>" ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                    <button type="button" class="btn btn-danger" onclick="exitGroup()">Exit</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 </body>
@@ -452,6 +489,23 @@
     async function completeGroupFormation() {
 
         var response = await fetch('/student/' + <%= userid %> + '/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/completeGroupFormation/' + <%= groupInfo.id %>, {
+            method: "POST",
+            credentials: 'same-origin',
+        });
+
+        if (response.ok) {
+            var data = await response.json();
+            alert(data.message);
+            window.location = data.url;
+        }
+
+    };
+
+    // For confirm exit group modal
+
+    async function exitGroup() {
+
+        var response = await fetch('/student/' + <%= userid %> + '/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/exitGroup/' + <%= groupInfo.id %>, {
             method: "POST",
             credentials: 'same-origin',
         });
