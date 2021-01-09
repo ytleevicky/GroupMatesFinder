@@ -166,6 +166,16 @@ module.exports = {
             return res.json({ message: 'You cannot accept the invitation. You have already formed group in this project.', url: '/invitation/' + req.params.uid })
         }
 
+        // Check if the group is completed
+
+        var g = await Group.findOne(req.params.gid);
+        console.log("project" + g);
+
+        if (g.formationStatus == 'completed') {
+
+            return res.json({ message: 'This group is completed. You cannot accept this invitation', url: '/invitation/' + req.params.uid });
+
+        }
 
         // Check how many people in this group now
 
@@ -267,6 +277,18 @@ module.exports = {
             return res.json({
                 message: 'You cannot add this user to your group. This user has already formed group in this project.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid
             });
+        }
+
+        // Check if the group is completed 
+
+        var g = await Group.findOne(req.params.gid);
+
+        if (g.formationStatus == 'completed') {
+
+            return res.json({
+                message: 'You cannot add this user to your group. Because the group list has been submitted.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid
+            });
+
         }
 
         // Remove all the association between others group and this user. 

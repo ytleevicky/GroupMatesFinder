@@ -75,7 +75,7 @@ module.exports = {
 
         // console.log(req.session.userid);
 
-        var user = await User.findOne(req.session.userid);
+        var user = await User.findOne({ id: req.session.userid });
 
         if (!user) { return res.notFound(); }
 

@@ -98,7 +98,14 @@
                             <a class="nav-link" href="/invitation/<%= req.session.userid %>">Invitation</a>
                             <% } %>
                       </li>
-                      <% } %>
+                      <% } else { %>
+
+                        <li class="nav-item">
+                          <a class="nav-link <%= req.path == "/teacher/evaluation" ? "active" : "" %>"
+                            href="/teacher/evaluation">Evaluation</a>
+                        </li>
+
+                        <% } %>
                   </ul>
 
 

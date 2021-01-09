@@ -69,6 +69,9 @@ module.exports.routes = {
   'POST /student/:uid/section/:sid/project/:pid/completeGroupFormation/:gid': 'GroupController.completeGroupFormation',
   'POST /student/:uid/section/:sid/project/:pid/exitGroup/:gid': 'GroupController.exitGroup',
 
+  // Peer Evaluation
+  '/teacher/viewSection/:sid/project/:pid/peerEvaluation': 'EvaluationController.peerEvaluation',
+  '/teacher/evaluation': 'EvaluationController.evaluation',
 
   // Associations
 
