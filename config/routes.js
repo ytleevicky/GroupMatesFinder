@@ -72,6 +72,7 @@ module.exports.routes = {
   // Peer Evaluation
   '/teacher/viewSection/:sid/project/:pid/peerEvaluation': 'EvaluationController.peerEvaluation',
   '/teacher/evaluation': 'EvaluationController.evaluation',
+  '/teacher/evaluation/add': 'EvaluationController.addEvaluation',
 
   // Associations
 

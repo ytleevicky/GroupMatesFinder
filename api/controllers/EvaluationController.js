@@ -19,6 +19,18 @@ module.exports = {
 
     },
 
+    addEvaluation: async function (req, res) {
+
+        if (req.method == 'GET') {
+
+
+
+            return res.view('evaluation/addEvaluation');
+
+        }
+
+    },
+
     peerEvaluation: async function (req, res) {
 
         if (req.method == 'GET') {
