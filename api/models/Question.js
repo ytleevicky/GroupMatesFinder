@@ -1,5 +1,5 @@
 /**
- * Evaluation.js
+ * Question.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -13,17 +13,14 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    name: {
+    question: {
       type: 'string',
     },
 
-    availability: {
+    type: {
       type: 'string',
     },
 
-    description: {
-      type: 'string',
-    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -34,14 +31,9 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    creator: {
-      collection: 'User',
-      via: 'createEvaluation'
-    },
-
-    contain: {
-      collection: 'Question',
-      via: 'inEvaluation'
+    inEvaluation: {
+      collection: 'Evaluation',
+      via: 'contain'
     },
 
   },

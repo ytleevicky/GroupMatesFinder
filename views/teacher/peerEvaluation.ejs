@@ -33,17 +33,16 @@
                 <h3 class="col-md-4">My Evaluation</h3>
                 <div class="col-md-4 ms-auto">
 
-                    <button class="btn btn-outline-light" style="float: right;" data-bs-toggle="modal"
-                        data-bs-target="#createEvaluationModal"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                            height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
-                            <path
-                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                            <path
-                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                        </svg> &nbsp;Add Evaluation</button>
-
+                    <a href="#"><button class="btn btn-outline-light" style="float: right;" data-bs-toggle="modal"
+                            data-bs-target="#createEvaluationModal"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
+                                <path
+                                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                <path
+                                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                            </svg> &nbsp;Add Evaluation</button></a>
                 </div>
             </div>
         </div>
@@ -53,61 +52,41 @@
             <table class="table">
                 <thead>
                     <tr class="table-light">
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">No.</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Student</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
+
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>
+                            1
+                        </td>
+
+                        <td>
+                            title 1
+                        </td>
+                        <td>
+                            ?
+                        </td>
+
+                        <td>
+                            ?
+                        </td>
+
+                        <td>
+                            ?
+                        </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
+
                 </tbody>
             </table>
 
         </div>
     </div>
-
-
-
-    <!-- Triggered Modal - Create Evaluation -->
-    <div class="modal fade" id="createEvaluationModal" tabindex="-1" aria-labelledby="createEvaluationModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createEvaluationModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
 
 
 </body>

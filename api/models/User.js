@@ -138,6 +138,11 @@ module.exports = {
       via: 'consider'
     },
 
+    createEvaluation: {
+      collection: 'Evaluation',
+      via: 'creator'
+    },
+
     // enrollAt: {
     //   collection: 'AcademicYear',
     //   via: 'haveStudent'

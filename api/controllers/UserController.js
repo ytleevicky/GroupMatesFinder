@@ -208,6 +208,17 @@ module.exports = {
 
     },
 
+    // User-T createEvaluation Evaluation 
+    populate: async function (req, res) {
+
+        var model = await User.findOne(req.params.id).populate("createEvaluation");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
     // User enrollAt AcademicYear
     // populate: async function (req, res) {
 

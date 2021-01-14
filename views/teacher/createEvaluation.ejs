@@ -31,7 +31,7 @@
 
                     <div class="col-3">
                         <div class="form-check my-2">
-                            <input class="form-check-input" type="radio" name="Evaluation[availability]" value="public">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Public
                             </label>
@@ -40,7 +40,7 @@
 
                     <div class="col-3">
                         <div class="form-check my-2">
-                            <input class="form-check-input" type="radio" name="Evaluation[availability]" value="private"
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
                                 checked>
                             <label class="form-check-label" for="flexRadioDefault2">
                                 Private
@@ -50,26 +50,15 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Description:</label>
-                    <textarea class="form-control" name="Evaluation[description]" required></textarea>
+                    <label for="message-text" class="col-form-label">Instruction:</label>
+                    <textarea class="form-control" name="Evaluation[instruction]" required></textarea>
                 </div>
 
                 <br>
+                <div class="mb-3">
 
+                    <h5>Choose Peer Evaluation Question:</h5>
 
-                <h5>Evaluation Attribute:</h5>
-
-                <!-- <div class="my-4">
-                    <div class="form-group row">
-                        <label for="example-title" class="col-4 col-form-label">Number of Question:</label>
-                        <div class="col-2">
-                            <input type="number" class="form-control" name="q" required>
-                        </div>
-                    </div>
-                </div> -->
-
-
-                <div class="my-3">
                     <% allQuestions.forEach( function(question) { %>
 
                         <div class="form-check">
@@ -85,7 +74,7 @@
 
 
                 <button type="submit" class="btn btn-primary mx-1" style="float: right;">Create</button>
-                <a href="/teacher/evaluation" class="btn btn-secondary mx-1" style="float: right;">Return</a>
+                <a href="/teacher/evaluation" class="btn btn-secondary mx-1" style="float: right;">Close</a>
 
             </form>
 

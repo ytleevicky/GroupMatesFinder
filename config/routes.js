@@ -70,9 +70,11 @@ module.exports.routes = {
   'POST /student/:uid/section/:sid/project/:pid/exitGroup/:gid': 'GroupController.exitGroup',
 
   // Peer Evaluation
-  '/teacher/viewSection/:sid/project/:pid/peerEvaluation': 'EvaluationController.peerEvaluation',
+  // '/teacher/viewSection/:sid/project/:pid/peerEvaluation': 'EvaluationController.peerEvaluation',
   '/teacher/evaluation': 'EvaluationController.evaluation',
   '/teacher/evaluation/add': 'EvaluationController.addEvaluation',
+  'POST /teacher/evaluation/add': 'EvaluationController.addEvaluation',
+  '/teacher/viewEvaluation/:eid': 'EvaluationController.viewEvaluation',
 
   // Associations
 
@@ -107,6 +109,12 @@ module.exports.routes = {
 
   'GET /user/:id/applyGroup': 'UserController.populate',
   'GET /group/:id/consider': 'GroupController.populate',
+
+  'GET /user/:id/createEvaluation': 'UserController.populate',
+  'GET /evaluation/:id/creator': 'EvaluationController.populate',
+
+  'GET /question/:id/inEvaluation': 'QuestionController.populate',
+  'GET /evaluation/:id/contain': 'EvaluationController.populate',
 
 
 
