@@ -104,17 +104,6 @@ module.exports.bootstrap = async function () {
 
   }
 
-  if (await Question.count() == 0) {
-
-    await Question.createEach([
-      { question: 'Degree of Co-operation', type: 'Co-operation' },
-      { question: 'Degree of Communication', type: 'Communication' },
-      { question: 'Degree of Leadership', type: 'Leadership' },
-      { question: 'Degree of Time Management', type: 'Time Management' },
-
-    ]);
-
-  }
 
   // const Yr2019S1 = await AcademicYear.findOne({termID: '2019-S1'});
   // const Yr2019S2 = await AcademicYear.findOne({termID: '2019-S2'});

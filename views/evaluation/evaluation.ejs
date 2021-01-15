@@ -10,59 +10,44 @@
 
     <br>
 
+    <!-- My Evaluation -->
+    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="allEvaluation-tab">
+        <br>
 
-    <!-- Navigation (Profile, Past Performance) -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="allEvaluation-tab" data-toggle="tab" href="#profile" role="tab"
-                aria-controls="home" aria-selected="true">
-                My Evaluation</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#performance" role="tab"
-                aria-controls="profile" aria-selected="false">
-                All Evaluation</a>
-        </li>
+        <div class="row">
+            <h3 class="col-md-4">My Mixed Evaluation</h3>
+            <div class="col-md-4 ms-auto">
 
-    </ul>
+                <a class="btn btn-primary" href="/teacher/evaluation/add"
+                    style="font-size: 18px; text-decoration: none; float: right;"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
+                        <path
+                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                        <path
+                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                    </svg> &nbsp;Add Mixed Evaluation</a>
 
-    <div class="tab-content" id="myTabContent">
-
-        <!-- My Evaluation -->
-        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="allEvaluation-tab">
-            <br>
-
-            <div class="row">
-                <h3 class="col-md-4">My Evaluation</h3>
-                <div class="col-md-4 ms-auto">
-
-                    <a class="btn btn-primary btn-sm" href="/teacher/evaluation/add"
-                        style="font-size: 18px; text-decoration: none; float: right;"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                            class="bi bi-clipboard-plus" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
-                            <path
-                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                            <path
-                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                        </svg> &nbsp;Add Evaluation</a>
-
-                </div>
             </div>
+        </div>
 
 
-            <div class="card-body">
+        <div class="card-body">
+
+            <% if (myEvaluationInfo.length> 0) { %>
 
                 <table class="table table-bordered">
-                    <thead>
+                    <thead style="vertical-align: middle;">
                         <tr class="table-secondary">
                             <th scope="col" span="1" style="text-align: center;">Name</th>
-                            <th scope="col" span="1" style="text-align: center; width: 12%;">Availability</th>
-                            <th scope="col" span="1" style="text-align: center; width: 20%;">Peer Evaluation Question
+                            <th scope="col" span="1" style="text-align: center; width: 15%;">Peer Evaluation Question
+                            </th>
+                            <th scope="col" span="1" style="text-align: center; width: 15%;">Self Evaluation Question
                             </th>
                             <th scope="col" span="1" style="text-align: center;">Creator</th>
-                            <th scope="col" span="1" style="text-align: center;">Creation Date</th>
+                            <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,10 +62,12 @@
                                     </a>
                                 </td>
                                 <td style="text-align:center">
-                                    <%= model.availability %>
+                                    <%= model.createdQuestion.peerEvaluation!=null ?
+                                        model.createdQuestion.peerEvaluation.length : 0 %>
                                 </td>
                                 <td style="text-align:center">
-                                    <%= model.contain.length %>
+                                    <%= model.createdQuestion.selfEvaluation!=null ?
+                                        model.createdQuestion.selfEvaluation.length : 0 %>
                                 </td>
 
                                 <td style="text-align:center" class="text">
@@ -94,85 +81,18 @@
 
                                 <% }); %>
                             </tr>
-
                     </tbody>
                 </table>
 
-            </div>
+                <% } else { %>
+
+                    <div class="alert alert-warning" role="alert">
+                        No Mixed Evaluation at this moment.
+                    </div>
+
+                    <% } %>
 
 
-        </div>
-
-        <!-- All Evaluation -->
-        <div class="tab-pane fade" id="performance" role="tabpanel" aria-labelledby="profile-tab">
-            <br>
-
-            <div class="row">
-                <h3 class="col-md-4">All Evaluation</h3>
-                <div class="col-md-4 ms-auto">
-
-                    <a class="btn btn-primary btn-sm" href="/teacher/evaluation/add"
-                        style="font-size: 18px; text-decoration: none; float: right;"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                            class="bi bi-clipboard-plus" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
-                            <path
-                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                            <path
-                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                        </svg> &nbsp;Add Evaluation</a>
-
-                </div>
-            </div>
-
-
-            <div class="card-body">
-
-                <table class="table table-bordered">
-                    <thead>
-                        <tr class="table-secondary">
-                            <th scope="col" span="1" style="text-align: center;">Name</th>
-                            <th scope="col" span="1" style="text-align: center; width: 12%;">Availability</th>
-                            <th scope="col" span="1" style="text-align: center; width: 20%;">Peer Evaluation Question
-                            </th>
-                            <th scope="col" span="1" style="text-align: center;">Creator</th>
-                            <th scope="col" span="1" style="text-align: center;">Creation Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <% evaluationInfo.forEach( function(model) { %>
-
-                            <tr>
-                                <td style="text-align:center">
-                                    <a href="/teacher/viewEvaluation/<%= model.id %>" class="text-decoration-none">
-                                        <%= model.name %>
-                                    </a>
-                                </td>
-                                <td style="text-align:center">
-                                    <%= model.availability %>
-                                </td>
-                                <td style="text-align:center">
-                                    <%= model.contain.length %>
-                                </td>
-
-                                <td style="text-align:center">
-                                    <%= model.creator[0].preferred_name %>
-                                </td>
-
-                                <td style="text-align:center">
-                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
-                                        }).format(model.createdAt) %>
-                                </td>
-
-                                <% }); %>
-                            </tr>
-
-                    </tbody>
-                </table>
-
-            </div>
 
         </div>
 
@@ -180,11 +100,9 @@
     </div>
 
 
+
+
+
+
+
 </body>
-
-
-<style>
-    a:hover {
-        color: rgb(56, 141, 56);
-    }
-</style>

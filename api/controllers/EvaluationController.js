@@ -16,14 +16,9 @@ module.exports = {
 
             // Display my created evaluation
             var eval = await User.findOne(req.session.userid).populate('createEvaluation');
-            var myEval = await Evaluation.find(eval.createEvaluation.map(v => v.id)).populate('contain').populate('creator');
+            var myEval = await Evaluation.find(eval.createEvaluation.map(v => v.id)).populate('creator');
 
-            // Display all evaluation
-            var evaluation = await Evaluation.find({ where: { availability: 'public' } }).populate('creator').populate('contain');
-
-            console.log(evaluation);
-
-            return res.view('evaluation/evaluation', { evaluationInfo: evaluation, myEvaluationInfo: myEval });
+            return res.view('evaluation/evaluation', { myEvaluationInfo: myEval });
 
         }
 
@@ -33,9 +28,8 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-            var question = await Question.find();
 
-            return res.view('evaluation/addEvaluation', { allQuestions: question });
+            return res.view('evaluation/addEvaluation');
 
         }
 
@@ -45,14 +39,6 @@ module.exports = {
         var user = await User.findOne({ where: { id: req.session.userid } });
 
         await Evaluation.addToCollection(evaluation.id, 'creator').members(user.id);
-
-        var quest = req.body.c;
-
-        for (var i = 0; i < quest.length; i++) {
-
-            await Evaluation.addToCollection(evaluation.id, 'contain').members(parseInt(quest[i]));
-
-        }
 
         return res.redirect('/teacher/evaluation');
 
@@ -80,7 +66,9 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-            var evaluation = await Evaluation.findOne(req.params.eid).populate('contain').populate('creator');
+            var evaluation = await Evaluation.findOne(req.params.eid).populate('creator');
+
+            console.log(evaluation)
 
             return res.view('evaluation/viewEvaluation', { evaluationInfo: evaluation });
 
@@ -124,17 +112,6 @@ module.exports = {
     populate: async function (req, res) {
 
         var model = await Evaluation.findOne(req.params.id).populate("creator");
-
-        if (!model) return res.notFound();
-
-        return res.json(model);
-
-    },
-
-    // Evaluation contain Question 
-    populate: async function (req, res) {
-
-        var model = await Evaluation.findOne(req.params.id).populate("contain");
 
         if (!model) return res.notFound();
 

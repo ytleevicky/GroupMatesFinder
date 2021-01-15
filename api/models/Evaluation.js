@@ -17,12 +17,16 @@ module.exports = {
       type: 'string',
     },
 
-    availability: {
-      type: 'string',
-    },
+    // availability: {
+    //   type: 'string',
+    // },
 
     description: {
       type: 'string',
+    },
+
+    createdQuestion: {
+      type: 'json',
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -39,10 +43,6 @@ module.exports = {
       via: 'createEvaluation'
     },
 
-    contain: {
-      collection: 'Question',
-      via: 'inEvaluation'
-    },
 
   },
 

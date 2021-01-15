@@ -113,9 +113,6 @@ module.exports.routes = {
   'GET /user/:id/createEvaluation': 'UserController.populate',
   'GET /evaluation/:id/creator': 'EvaluationController.populate',
 
-  'GET /question/:id/inEvaluation': 'QuestionController.populate',
-  'GET /evaluation/:id/contain': 'EvaluationController.populate',
-
 
 
   // 'GET /user/:id/enrollAt': 'UserController.populate',

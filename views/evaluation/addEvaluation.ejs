@@ -5,7 +5,7 @@
     <div class="card">
 
         <div class="card-header">
-            <h4>Create Evaluation</h4>
+            <h4 style="margin: 0px;">Create Mixed Evaluation</h4>
         </div>
 
         <div class="card-body" style="padding: 30px;">
@@ -24,30 +24,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <div class="col-3">
-                        <label for="evaluationName" class="col-form-label">Availability:</label>
-                    </div>
-
-                    <div class="col-3">
-                        <div class="form-check my-2">
-                            <input class="form-check-input" type="radio" name="Evaluation[availability]" value="public">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Public
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <div class="form-check my-2">
-                            <input class="form-check-input" type="radio" name="Evaluation[availability]" value="private"
-                                checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Private
-                            </label>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="mb-3">
                     <label for="message-text" class="col-form-label">Description:</label>
@@ -57,31 +33,57 @@
                 <br>
 
 
-                <h5>Evaluation Attribute:</h5>
+                <h5>Peer Evaluation Questions:</h5>
 
-                <!-- <div class="my-4">
-                    <div class="form-group row">
-                        <label for="example-title" class="col-4 col-form-label">Number of Question:</label>
-                        <div class="col-2">
-                            <input type="number" class="form-control" name="q" required>
-                        </div>
+                <div class="my-3 row">
+                    <div class="col-5">
+                        <p>Peer Evaluation Question Type:</p>
                     </div>
-                </div> -->
+                    <div class="col-3">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="mySelect">
+                            <option value="Rating" id="rating">Rating</option>
+                            <option value="Paragraph" id="paragraph">Paragraph</option>
+                            <option value="Sentence" id="sentence">Sentence</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary btn-sm" onclick="showQuestion()">Add Question</button>
+                        <div id="numOfQuestion1"></div>
+                    </div>
+                </div>
 
+                <div class="container" style="padding-left: 50px;">
 
-                <div class="my-3">
-                    <% allQuestions.forEach( function(question) { %>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="c" value="<%= question.id %>">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                <%= question.question %>
-                            </label>
-                        </div>
-
-                        <% }); %>
+                    <div id="myLocation1"></div>
 
                 </div>
+
+                <h5>Self Evaluation Questions:</h5>
+
+                <div class="my-3 row">
+                    <div class="col-5">
+                        <p>Self Evaluation Question Type:</p>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="mySelect2">
+                            <option value="Rating" id="rating">Rating</option>
+                            <option value="Paragraph" id="paragraph">Paragraph</option>
+                            <option value="Sentence" id="sentence">Sentence</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary btn-sm" onclick="showQuestion2()">Add Question</button>
+                        <div id="numOfQuestion2"></div>
+                    </div>
+                </div>
+
+                <div class="container" style="padding-left: 50px;">
+
+                    <div id="myLocation2"></div>
+
+                </div>
+
+                <br>
 
 
                 <button type="submit" class="btn btn-primary mx-1" style="float: right;">Create</button>
@@ -104,3 +106,36 @@
         margin: auto;
     }
 </style>
+
+<script>
+
+    var i = 1;
+
+    function showQuestion() {
+
+        var ansType = document.getElementById("mySelect").value;
+
+        var data = "<div class='form-group w-60'>Q" + i + ". " + ansType + " Answer Question<div class='mb-3 row'><div class='col-2'><label class='col-form-label'>Question</label></div><div class='col-10 my-2'><input type='text' class='form-control form-control' name='Evaluation[createdQuestion][peerEvaluation][" + i + "][question]' required/></div></div><input type='hidden' name='Evaluation[createdQuestion][peerEvaluation][" + i + "][type]' value='" + ansType + "'></div>";
+
+        $('#myLocation1').before(data);
+
+        i++;
+
+    }
+
+    var n = 1;
+
+    function showQuestion2() {
+
+        var ansType2 = document.getElementById("mySelect2").value;
+
+        var data2 = "<div class='form-group w-60'>Q" + n + ". " + ansType2 + " Answer Question<div class='mb-3 row'><div class='col-2'><label class='col-form-label'>Question</label></div><div class='col-10 my-2'><input type='text' class='form-control form-control' name='Evaluation[createdQuestion][selfEvaluation][" + n + "][question]' required/></div></div><input type='hidden' name='Evaluation[createdQuestion][selfEvaluation][" + n + "][type]' value='" + ansType2 + "'></div>";
+
+        $('#myLocation2').before(data2);
+
+        n++;
+
+    }
+
+
+</script>
