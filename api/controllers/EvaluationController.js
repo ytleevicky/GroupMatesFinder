@@ -76,36 +76,6 @@ module.exports = {
 
     },
 
-    // createEvaluation: async function (req, res) {
-
-    //     if (req.method == 'GET') {
-
-    //         var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
-
-    //         var project = await Project.findOne(req.params.pid).populate('haveGroup');
-
-    //         var question = await Question.find();
-
-    //         return res.view('teacher/createEvaluation', { sectioninfo: section, projectinfo: project, allQuestions: question });
-
-    //     }
-
-    //     console.log("req.body.c :");
-
-    //     console.log(req.body.c);
-
-    //     var evaluation = await Evaluation.create(req.body.Evaluation).fetch();
-
-    //     var user = await User.findOne({ where: { id: req.session.userid } });
-
-    //     await Evaluation.addToCollection(evaluation.id, 'creator').members(user.id);
-
-    //     console.log("Created Evaluation");
-
-    //     console.log(evaluation);
-
-    //     return res.redirect('/teacher/viewSection/' + req.params.sid + '/project/' + req.params.pid + '/peerEvaluation');
-    // },
 
 
     // Evaluation creator User 

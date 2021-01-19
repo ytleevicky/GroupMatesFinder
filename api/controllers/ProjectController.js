@@ -147,5 +147,16 @@ module.exports = {
 
     },
 
+    // Project haveEvent EvalEvent
+    populate: async function (req, res) {
+
+        var model = await Project.findOne(req.params.id).populate("haveEvent");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
 };
 

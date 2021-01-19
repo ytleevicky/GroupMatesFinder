@@ -36,21 +36,21 @@
 
         <div class="card-body">
 
-            <% if (myEvaluationInfo.length> 0) { %>
+            <table class="table table-bordered">
+                <thead style="vertical-align: middle;">
+                    <tr class="table-secondary">
+                        <th scope="col" span="1" style="text-align: center;">Name</th>
+                        <th scope="col" span="1" style="text-align: center; width: 15%;">Peer Evaluation Question
+                        </th>
+                        <th scope="col" span="1" style="text-align: center; width: 15%;">Self Evaluation Question
+                        </th>
+                        <th scope="col" span="1" style="text-align: center;">Creator</th>
+                        <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                <table class="table table-bordered">
-                    <thead style="vertical-align: middle;">
-                        <tr class="table-secondary">
-                            <th scope="col" span="1" style="text-align: center;">Name</th>
-                            <th scope="col" span="1" style="text-align: center; width: 15%;">Peer Evaluation Question
-                            </th>
-                            <th scope="col" span="1" style="text-align: center; width: 15%;">Self Evaluation Question
-                            </th>
-                            <th scope="col" span="1" style="text-align: center;">Creator</th>
-                            <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <% if (myEvaluationInfo.length> 0) { %>
 
 
                         <% myEvaluationInfo.forEach( function(model) { %>
@@ -78,19 +78,21 @@
                                     <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
                                         }).format(model.createdAt) %>
                                 </td>
-
-                                <% }); %>
                             </tr>
-                    </tbody>
-                </table>
 
-                <% } else { %>
+                            <% }); %>
+                </tbody>
+            </table>
 
-                    <div class="alert alert-warning" role="alert">
+            <% } else { %>
+
+                <tr>
+                    <td colspan="5" style="text-align: center;">
                         No Mixed Evaluation at this moment.
-                    </div>
+                    </td>
+                </tr>
 
-                    <% } %>
+                <% } %>
 
 
 

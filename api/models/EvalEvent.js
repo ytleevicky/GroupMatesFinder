@@ -1,5 +1,5 @@
 /**
- * Project.js
+ * Event.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -13,47 +13,23 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    // projectID: {
-    //   type: 'string',
-    //   required: true,
-    // },
-
-    projectName: {
+    eventName: {
       type: 'string',
-      required: true,
     },
 
-    numOfStudentMin: {
+    eventDes: {
+      type: 'string',
+    },
+
+    dueDate: {
       type: 'number',
-      required: true,
     },
 
-    numOfStudentMax: {
-      type: 'number',
-      required: true,
+    evaluationTemp: {
+      type: 'json',
     },
 
-    groupFormationDate: {
-      type: 'string',
-      required: true,
-    },
 
-    projectSubmitDate: {
-      type: 'string',
-      required: true,
-    },
-
-    projectDescription: {
-      type: 'string',
-    },
-
-    courseName: {
-      type: 'string',
-    },
-
-    courseID: {
-      type: 'string'
-    },
 
 
 
@@ -66,19 +42,9 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    inSection: {
-      collection: 'Section',
-      via: 'haveProject'
-    },
-
-    haveGroup: {
-      collection: 'Group',
-      via: 'inProject'
-    },
-
-    haveEvent: {
-      collection: 'EvalEvent',
-      via: 'belongTo'
+    belongTo: {
+      collection: 'Project',
+      via: 'haveEvent'
     },
 
   },
