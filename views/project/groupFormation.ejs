@@ -97,7 +97,7 @@
             </div>
         </div>
 
-        <% if(availableGroup.length==0 ) { %>
+        <!-- <% if(availableGroup.length==0 ) { %>
             <div class="container" style="padding: 0px; width: 860px;">
                 <div class="row">
                     <div class="alert alert-warning col-12" role="alert" style="width: 90%;">
@@ -166,32 +166,106 @@
                     </table>
                 </div>
 
-                <% } %>
+                <% } %> -->
+
+
+        <div class="col-sm-9">
+            <table class="table table-bordered" style="width:800px;">
+
+                <thead style="vertical-align: middle;">
+                    <tr class="table-secondary">
+                        <th scope="col" span="1" style="width: 30%; text-align: center;">Group</th>
+                        <th scope="col" span="1" style="width: 30%; text-align: center;">Members
+                        </th>
+                        <th scope="col" span="1" style="width: 30%; text-align: center;">Recommended %</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <% if(availableGroup.length> 0 ) { %>
+
+                        <% availableGroup.forEach( function(model) { %>
+
+                            <% if (model.createdBy.length> 0) { %>
+                                <tr>
+                                    <td>
+                                        <% var s=[]; for(i=0; i < model.createdBy.length; i++) {
+                                            s[i]=model.createdBy[i]; } %>
+
+                                            <div style="text-align:center">
+
+                                                <% if (a==model.id) { %>
+                                                    <u>Group <%= model.groupNum %>
+                                                    </u>
+
+                                                    <% } else { %>
+                                                        <a
+                                                            href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= projectInfo.id %>/viewGroup/<%= model.id %>">Group
+                                                            <%= model.groupNum %>
+                                                        </a>
+                                                        <% } %>
+                                            </div>
+                                    </td>
+                                    <td>
+                                        <div style="text-align:center">
+                                            <%= model.createdBy.length %> / <%=
+                                                    sectionInfo.haveProject[0].numOfStudentMax %>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="text-align:center">
+                                            ?</div>
+                                    </td>
+
+                                    <% } %>
+
+                                </tr>
+
+                                <% }); %>
+
+                                    <% } else { %>
+
+                                        <tr>
+                                            <td colspan="3" style="text-align: center;">
+                                                No available group at this moment.
+                                            </td>
+                                        </tr>
+
+
+                                        <% } %>
+
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
-    <% if (completedGroup.length> 0 ) { %>
 
-        <!-- Display Group Formation Completed -->
-        <div class="container my-5 text-secondary" style="width:900px;">
-            <div class="col-sm-9">
-                <h5><b>Completed Groups</b></h5>
-                <table class="table table-hover table-striped" style="width:800px;">
 
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col" span="1" style="width: 30%; text-align: center;">Group</th>
-                            <th scope="col" span="1" style="width: 30%; text-align: center;">Members
-                            </th>
-                            <th scope="col" span="1" style="width: 30%; text-align: center;">Recommended %</th>
-                        </tr>
-                    </thead>
+    <!-- Display Group Formation Completed -->
+    <div class="container my-5 text-secondary" style="width:900px;">
+        <div class="col-sm-9">
+            <h5><b>Completed Groups</b></h5>
+            <table class="table table-bordered" style="width:800px;">
 
-                    <tbody>
+                <thead style="vertical-align: middle;">
+                    <tr class="table-secondary">
+                        <th scope="col" span="1" style="width: 30%; text-align: center;">Group</th>
+                        <th scope="col" span="1" style="width: 30%; text-align: center;">Members
+                        </th>
+                        <th scope="col" span="1" style="width: 30%; text-align: center;">Recommended %</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <% if (completedGroup.length> 0 ) { %>
 
                         <% completedGroup.forEach( function(model) { %>
+
                             <tr>
                                 <td>
-
                                     <% var s=[]; for(i=0; i < model.createdBy.length; i++) { s[i]=model.createdBy[i]; }
                                         %>
 
@@ -220,171 +294,162 @@
                                         ?</div>
                                 </td>
 
-                                <% }); %>
                             </tr>
 
-                    </tbody>
-                </table>
+                            <% }); %>
+
+                                <% } else { %>
+
+                                    <tr>
+                                        <td colspan="5" style="text-align: center;">
+                                            No completed group at this moment.
+                                        </td>
+                                    </tr>
+
+                                    <% }%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Triggered Modal (Student List) -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">View all students</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Display number of students -->
+                    <% if (sectionInfo.haveStudent.length !=0 ) { %>
+                        <p class="text-muted" style="float: right;">Number of Students: <%=
+                                sectionInfo.haveStudent.length %>
+                        </p>
+                        <% } %>
+
+                            <!-- Student List -->
+                            <!-- Table (Display Student List) -->
+                            <% if (sectionInfo.haveStudent.length !=0 ) { %>
+
+                                <table class="table table-hover table-striped">
+
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col" span="1" style="width: 7%;">#</th>
+                                            <th scope="col" span="1" style="width: 13%;">Student ID:
+                                            </th>
+                                            <th scope="col" span="1" style="width: 28%;">Student Full Name
+                                            </th>
+                                            <th scope="col" span="1" style="width: 15%;">Gender</th>
+                                            <th scope="col" span="1" style="width: 30%;">Study Programme
+                                            </th>
+                                            <th scope="col" span="1" style="width: 13%; text-align: center;">Study Year
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <% var n=1; %>
+
+                                            <% sectionInfo.haveStudent.forEach( function(model) { %>
+                                                <tr>
+                                                    <td>
+                                                        <%= n %>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/viewStudentProfile/<%= model.id %>" target="_blank"
+                                                            rel="noopener noreferrer">
+                                                            <%= model.givenId %>
+                                                        </a>
+
+                                                    </td>
+                                                    <td>
+                                                        <img src="<%= model.imgURL %>" alt="Admin"
+                                                            class="rounded-circle" width="40">
+                                                        <%= model.fullName %>
+                                                    </td>
+                                                    <td>
+                                                        <%= model.gender %>
+                                                    </td>
+                                                    <td>
+
+                                                        <%= model.study_programme %>
+
+                                                    </td>
+                                                    <td>
+                                                        <div style="text-align:center">
+                                                            <%= model.study_year %>
+                                                        </div>
+                                                    </td>
+                                                    <% n++; %>
+
+                                                        <% }); %>
+                                                </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <% } %>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Return</button>
+                </div>
             </div>
         </div>
+    </div>
 
-        <% } else { %>
 
-            <div class="container my-5 text-secondary" style="width:900px;">
-                <h5><b>Completed Groups</b></h5>
-                <div class="container" style="padding: 0px; width: 860px;">
-                    <div class="row">
-                        <div class="alert alert-success col-12" role="alert" style="width: 90%;">
-                            No group has completed the formation at this moment.
-                        </div>
-
-                    </div>
+    <!-- Triggered Modal - Confirm create group Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="createGroupModal" tabindex="-1" aria-labelledby="createGroupModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createGroupModalLabel">Create Group</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Confirm to create a group ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form
+                        action="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/createGroup"
+                        method="POST" onsubmit="createForm(this);return false">
+                        <button type="submit" class="btn btn-primary">Create group</button>
+                    </form>
                 </div>
             </div>
-            <% }%>
+        </div>
+    </div>
 
-
-
-                <!-- Triggered Modal (Student List) -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">View all students</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-
-                                <!-- Display number of students -->
-                                <% if (sectionInfo.haveStudent.length !=0 ) { %>
-                                    <p class="text-muted" style="float: right;">Number of Students: <%=
-                                            sectionInfo.haveStudent.length %>
-                                    </p>
-                                    <% } %>
-
-                                        <!-- Student List -->
-                                        <!-- Table (Display Student List) -->
-                                        <% if (sectionInfo.haveStudent.length !=0 ) { %>
-
-                                            <table class="table table-hover table-striped">
-
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th scope="col" span="1" style="width: 7%;">#</th>
-                                                        <th scope="col" span="1" style="width: 13%;">Student ID:
-                                                        </th>
-                                                        <th scope="col" span="1" style="width: 28%;">Student Full Name
-                                                        </th>
-                                                        <th scope="col" span="1" style="width: 15%;">Gender</th>
-                                                        <th scope="col" span="1" style="width: 30%;">Study Programme
-                                                        </th>
-                                                        <th scope="col" span="1"
-                                                            style="width: 13%; text-align: center;">Study Year
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-
-                                                    <% var n=1; %>
-
-                                                        <% sectionInfo.haveStudent.forEach( function(model) { %>
-                                                            <tr>
-                                                                <td>
-                                                                    <%= n %>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="/viewStudentProfile/<%= model.id %>"
-                                                                        target="_blank" rel="noopener noreferrer">
-                                                                        <%= model.givenId %>
-                                                                    </a>
-
-                                                                </td>
-                                                                <td>
-                                                                    <img src="<%= model.imgURL %>" alt="Admin"
-                                                                        class="rounded-circle" width="40">
-                                                                    <%= model.fullName %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= model.gender %>
-                                                                </td>
-                                                                <td>
-
-                                                                    <%= model.study_programme %>
-
-                                                                </td>
-                                                                <td>
-                                                                    <div style="text-align:center">
-                                                                        <%= model.study_year %>
-                                                                    </div>
-                                                                </td>
-                                                                <% n++; %>
-
-                                                                    <% }); %>
-                                                            </tr>
-
-                                                </tbody>
-                                            </table>
-
-                                            <% } %>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Return</button>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Triggered Modal - View Group List -->
+    <div class="modal fade" id="viewGroupModal" tabindex="-1" aria-labelledby="viewGroupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewGroupModalLabel">Group List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
-
-                <!-- Triggered Modal - Confirm create group Modal -->
-                <!-- Modal -->
-                <div class="modal fade" id="createGroupModal" tabindex="-1" aria-labelledby="createGroupModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="createGroupModalLabel">Create Group</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Confirm to create a group ?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <form
-                                    action="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/createGroup"
-                                    method="POST" onsubmit="createForm(this);return false">
-                                    <button type="submit" class="btn btn-primary">Create group</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-body">
+                    ...
                 </div>
-
-                <!-- Triggered Modal - View Group List -->
-                <div class="modal fade" id="viewGroupModal" tabindex="-1" aria-labelledby="viewGroupModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="viewGroupModalLabel">Group List</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
+            </div>
+        </div>
+    </div>
 
 
 
