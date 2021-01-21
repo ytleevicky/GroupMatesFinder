@@ -82,7 +82,8 @@ module.exports.routes = {
   'POST /teacher/viewSection/:sid/project/:pid/addEvaluationEvent': 'EvalEventController.addEvaluationEvent',
 
   '/student/section/:sid/project/:pid/evaluationEvent': 'EvalEventController.viewEvaluationEvent',
-  '/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',
+  'GET /section/:sid/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',
+  'POST /section/:sid/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',
 
   // Associations
 
@@ -124,6 +125,11 @@ module.exports.routes = {
   'GET /project/:id/haveEvent': 'ProjectController.populate',
   'GET /event/:id/belongTo': 'EvalEventController.populate',
 
+  'GET /group/:id/haveResponse': 'GroupController.populate',
+  'GET /response/:id/inGroup': 'EvalResponseController.populate',
+
+  'GET /event/:id/completedResponse': 'EvalEventController.populate',
+  'GET /response/:id/inEvent': 'EvalResponseController.populate',
 
 
   // 'GET /user/:id/enrollAt': 'UserController.populate',

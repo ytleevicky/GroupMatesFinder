@@ -60,7 +60,7 @@
                     <% if (inGroup.length> 0) { %>
 
 
-                        <% eventInfo.haveEvent.forEach( function(event) { %>
+                        <!-- <% eventInfo.haveEvent.forEach( function(event) { %>
                             <tr>
                                 <td style="text-align:center">
                                     <%= event.eventName %>
@@ -77,9 +77,84 @@
                                     <span class="badge rounded-pill bg-success">In-progress</span>
                                 </td>
                                 <td style="text-align:center">
-                                    <a href="/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
+                                    <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
                                         class="btn btn-primary btn-sm">View</a>
                                 </td>
+                            </tr>
+                            <% }); %> -->
+
+                        <% responseInfo.forEach( function(event) { %>
+                            <tr>
+                                <td style="text-align:center">
+                                    <%= event.eventName %>
+                                </td>
+                                <td style="text-align:center">
+                                    Group <%= inGroup[0].groupNum %>
+                                </td>
+                                <td style="text-align:center">
+                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
+                                        }).format(event.dueDate) %>
+                                </td>
+
+                                <% if(event.completedResponse.length> 0) { %>
+
+                                    <!-- Check the status -->
+                                    <% event.completedResponse.forEach( function(response) { %>
+
+                                        <% if (response.evaluator==userid && response.eventid==event.id) { %>
+
+                                            <td style="text-align:center">
+                                                <span class="badge rounded-pill bg-success">Completed</span>
+                                            </td>
+
+                                            <% } else{ %>
+
+                                                <td style="text-align:center">
+                                                    <span class="badge rounded-pill bg-success">In-progress</span>
+                                                </td>
+
+                                                <% } %>
+
+                                                    <% }); %>
+
+
+                                                        <!-- Check to see if the current user can complete an evaluation form -->
+                                                        <% event.completedResponse.forEach( function(response) { %>
+
+                                                            <% if (response.evaluator==userid &&
+                                                                response.eventid==event.id) { %>
+
+                                                                <td style="text-align:center">
+                                                                    <a href="#" class="btn btn-primary btn-sm">View</a>
+                                                                </td>
+
+                                                                <% } else{ %>
+
+                                                                    <td style="text-align:center">
+                                                                        <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
+                                                                            class="btn btn-primary btn-sm">Start</a>
+                                                                    </td>
+
+                                                                    <% } %>
+
+                                                                        <% }); %>
+
+
+                                                                            <% } else { %>
+
+                                                                                <td style="text-align:center">
+                                                                                    <span
+                                                                                        class="badge rounded-pill bg-success">In-progress</span>
+                                                                                </td>
+
+                                                                                <td style="text-align:center">
+                                                                                    <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
+                                                                                        class="btn btn-primary btn-sm">Start</a>
+                                                                                </td>
+
+                                                                                <% } %>
+
+
                             </tr>
                             <% }); %>
 

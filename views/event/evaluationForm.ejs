@@ -30,148 +30,229 @@
 
         <br>
 
-        <% if (eventInfo.evaluationTemp.peerEvaluation!=null ) { %>
+        <form method="POST"
+            action="/section/<%= sectionid %>/project/<%= projectid %>/group/<%= projectid %>/event/<%= eventInfo.id %>"
+            onsubmit="createForm(this);return false">
+
+            <% if (eventInfo.evaluationTemp.peerEvaluation!=null ) { %>
 
 
-            <h4><mark>Peer Evaluation Question:</mark></h4>
+                <h4><mark>Peer Evaluation Question:</mark></h4>
 
-            <% groupMemberInfo.createdBy.forEach( function(member) { %>
+                <% n=1 %>
 
-                <div class="my-6">
+                    <% groupMemberInfo.createdBy.forEach( function(member) { %>
 
-                    <h4 class="text-secondary" style="text-align: center;">
-                        <%= member.fullName %> (<%= member.givenId %>)
-                    </h4>
+                        <div class="my-6">
 
-                    <br>
+                            <h4 class="text-secondary" style="text-align: center;">
+                                <%= member.fullName %> (<%= member.givenId %>)
+                            </h4>
 
-                    <% var i=1 %>
-                        <% eventInfo.evaluationTemp.peerEvaluation.forEach( function(question) { %>
+                            <input type="hidden" name="EvalResponse[formResponse][peerEvaluation][<%= n %>][evaluatee]"
+                                value="<%= member.id %>">
+                        </div>
 
+                        <br>
 
-                            <div class="mb-5">
+                        <% var i=1 %>
+                            <% eventInfo.evaluationTemp.peerEvaluation.forEach( function(question) { %>
 
-                                <b>Q<%= i %>. <%= question.question %></b>
+                                <div class="mb-5">
 
-                                <% if(question.type=="Rating" ) { %>
+                                    <b>Q<%= i %>. <%= question.question %></b>
+                                    <input type="hidden"
+                                        name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][question]"
+                                        value="<%= question.question %>">
 
-                                    <div class="my-2" style="padding-left: 50px; width: 650px;">
-                                        <select class="form-select w-30" aria-label="Default select example">
-                                            <option>Please rate</option>
-                                            <option value="1">1: Very Unsatisfactory</option>
-                                            <option value="2">2: Unsatisfactory</option>
-                                            <option value="3">3: Average</option>
-                                            <option value="4">4: Good</option>
-                                            <option value="5">5: Excellent</option>
-                                        </select>
-                                    </div>
+                                    <% if(question.type=="Rating" ) { %>
 
-                                    <% } else if (question.type=="Paragraph" ) { %>
+                                        <input type="hidden"
+                                            name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][type]"
+                                            value="<%= question.type %>">
 
-                                        <div style="padding-left: 50px;">
-                                            <textarea class="form-control my-2" name="Project[projectDescription]"
-                                                rows="4" required></textarea>
+                                        <div class="my-2" style="padding-left: 50px; width: 650px;">
+                                            <select class="form-select w-30" aria-label="Default select example"
+                                                name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][answer]">
+                                                <option>Please rate</option>
+                                                <option value="1: Very Unsatisfactory">1: Very Unsatisfactory</option>
+                                                <option value="2: Unsatisfactory">2: Unsatisfactory</option>
+                                                <option value="3: Average">3: Average</option>
+                                                <option value="4: Good">4: Good</option>
+                                                <option value="5: Excellent">5: Excellent</option>
+                                            </select>
                                         </div>
 
-                                        <% } else { %>
+                                        <% } else if (question.type=="Paragraph" ) { %>
 
-                                            <div class="input-group flex-nowrap my-2" style="padding-left: 50px;">
+                                            <input type="hidden"
+                                                name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][type]"
+                                                value="<%= question.type %>">
 
-                                                <input type="text" class="form-control" aria-label="answer"
-                                                    aria-describedby="addon-wrapping">
+                                            <div style="padding-left: 50px;">
+                                                <textarea class="form-control my-2"
+                                                    name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][answer]"
+                                                    rows="4" required></textarea>
                                             </div>
 
-                                            <% } %>
+                                            <% } else { %>
 
-                            </div>
+                                                <input type="hidden"
+                                                    name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][type]"
+                                                    value="<%= question.type %>">
 
+                                                <div class="input-group flex-nowrap my-2" style="padding-left: 50px;">
 
-                            <% i++ %>
+                                                    <input type="text" class="form-control" aria-label="answer"
+                                                        aria-describedby="addon-wrapping"
+                                                        name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][answer]">
+                                                </div>
 
-                                <% }); %>
+                                                <% } %>
 
-                </div>
-
-                <% }); %>
-
-                    <br>
-
-                    <% } %>
-
-
-                        <% if(eventInfo.evaluationTemp.peerEvaluation!=null &&
-                            eventInfo.evaluationTemp.selfEvaluation!=null) { %>
-                            <hr>
-                            <br>
-                            <% } %>
+                                </div>
 
 
-                                <% if (eventInfo.evaluationTemp.selfEvaluation!=null ) { %>
+                                <% i++ %>
 
-                                    <div class="my-8">
+                                    <% }); %>
 
-                                        <h4><mark>Self Evaluation Question:</mark></h4>
-                                        <br>
 
-                                        <% var i=1 %>
-                                            <% eventInfo.evaluationTemp.selfEvaluation.forEach( function(question) { %>
 
-                                                <div class="mb-5">
-                                                    <b>Q<%= i %>. <%= question.question %></b>
+                                        <% n++ %>
 
-                                                    <% if(question.type=="Rating" ) { %>
+                                            <% }); %>
 
-                                                        <div class="my-2" style="padding-left: 50px; width: 650px;">
+                                                <br>
 
-                                                            <select class="form-select w-30"
-                                                                aria-label="Default select example">
-                                                                <option>Please rate</option>
-                                                                <option value="1">1: Very Unsatisfactory</option>
-                                                                <option value="2">2: Unsatisfactory</option>
-                                                                <option value="3">3: Average</option>
-                                                                <option value="4">4: Good</option>
-                                                                <option value="5">5: Excellent</option>
-                                                            </select>
-                                                        </div>
+                                                <% } %>
 
-                                                        <% } else if (question.type=="Paragraph" ) { %>
 
-                                                            <div style="padding-left: 50px;">
-                                                                <textarea class="form-control my-2"
-                                                                    name="Project[projectDescription]" rows="4"
-                                                                    required></textarea>
-                                                            </div>
+                                                    <% if(eventInfo.evaluationTemp.peerEvaluation!=null &&
+                                                        eventInfo.evaluationTemp.selfEvaluation!=null) { %>
+                                                        <hr>
+                                                        <br>
+                                                        <% } %>
 
-                                                            <% } else { %>
 
-                                                                <div class="input-group flex-nowrap my-2"
-                                                                    style="padding-left: 50px;">
+                                                            <% if (eventInfo.evaluationTemp.selfEvaluation!=null ) { %>
 
-                                                                    <input type="text" class="form-control"
-                                                                        aria-label="answer"
-                                                                        aria-describedby="addon-wrapping">
+                                                                <div class="my-8">
+
+                                                                    <h4><mark>Self Evaluation Question:</mark></h4>
+                                                                    <br>
+
+                                                                    <% var i=1 %>
+                                                                        <% eventInfo.evaluationTemp.selfEvaluation.forEach(
+                                                                            function(question) { %>
+
+                                                                            <div class="mb-5">
+                                                                                <b>Q<%= i %>. <%= question.question %>
+                                                                                </b>
+
+                                                                                <input type="hidden"
+                                                                                    name="EvalResponse[formResponse][selfEvaluation][<%= i %>][question]"
+                                                                                    value="<%= question.question %>">
+
+
+                                                                                <% if(question.type=="Rating" ) { %>
+
+                                                                                    <input type="hidden"
+                                                                                        name="EvalResponse[formResponse][selfEvaluation][<%= i %>][type]"
+                                                                                        value="<%= question.type %>">
+
+                                                                                    <div class="my-2"
+                                                                                        style="padding-left: 50px; width: 650px;">
+
+                                                                                        <select class="form-select w-30"
+                                                                                            aria-label="Default select example"
+                                                                                            name="EvalResponse[formResponse][selfEvaluation][<%= i %>][answer]">
+                                                                                            <option>Please rate</option>
+                                                                                            <option value="1: Very
+                                                                                                Unsatisfactory">1: Very
+                                                                                                Unsatisfactory</option>
+                                                                                            <option value="2:
+                                                                                                Unsatisfactory">2:
+                                                                                                Unsatisfactory</option>
+                                                                                            <option value="3: Average">
+                                                                                                3: Average
+                                                                                            </option>
+                                                                                            <option value="4: Good">4:
+                                                                                                Good
+                                                                                            </option>
+                                                                                            <option value="5:
+                                                                                                Excellent">5:
+                                                                                                Excellent
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+
+                                                                                    <% } else if
+                                                                                        (question.type=="Paragraph" ) {
+                                                                                        %>
+
+                                                                                        <input type="hidden"
+                                                                                            name="EvalResponse[formResponse][selfEvaluation][<%= i %>][type]"
+                                                                                            value="<%= question.type %>">
+
+                                                                                        <div
+                                                                                            style="padding-left: 50px;">
+                                                                                            <textarea
+                                                                                                class="form-control my-2"
+                                                                                                name="EvalResponse[formResponse][selfEvaluation][<%= i %>][answer]"
+                                                                                                rows="4"
+                                                                                                required></textarea>
+                                                                                        </div>
+
+                                                                                        <% } else { %>
+
+                                                                                            <input type="hidden"
+                                                                                                name="EvalResponse[formResponse][selfEvaluation][<%= i %>][type]"
+                                                                                                value="<%= question.type %>">
+
+                                                                                            <div class="input-group flex-nowrap my-2"
+                                                                                                style="padding-left: 50px;">
+
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    aria-label="answer"
+                                                                                                    aria-describedby="addon-wrapping"
+                                                                                                    name="EvalResponse[formResponse][selfEvaluation][<%= i %>][answer]">
+                                                                                            </div>
+
+                                                                                            <% } %>
+
+                                                                            </div>
+
+                                                                            <% i++ %>
+
+                                                                                <% }); %>
+
+
                                                                 </div>
 
                                                                 <% } %>
 
-                                                </div>
+                                                                    <div class="d-grid gap-2 col-3 mx-auto">
+                                                                        <button class="btn btn-primary"
+                                                                            type="submit">Submit
+                                                                            the
+                                                                            Evaluation</button>
+                                                                    </div>
 
-                                                <% i++ %>
+                                                                    <input type="hidden" name="EvalResponse[evaluator]"
+                                                                        value="<%= userid %>">
 
-                                                    <% }); %>
+                                                                    <input type="hidden" name="EvalResponse[eventid]"
+                                                                        value="<%= eventInfo.id %>">
+
+                                                                    <input type="hidden" name="EvalResponse[groupid]"
+                                                                        value="<%= groupid %>">
 
 
-                                    </div>
-
-                                    <% } %>
-
-                                        <div class="d-grid gap-2 col-3 mx-auto">
-                                            <button class="btn btn-primary" type="button">Submit the
-                                                Evaluation</button>
-                                        </div>
+        </form>
 
     </div>
-
 
 
 
@@ -183,3 +264,36 @@
         font-size: large;
     }
 </style>
+
+<script>
+
+    async function createForm(oFormElement) {
+
+        var response = await fetch(oFormElement.action, {
+            method: "POST",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
+
+
+
+
+</script>

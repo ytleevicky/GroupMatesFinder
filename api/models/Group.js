@@ -55,6 +55,11 @@ module.exports = {
       via: 'applyGroup'
     },
 
+    haveResponse: {
+      collection: 'EvalResponse',
+      via: 'inGroup'
+    },
+
 
 
   },

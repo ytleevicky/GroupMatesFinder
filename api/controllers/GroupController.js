@@ -460,6 +460,17 @@ module.exports = {
 
     },
 
+    // Group haveResponse EvalResponse
+    populate: async function (req, res) {
+
+        var model = await Group.findOne(req.params.id).populate("haveResponse");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
 
 };
 
