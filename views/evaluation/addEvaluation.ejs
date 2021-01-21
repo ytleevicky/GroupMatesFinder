@@ -1,97 +1,99 @@
 <body>
 
-    <br>
 
-    <div class="card">
 
-        <div class="card-header">
-            <h4 style="margin: 0px;">Create Mixed Evaluation</h4>
-        </div>
+    <div class="container" style="padding: 40px 150px;">
 
-        <div class="card-body" style="padding: 30px;">
 
-            <form method="POST" action="/teacher/evaluation/add">
+        <h4 style="margin: 0px;">Create Mixed Evaluation</h4>
 
-                <h5>Info:</h5>
+        <br>
+        <br>
 
-                <br>
 
-                <div class="mb-3">
-                    <div class="form-group row">
-                        <label for="example-title" class="col-2 col-form-label">Name:</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control" name="Evaluation[name]" required>
-                        </div>
+        <form method="POST" action="/teacher/evaluation/add">
+
+            <h5>Info:</h5>
+
+            <br>
+
+            <div class="mb-3">
+                <div class="form-group row">
+                    <label for="example-title" class="col-2 col-form-label">Name:</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="Evaluation[name]" required>
                     </div>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Description:</label>
-                    <textarea class="form-control" name="Evaluation[description]" required></textarea>
+            <div class="mb-3">
+                <label for="message-text" class="col-form-label">Description:</label>
+                <textarea class="form-control" name="Evaluation[description]" required></textarea>
+            </div>
+
+            <br>
+            <br>
+
+
+            <h5>Peer Evaluation Questions:</h5>
+
+            <div class="my-3 row">
+                <div class="col-5">
+                    <p>Peer Evaluation Question Type:</p>
                 </div>
-
-                <br>
-
-
-                <h5>Peer Evaluation Questions:</h5>
-
-                <div class="my-3 row">
-                    <div class="col-5">
-                        <p>Peer Evaluation Question Type:</p>
-                    </div>
-                    <div class="col-3">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="mySelect">
-                            <option value="Rating" id="rating">Rating</option>
-                            <option value="Paragraph" id="paragraph">Paragraph</option>
-                            <option value="Sentence" id="sentence">Sentence</option>
-                        </select>
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-primary btn-sm" onclick="showQuestion()">Add Question</button>
-                        <div id="numOfQuestion1"></div>
-                    </div>
+                <div class="col-3">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="mySelect">
+                        <option value="Rating" id="rating">Rating</option>
+                        <option value="Paragraph" id="paragraph">Paragraph</option>
+                        <option value="Sentence" id="sentence">Sentence</option>
+                    </select>
                 </div>
-
-                <div class="container" style="padding-left: 50px;">
-
-                    <div id="myLocation1"></div>
-
+                <div class="col-4">
+                    <button class="btn btn-primary btn-sm" onclick="showQuestion()">Add Question</button>
+                    <div id="numOfQuestion1"></div>
                 </div>
+            </div>
 
-                <h5>Self Evaluation Questions:</h5>
+            <div class="container" style="padding-left: 50px;">
 
-                <div class="my-3 row">
-                    <div class="col-5">
-                        <p>Self Evaluation Question Type:</p>
-                    </div>
-                    <div class="col-3">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="mySelect2">
-                            <option value="Rating" id="rating">Rating</option>
-                            <option value="Paragraph" id="paragraph">Paragraph</option>
-                            <option value="Sentence" id="sentence">Sentence</option>
-                        </select>
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-primary btn-sm" onclick="showQuestion2()">Add Question</button>
-                        <div id="numOfQuestion2"></div>
-                    </div>
+                <div id="myLocation1"></div>
+
+            </div>
+
+            <h5>Self Evaluation Questions:</h5>
+
+            <div class="my-3 row">
+                <div class="col-5">
+                    <p>Self Evaluation Question Type:</p>
                 </div>
-
-                <div class="container" style="padding-left: 50px;">
-
-                    <div id="myLocation2"></div>
-
+                <div class="col-3">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="mySelect2">
+                        <option value="Rating" id="rating">Rating</option>
+                        <option value="Paragraph" id="paragraph">Paragraph</option>
+                        <option value="Sentence" id="sentence">Sentence</option>
+                    </select>
                 </div>
+                <div class="col-4">
+                    <button class="btn btn-primary btn-sm" onclick="showQuestion2()">Add Question</button>
+                    <div id="numOfQuestion2"></div>
+                </div>
+            </div>
 
-                <br>
+            <div class="container" style="padding-left: 50px;">
+
+                <div id="myLocation2"></div>
+
+            </div>
+
+            <br>
 
 
-                <button type="submit" class="btn btn-primary mx-1" style="float: right;">Create</button>
-                <a href="/teacher/evaluation" class="btn btn-secondary mx-1" style="float: right;">Return</a>
+            <button type="submit" class="btn btn-primary mx-1" style="float: right;">Create</button>
+            <a href="/teacher/evaluation" class="btn btn-secondary mx-1" style="float: right;">Return</a>
 
-            </form>
+        </form>
 
-        </div>
+
 
     </div>
 

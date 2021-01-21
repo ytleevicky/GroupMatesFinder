@@ -81,7 +81,8 @@ module.exports.routes = {
   'GET /teacher/viewSection/:sid/project/:pid/addEvaluationEvent': 'EvalEventController.addEvaluationEvent',
   'POST /teacher/viewSection/:sid/project/:pid/addEvaluationEvent': 'EvalEventController.addEvaluationEvent',
 
-
+  '/student/section/:sid/project/:pid/evaluationEvent': 'EvalEventController.viewEvaluationEvent',
+  '/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',
 
   // Associations
 

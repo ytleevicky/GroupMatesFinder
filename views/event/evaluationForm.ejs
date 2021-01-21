@@ -1,0 +1,185 @@
+<body>
+
+    <br>
+
+    <h1>
+        <%= eventInfo.eventName %>
+    </h1>
+
+    <div class="my-4">
+
+
+        <div class="my-5">
+            <h5>Instruction:</h5>
+            <%= eventInfo.eventDes %>
+        </div>
+
+        <div class="my-5">
+            <h5>Notes:</h5>
+            <ul>
+                <li>Only ONE attempt allowed for this peer evaluation</li>
+                <li>You cannot REATTEMPT the peer evaluation once you finished evaluate all of your group members</li>
+                <li>Check the Group Members before Start </li>
+                <li>The evaluation is due on <b class="text-danger">
+                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
+                            }).format(eventInfo.dueDate) %>
+                    </b>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <% if (eventInfo.evaluationTemp.peerEvaluation!=null ) { %>
+
+
+            <h4><mark>Peer Evaluation Question:</mark></h4>
+
+            <% groupMemberInfo.createdBy.forEach( function(member) { %>
+
+                <div class="my-6">
+
+                    <h4 class="text-secondary" style="text-align: center;">
+                        <%= member.fullName %> (<%= member.givenId %>)
+                    </h4>
+
+                    <br>
+
+                    <% var i=1 %>
+                        <% eventInfo.evaluationTemp.peerEvaluation.forEach( function(question) { %>
+
+
+                            <div class="mb-5">
+
+                                <b>Q<%= i %>. <%= question.question %></b>
+
+                                <% if(question.type=="Rating" ) { %>
+
+                                    <div class="my-2" style="padding-left: 50px; width: 650px;">
+                                        <select class="form-select w-30" aria-label="Default select example">
+                                            <option>Please rate</option>
+                                            <option value="1">1: Very Unsatisfactory</option>
+                                            <option value="2">2: Unsatisfactory</option>
+                                            <option value="3">3: Average</option>
+                                            <option value="4">4: Good</option>
+                                            <option value="5">5: Excellent</option>
+                                        </select>
+                                    </div>
+
+                                    <% } else if (question.type=="Paragraph" ) { %>
+
+                                        <div style="padding-left: 50px;">
+                                            <textarea class="form-control my-2" name="Project[projectDescription]"
+                                                rows="4" required></textarea>
+                                        </div>
+
+                                        <% } else { %>
+
+                                            <div class="input-group flex-nowrap my-2" style="padding-left: 50px;">
+
+                                                <input type="text" class="form-control" aria-label="answer"
+                                                    aria-describedby="addon-wrapping">
+                                            </div>
+
+                                            <% } %>
+
+                            </div>
+
+
+                            <% i++ %>
+
+                                <% }); %>
+
+                </div>
+
+                <% }); %>
+
+                    <br>
+
+                    <% } %>
+
+
+                        <% if(eventInfo.evaluationTemp.peerEvaluation!=null &&
+                            eventInfo.evaluationTemp.selfEvaluation!=null) { %>
+                            <hr>
+                            <br>
+                            <% } %>
+
+
+                                <% if (eventInfo.evaluationTemp.selfEvaluation!=null ) { %>
+
+                                    <div class="my-8">
+
+                                        <h4><mark>Self Evaluation Question:</mark></h4>
+                                        <br>
+
+                                        <% var i=1 %>
+                                            <% eventInfo.evaluationTemp.selfEvaluation.forEach( function(question) { %>
+
+                                                <div class="mb-5">
+                                                    <b>Q<%= i %>. <%= question.question %></b>
+
+                                                    <% if(question.type=="Rating" ) { %>
+
+                                                        <div class="my-2" style="padding-left: 50px; width: 650px;">
+
+                                                            <select class="form-select w-30"
+                                                                aria-label="Default select example">
+                                                                <option>Please rate</option>
+                                                                <option value="1">1: Very Unsatisfactory</option>
+                                                                <option value="2">2: Unsatisfactory</option>
+                                                                <option value="3">3: Average</option>
+                                                                <option value="4">4: Good</option>
+                                                                <option value="5">5: Excellent</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <% } else if (question.type=="Paragraph" ) { %>
+
+                                                            <div style="padding-left: 50px;">
+                                                                <textarea class="form-control my-2"
+                                                                    name="Project[projectDescription]" rows="4"
+                                                                    required></textarea>
+                                                            </div>
+
+                                                            <% } else { %>
+
+                                                                <div class="input-group flex-nowrap my-2"
+                                                                    style="padding-left: 50px;">
+
+                                                                    <input type="text" class="form-control"
+                                                                        aria-label="answer"
+                                                                        aria-describedby="addon-wrapping">
+                                                                </div>
+
+                                                                <% } %>
+
+                                                </div>
+
+                                                <% i++ %>
+
+                                                    <% }); %>
+
+
+                                    </div>
+
+                                    <% } %>
+
+                                        <div class="d-grid gap-2 col-3 mx-auto">
+                                            <button class="btn btn-primary" type="button">Submit the
+                                                Evaluation</button>
+                                        </div>
+
+    </div>
+
+
+
+
+</body>
+
+<style>
+    b {
+        color: #324880;
+        font-size: large;
+    }
+</style>

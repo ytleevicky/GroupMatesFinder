@@ -54,6 +54,32 @@ module.exports = {
 
     },
 
+    viewEvaluationEvent: async function (req, res) {
+
+        var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
+
+        var event = await Project.findOne({ where: { id: req.params.pid } }).populate('haveEvent').populate('haveGroup');
+
+        var p = await Project.findOne(req.params.pid).populate('haveGroup');
+
+        var user = await User.findOne(req.session.userid).populate('create', { where: { id: p.haveGroup.map(a => a.id), formationStatus: 'completed' } });
+
+        return res.view('project/evaluationEvent', { userid: req.session.userid, sectioninfo: section, eventInfo: event, inGroup: user.create });
+    },
+
+    completeEvaluation: async function (req, res) {
+
+        var event = await EvalEvent.findOne(req.params.eid);
+
+        console.log(event);
+
+        var groupMember = await Group.findOne(req.params.gid).populate('createdBy', { where: { id: { '!=': req.session.userid } } });
+
+        console.log(groupMember);
+
+        return res.view('event/evaluationForm', { eventInfo: event, groupMemberInfo: groupMember });
+    },
+
 
 
     // EvalEvent belongTo Project
