@@ -11,10 +11,9 @@ module.exports = {
 
     evaluationEvent: async function (req, res) {
 
-
         var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
 
-        var event = await Project.findOne({ where: { id: req.params.pid } }).populate('haveEvent');
+        var event = await Project.findOne({ where: { id: req.params.pid } }).populate('haveEvent').populate('haveGroup', { where: { formationStatus: 'completed' } });
 
         return res.view('evaluation/evaluationEvent', { userid: req.session.userid, sectioninfo: section, eventInfo: event });
     },
@@ -62,9 +61,6 @@ module.exports = {
 
         var response = await EvalEvent.find(event.haveEvent.map(v => v.id)).populate('completedResponse');
 
-        console.log("response");
-        console.log(response);
-
         var p = await Project.findOne(req.params.pid).populate('haveGroup');
 
         var user = await User.findOne(req.session.userid).populate('create', { where: { id: p.haveGroup.map(a => a.id), formationStatus: 'completed' } });
@@ -81,17 +77,11 @@ module.exports = {
 
             var groupMember = await Group.findOne(req.params.gid).populate('createdBy', { where: { id: { '!=': req.session.userid } } });
 
-            console.log("groupMember");
-            console.log(groupMember);
-
             return res.view('event/evaluationForm', { eventInfo: event, groupMemberInfo: groupMember, userid: req.session.userid, projectid: req.params.pid, groupid: req.params.gid, sectionid: req.params.sid });
 
         } else {
 
             var response = await EvalResponse.create(req.body.EvalResponse).fetch();
-
-            console.log("Submitted Response: ");
-            console.log(response);
 
             await EvalResponse.addToCollection(response.id, 'inGroup').members(response.groupid);
             await EvalResponse.addToCollection(response.id, 'inEvent').members(response.eventid);

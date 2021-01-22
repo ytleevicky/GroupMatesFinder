@@ -1,0 +1,68 @@
+<body>
+
+    <br>
+
+
+    <h4><mark>Peer Evaluation Question:</mark></h4>
+
+    <br>
+
+
+
+    <% formInfo.formResponse.peerEvaluation.forEach( function(student) { %>
+
+        Student: <%= student.evaluatee %></b>
+
+            <br>
+
+            <% var i=1; %>
+
+                <% student.response.forEach( function(q) { %>
+
+                    <b>Q<%= i %>. <%= q.question %></b>
+
+                    <%= q.answer %>
+                        <br>
+                        <% i++ %>
+                            <% }); %>
+
+                                <br>
+
+                                <br>
+
+
+
+
+                                <% }); %>
+
+
+
+                                    <br>
+
+
+
+                                    <h4><mark>Self Evaluation Question:</mark></h4>
+
+                                    <br>
+
+                                    <% var n=1; %>
+
+                                        <% formInfo.formResponse.selfEvaluation.forEach( function(form) { %>
+
+                                            <b>Q<%= n %>. <%= form.question %></b>
+                                            <%= form.answer %>
+
+                                                <br>
+
+                                                <% n++ %>
+
+                                                    <% }); %>
+
+
+                                                        <br>
+
+                                                        <button class="btn btn-primary">Mark as
+                                                            Reviewed</button>
+
+
+</body>

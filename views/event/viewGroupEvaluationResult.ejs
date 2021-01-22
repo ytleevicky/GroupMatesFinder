@@ -1,0 +1,156 @@
+<body>
+
+    <br>
+
+    <h1><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-book text-primary" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+        </svg>
+        &nbsp;<%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %> (Section <%= sectioninfo.sectionNum
+                    %>)
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/teacher/homepage/<%= userid %>">Home</a></li>
+            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewCourse/<%= sectioninfo.in[0].id %>">
+                    <%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %>
+                </a></li>
+            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>">
+                    Section <%= sectioninfo.sectionNum %>
+                </a></li>
+            <li class="breadcrumb-item"><a
+                    href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/evaluation">
+                    Peer Evaluation
+                </a></li>
+
+            <li class="breadcrumb-item"><a
+                    href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/event/<%= eventid %>/viewEvaluationResult">
+                    Results
+                </a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Group <%= groupInfo.groupNum %>
+            </li>
+        </ol>
+    </nav>
+
+    <br>
+
+    <h3 class="col-md-12"><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" fill="currentColor"
+            class="bi bi-calendar4-week text-info" viewBox="0 0 16 16">
+            <path
+                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1H2zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5z" />
+            <path
+                d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+        </svg> &nbsp;My Evaluation Event > Results > Group <%= groupInfo.groupNum %>
+    </h3>
+
+    <table class="table table-bordered">
+        <thead style="vertical-align: middle;">
+            <tr class="table-secondary">
+                <th scope="col" span="1" style="text-align: center;">Group Member</th>
+                <th scope="col" span="1" style="text-align: center;">Student ID</th>
+                <th scope="col" span="1" style="text-align: center;">Submitted
+                </th>
+                <th scope="col" span="1" style="text-align: center;">Date Submitted
+                </th>
+                <th scope="col" span="1" style="text-align: center;">View
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% groupInfo.createdBy.forEach( function(member) { %>
+
+                <tr>
+                    <td style="text-align:center">
+                        <%= member.fullName %>
+                    </td>
+
+                    <td style="text-align:center">
+                        <%= member.givenId %>
+                    </td>
+
+                    <% n=false; %>
+                        <% t=0; %>
+                            <% f=0; %>
+
+
+                                <% groupInfo.haveResponse.forEach( function(response) { %>
+
+                                    <% if (response.evaluator==member.id) { %>
+
+                                        <% n=true; t=response.createdAt; f=response.id; %>
+
+                                            <% } %>
+
+                                                <% }); %>
+
+                                                    <% if (n==true) { %>
+
+                                                        <td style="text-align:center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                                height="25" fill="currentColor"
+                                                                class="bi bi-check-circle text-success"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                                <path
+                                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                                                            </svg>
+                                                        </td>
+
+                                                        <td style="text-align:center">
+                                                            <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' ,
+                                                                timeStyle: 'short' }).format(t) %>
+                                                        </td>
+
+                                                        <% } else { %>
+
+                                                            <td style="text-align:center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                                    height="25" fill="currentColor"
+                                                                    class="bi bi-x-circle text-danger"
+                                                                    viewBox="0 0 16 16">
+                                                                    <path
+                                                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                                    <path
+                                                                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                                </svg>
+                                                            </td>
+
+                                                            <td style="text-align:center">
+                                                                ---
+                                                            </td>
+
+                                                            <% } %>
+
+
+                                                                <% if (n==true) { %>
+                                                                    <td style="text-align:center">
+                                                                        <a
+                                                                            href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/event/<%= eventid %>/group/<%= groupInfo.id %>/evaluationForm/<%= f %>">Result</a>
+                                                                    </td>
+
+                                                                    <% } else { %>
+
+                                                                        <td style="text-align:center">
+                                                                            ---
+                                                                        </td>
+
+                                                                        <% } %>
+
+
+                </tr>
+
+                <% }); %>
+
+
+        </tbody>
+    </table>
+
+
+
+
+</body>
