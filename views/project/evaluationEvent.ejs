@@ -59,30 +59,6 @@
                     <!-- Ensure that person has group -->
                     <% if (inGroup.length> 0) { %>
 
-
-                        <!-- <% eventInfo.haveEvent.forEach( function(event) { %>
-                            <tr>
-                                <td style="text-align:center">
-                                    <%= event.eventName %>
-                                </td>
-                                <td style="text-align:center">
-                                    Group <%= inGroup[0].groupNum %>
-                                </td>
-                                <td style="text-align:center">
-                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
-                                        }).format(event.dueDate) %>
-                                </td>
-
-                                <td style="text-align:center">
-                                    <span class="badge rounded-pill bg-success">In-progress</span>
-                                </td>
-                                <td style="text-align:center">
-                                    <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                        class="btn btn-primary btn-sm">View</a>
-                                </td>
-                            </tr>
-                            <% }); %> -->
-
                         <% responseInfo.forEach( function(event) { %>
                             <tr>
                                 <td style="text-align:center">
@@ -96,63 +72,59 @@
                                         }).format(event.dueDate) %>
                                 </td>
 
-                                <% if(event.completedResponse.length> 0) { %>
+                                <% var s=false; %>
 
-                                    <!-- Check the status -->
-                                    <% event.completedResponse.forEach( function(response) { %>
+                                    <% if(event.completedResponse.length> 0) { %>
 
-                                        <% if (response.evaluator==userid && response.eventid==event.id) { %>
+                                        <!-- Check the status -->
+                                        <% event.completedResponse.forEach( function(response) { %>
 
-                                            <td style="text-align:center">
-                                                <span class="badge rounded-pill bg-success">Completed</span>
-                                            </td>
+                                            <% if (response.evaluator==userid && response.eventid==event.id) { %>
 
-                                            <% } else{ %>
+                                                <% s=true %>
 
-                                                <td style="text-align:center">
-                                                    <span class="badge rounded-pill bg-success">In-progress</span>
-                                                </td>
+                                                    <% } %>
+                                                        <% }); %>
 
-                                                <% } %>
-
-                                                    <% }); %>
-
-
-                                                        <!-- Check to see if the current user can complete an evaluation form -->
-                                                        <% event.completedResponse.forEach( function(response) { %>
-
-                                                            <% if (response.evaluator==userid &&
-                                                                response.eventid==event.id) { %>
+                                                            <% if (s==true) { %>
+                                                                <td style="text-align:center">
+                                                                    <span
+                                                                        class="badge rounded-pill bg-success">Completed</span>
+                                                                </td>
 
                                                                 <td style="text-align:center">
                                                                     <a href="#" class="btn btn-primary btn-sm">View</a>
                                                                 </td>
 
-                                                                <% } else{ %>
+                                                                <% } else { %>
+                                                                    <td style="text-align:center">
+                                                                        <span
+                                                                            class="badge rounded-pill bg-success">In-progress</span>
+                                                                    </td>
 
                                                                     <td style="text-align:center">
                                                                         <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
                                                                             class="btn btn-primary btn-sm">Start</a>
                                                                     </td>
 
+
                                                                     <% } %>
 
-                                                                        <% }); %>
 
 
-                                                                            <% } else { %>
+                                                                        <% } else { %>
 
-                                                                                <td style="text-align:center">
-                                                                                    <span
-                                                                                        class="badge rounded-pill bg-success">In-progress</span>
-                                                                                </td>
+                                                                            <td style="text-align:center">
+                                                                                <span
+                                                                                    class="badge rounded-pill bg-success">In-progress</span>
+                                                                            </td>
 
-                                                                                <td style="text-align:center">
-                                                                                    <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                                                                        class="btn btn-primary btn-sm">Start</a>
-                                                                                </td>
+                                                                            <td style="text-align:center">
+                                                                                <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
+                                                                                    class="btn btn-primary btn-sm">Start</a>
+                                                                            </td>
 
-                                                                                <% } %>
+                                                                            <% } %>
 
 
                             </tr>

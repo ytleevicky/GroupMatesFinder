@@ -81,6 +81,9 @@ module.exports = {
 
             var groupMember = await Group.findOne(req.params.gid).populate('createdBy', { where: { id: { '!=': req.session.userid } } });
 
+            console.log("groupMember");
+            console.log(groupMember);
+
             return res.view('event/evaluationForm', { eventInfo: event, groupMemberInfo: groupMember, userid: req.session.userid, projectid: req.params.pid, groupid: req.params.gid, sectionid: req.params.sid });
 
         } else {
