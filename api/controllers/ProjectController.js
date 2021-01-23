@@ -47,7 +47,7 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-            var section = await Section.findOne(req.params.id).populate("haveProject", { where: { id: req.params.pid } }).populate('in').populate('haveStudent');
+            var section = await Section.findOne(req.params.id).populate("haveProject", { where: { id: req.params.pid } }).populate('in').populate('haveStudent', { sort: 'givenId' });
 
             var project = await Project.findOne(req.params.pid).populate('haveGroup');
 
@@ -113,9 +113,9 @@ module.exports = {
 
             var noGroupNum = stu.haveStudent.length - cnt;
 
-            var student = await Section.findOne(req.params.sid).populate('haveStudent');
+            var student = await Section.findOne(req.params.sid).populate('haveStudent', { sort: 'givenId' });
 
-            var list = await User.find(student.haveStudent.map(v => v.id)).populate('create', { where: { id: p.haveGroup.map(a => a.id) } });
+            var list = await User.find(student.haveStudent.map(v => v.id)).populate('create', { where: { id: p.haveGroup.map(a => a.id) } }).sort(['givenId']);
 
             return res.view('teacher/viewProgress', { groupInfo: group, completedGroupNum: completed.haveGroup.length, inCompletedGroupNum: inCompleted.haveGroup.length, haveGroup: cnt, noGroup: noGroupNum, studentInfo: list, userid: req.params.uid, sectioninfo: section });
 

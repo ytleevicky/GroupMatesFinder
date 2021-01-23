@@ -122,7 +122,7 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-            var section = await Section.findOne(req.params.fk).populate('in').populate('haveStudent');
+            var section = await Section.findOne(req.params.fk).populate('in').populate('haveStudent', { sort: 'givenId' });
 
             return res.view('teacher/addParticipants', { userid: req.params.id, sectionid: req.params.fk, sectioninfo: section });
 
