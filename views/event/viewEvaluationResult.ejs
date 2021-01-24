@@ -52,24 +52,36 @@
         </thead>
         <tbody>
 
-            <% groupInfo.forEach( function(group) { %>
+            <% if(groupInfo.length> 0) { %>
 
-                <tr>
-                    <td style="text-align:center">
-                        Group <%= group.groupNum %>
-                    </td>
-                    <td style="text-align:center">
-                        <%= group.haveResponse.length %> / <%= group.createdBy.length %>
-                    </td>
-                    <td style="text-align:center">
-                        <a
-                            href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/event/<%= eventid %>/group/<%= group.id %>">
-                            Results
-                        </a>
-                    </td>
-                </tr>
+                <% groupInfo.forEach( function(group) { %>
 
-                <% }); %>
+                    <tr>
+                        <td style="text-align:center">
+                            Group <%= group.groupNum %>
+                        </td>
+                        <td style="text-align:center">
+                            <%= group.haveResponse.length %> / <%= group.createdBy.length %>
+                        </td>
+                        <td style="text-align:center">
+                            <a
+                                href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/event/<%= eventid %>/group/<%= group.id %>">
+                                Results
+                            </a>
+                        </td>
+                    </tr>
+
+                    <% }); %>
+
+                        <% } else { %>
+
+                            <tr>
+                                <td colspan="3" style="text-align: center;">
+                                    No evaluation result at this moment.
+                                </td>
+                            </tr>
+
+                            <% } %>
 
 
         </tbody>

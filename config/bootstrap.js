@@ -73,6 +73,46 @@ module.exports.bootstrap = async function () {
 
   }
 
+  if (await Evaluation.count() == 0) {
+
+    await Evaluation.createEach([
+
+      {
+        name: 'Evaluation Question - Template 1', description: 'This is an evaluation template.', createdQuestion: {
+          peerEvaluation: [
+            {
+              question: "How would you rate the quality of this group member's work?",
+              type: "Rating"
+            },
+            {
+              question: "Areas of improvement for this group member",
+              type: "Sentence"
+            },
+            {
+              question: "Overall feedback and comments about this group member",
+              type: "Paragraph"
+            }
+          ],
+          selfEvaluation: [
+            {
+              question: "Describe your major contributions to this group project.",
+              type: "Paragraph"
+            },
+            {
+              question: "Describe what you have learnt through attempting this group project.",
+              type: "Paragraph"
+            }
+          ]
+        }
+      },
+
+
+
+    ]);
+
+
+  }
+
 
 
 
@@ -87,12 +127,15 @@ module.exports.bootstrap = async function () {
   const teacher2 = await User.findOne({ givenId: 'alexwong' });
   const teacher3 = await User.findOne({ givenId: 'kennethma' });
 
+  const evaluation = await Evaluation.findOne({ name: 'Evaluation Question - Template 1' });
+
 
 
   await User.addToCollection(teacher1.id, 'instruct').members([course1.id, course3.id]);
   await User.addToCollection(teacher2.id, 'instruct').members(course2.id);
   await User.addToCollection(teacher3.id, 'instruct').members(course3.id);
 
+  await User.addToCollection(teacher3.id, 'createEvaluation').members(evaluation.id);
 
 
   return;
