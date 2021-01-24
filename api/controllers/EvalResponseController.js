@@ -48,13 +48,16 @@ module.exports = {
 
         var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
 
+        var group = await Group.findOne(req.params.gid).populate("createdBy");
 
         var form = await EvalResponse.findOne(req.params.fid);
 
         console.log("form");
         console.log(form.formResponse);
 
-        return res.view('event/viewStudentEvaluationForm', { userid: req.session.userid, sectioninfo: section, eventid: req.params.eid, formInfo: form });
+        var evaluator = await User.findOne(form.evaluator);
+
+        return res.view('event/viewStudentEvaluationForm', { userid: req.session.userid, sectioninfo: section, eventid: req.params.eid, formInfo: form, evaluatorInfo: evaluator, groupInfo: group });
     },
 
 

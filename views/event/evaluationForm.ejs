@@ -50,6 +50,13 @@
 
                             <input type="hidden" name="EvalResponse[formResponse][peerEvaluation][<%= n %>][evaluatee]"
                                 value="<%= member.id %>">
+
+                            <input type="hidden"
+                                name="EvalResponse[formResponse][peerEvaluation][<%= n %>][evaluateeFullName]"
+                                value="<%= member.fullName %>">
+                            <input type="hidden"
+                                name="EvalResponse[formResponse][peerEvaluation][<%= n %>][evaluateeStudentID]"
+                                value="<%= member.givenId %>">
                         </div>
 
                         <br>

@@ -94,7 +94,7 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-            var section = await Section.findOne(req.params.sid).populate("haveProject", { where: { id: req.params.pid } }).populate('in').populate('haveStudent');
+            var section = await Section.findOne(req.params.sid).populate("haveProject", { where: { id: req.params.pid } }).populate('in').populate('haveStudent', { sort: 'givenId' });
 
             var group = await Group.findOne(req.params.gid).populate('createdBy').populate('invite');
 
