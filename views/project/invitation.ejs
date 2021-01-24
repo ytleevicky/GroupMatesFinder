@@ -18,7 +18,7 @@
 
             <% projectInfo.forEach( function(model) { %>
 
-                <div class="card" style="width: 40rem;">
+                <div class="card" style="width: 40rem; padding: 10px;">
                     <div class="card-body">
                         <h5 class="card-title"><b>Group <%= model.groupNum %></b>
                         </h5>
@@ -28,12 +28,14 @@
                             </b>
                         </h6>
                         <br>
-                        <div class="container">
+                        <div class="container" style="padding: 15px 160px;">
                             <% model.createdBy.forEach( function(user) { %>
 
-                                <p class="card-text text-center">
+                                <p class="card-text">
                                     <img src="<%= user.imgURL %>" alt="Admin" class="rounded-circle" width="40">
-                                    <%= user.fullName %>
+                                    <a href="/viewStudentProfile/<%= user.id %>">
+                                        <%= user.fullName %>
+                                    </a>
                                 </p>
 
                                 <% }); %>

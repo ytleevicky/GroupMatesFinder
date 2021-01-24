@@ -36,9 +36,11 @@
                 method="POST">
                 <textarea class="form-control" placeholder="Add Group Description (Optional)"
                     name="Group[groupDescription]"><%= groupInfo.groupDescription %></textarea>
-                <button class="btn btn-outline-primary my-2" type="submit" style="float: right;">Update</button>
+                <button class="btn btn-outline-primary my-2" type="submit" style="float: right;">Update Group
+                    Description</button>
             </form>
         </div>
+
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
@@ -48,15 +50,15 @@
                 <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
                     aria-controls="profile" aria-selected="false">Waiting (<%= requestToJoin.consider.length %>)</a>
             </li>
-
         </ul>
-        <div class="tab-content" id="myTabContent">
+
+        <div class="container tab-content" id="myTabContent" style="padding: 5px 25px;">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                 <p class="my-3">Participants: <%= groupInfo.createdBy.length %>
                 </p>
 
-                <div class="list-group" style="width: 350px;">
+                <div class="list-group mb-3" style="width: 350px;">
 
 
                     <a href="#" class="list-group-item"><button type="button" class="btn btn-link"
@@ -78,10 +80,10 @@
                 </div>
 
                 <!-- Complete group formation -->
-                <div class="my-2" style="padding-left: 65px;">
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                <div class="my-1" style="padding-left: 65px;">
+                    <button type="button" class="btn btn-success col-4" data-bs-toggle="modal"
                         data-bs-target="#completeFormationModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor"
                             class="bi bi-check2 text-light" viewBox="0 0 16 16">
                             <path
                                 d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
@@ -90,8 +92,8 @@
                 </div>
 
                 <!-- Exit group  -->
-                <div class="my-2" style="padding-left: 100px;">
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                <div class="my-2" style="padding-left: 65px;">
+                    <button type="button" class="btn btn-danger col-4" data-bs-toggle="modal"
                         data-bs-target="#exitGroupModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -111,22 +113,25 @@
                 <div class="list-group">
 
                     <% requestToJoin.consider.forEach( function(model) { %>
-                        <a href="#" class="list-group-item">
+                        <li class="list-group-item">
                             <img src="<%= model.imgURL %>" alt="Admin" class="rounded-circle" width="45">
-                            &nbsp; <%= model.fullName %>
+                            &nbsp; <a href="/viewStudentProfile/<%= model.id %>" target="_blank"
+                                rel="noopener noreferrer">
+                                <%= model.fullName %>
+                            </a>
 
-                                <button type="button" class="btn btn-danger mx-1 my-2 btn-sm" data-bs-toggle="modal"
-                                    style="float: right;" data-bs-target="#rejectMemberModal"
-                                    data-bs-studentName="<%= model.fullName %>" data-bs-studentid="<%= model.id %>">
-                                    Reject
-                                </button>
+                            <button type="button" class="btn btn-danger mx-1 my-2 btn-sm" data-bs-toggle="modal"
+                                style="float: right;" data-bs-target="#rejectMemberModal"
+                                data-bs-studentName="<%= model.fullName %>" data-bs-studentid="<%= model.id %>">
+                                Reject
+                            </button>
 
-                                <button type="button" class="btn btn-success mx-1 my-2 btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#acceptMemberModal" data-bs-studentName="<%= model.fullName %>"
-                                    data-bs-studentid="<%= model.id %>" style="float: right;">
-                                    Accept
-                                </button>
-                        </a>
+                            <button type="button" class="btn btn-success mx-1 my-2 btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#acceptMemberModal" data-bs-studentName="<%= model.fullName %>"
+                                data-bs-studentid="<%= model.id %>" style="float: right;">
+                                Accept
+                            </button>
+                        </li>
 
                         <% }); %>
 

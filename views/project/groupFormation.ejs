@@ -256,30 +256,31 @@
                 <div class="modal-body">
 
                     <!-- Display number of students -->
-                    <% if (sectionInfo.haveStudent.length !=0 ) { %>
-                        <p class="text-muted" style="float: right;">Number of Students: <%=
-                                sectionInfo.haveStudent.length %>
+                    <% if (listInfo.length !=0 ) { %>
+                        <p class="text-muted" style="float: right;">Number of Students: <%= listInfo.length %>
                         </p>
                         <% } %>
 
                             <!-- Student List -->
                             <!-- Table (Display Student List) -->
-                            <% if (sectionInfo.haveStudent.length !=0 ) { %>
+                            <% if (listInfo.length !=0 ) { %>
 
                                 <table class="table table-hover table-striped">
 
-                                    <thead class="table-light">
+                                    <thead class="table-light" style="vertical-align: middle;">
                                         <tr>
-                                            <th scope="col" span="1" style="width: 7%;">#</th>
-                                            <th scope="col" span="1" style="width: 13%;">Student ID:
+                                            <th scope="col" span="1" style="width: 5%;">#</th>
+                                            <th scope="col" span="1">Student ID:
                                             </th>
-                                            <th scope="col" span="1" style="width: 28%;">Student Full Name
+                                            <th scope="col" span="1">Student Full Name
                                             </th>
-                                            <th scope="col" span="1" style="width: 15%;">Gender</th>
-                                            <th scope="col" span="1" style="width: 30%;">Study Programme
+                                            <th scope="col" span="1" style="width: 10%;">Gender</th>
+                                            <th scope="col" span="1">Study Programme
                                             </th>
-                                            <th scope="col" span="1" style="width: 13%; text-align: center;">Study Year
+                                            <th scope="col" span="1" style="text-align: center;">Study Year
                                             </th>
+
+                                            <th scope="col" span="1" style="text-align: center;">Group</th>
                                         </tr>
                                     </thead>
 
@@ -287,7 +288,7 @@
 
                                         <% var n=1; %>
 
-                                            <% sectionInfo.haveStudent.forEach( function(model) { %>
+                                            <% listInfo.forEach( function(model) { %>
                                                 <tr>
                                                     <td>
                                                         <%= n %>
@@ -317,6 +318,15 @@
                                                             <%= model.study_year %>
                                                         </div>
                                                     </td>
+
+                                                    <td>
+                                                        <div style="text-align:center">
+                                                            <%= model.create.length> 0 ? 'Group ' +
+                                                                model.create[0].groupNum
+                                                                : '---' %>
+                                                        </div>
+                                                    </td>
+
                                                     <% n++; %>
 
                                                         <% }); %>

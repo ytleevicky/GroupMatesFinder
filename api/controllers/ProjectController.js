@@ -61,7 +61,11 @@ module.exports = {
 
             var avaGroup = await Group.find(p.haveGroup.map(v => v.id)).populate('createdBy');
 
-            return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid, groupInfo: groups, projectInfo: project, completedGroup: groups2, availableGroup: avaGroup });
+            var student = await Section.findOne(req.params.id).populate('haveStudent');
+
+            var list = await User.find(student.haveStudent.map(v => v.id)).populate('create', { where: { id: project.haveGroup.map(a => a.id) } }).sort(['givenId']);
+
+            return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid, groupInfo: groups, projectInfo: project, completedGroup: groups2, availableGroup: avaGroup, listInfo: list });
 
         }
 
