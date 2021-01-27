@@ -18,6 +18,10 @@ module.exports = {
       type: 'number',
     },
 
+    evaluatorInfo: {
+      type: 'json',
+    },
+
     releaseForm: {
       type: 'boolean',
       defaultsTo: false,

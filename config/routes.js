@@ -83,6 +83,7 @@ module.exports.routes = {
   '/teacher/viewSection/:sid/project/:pid/event/:eid/viewEvaluationResult': 'EvalResponseController.viewEvaluationResult',
   '/teacher/viewSection/:sid/project/:pid/event/:eid/group/:gid': 'EvalResponseController.viewGroupEvaluationResult',
   '/teacher/viewSection/:sid/project/:pid/event/:eid/group/:gid/evaluationForm/:fid': 'EvalResponseController.viewStudentEvaluationForm',
+  '/teacher/viewSection/:sid/project/:pid/event/:eid/group/:gid/evalOverview': 'EvalResponseController.evalOverview',
 
   '/student/section/:sid/project/:pid/evaluationEvent': 'EvalEventController.viewEvaluationEvent',
   'GET /section/:sid/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',

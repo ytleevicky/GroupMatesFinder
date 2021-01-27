@@ -83,6 +83,12 @@ module.exports = {
 
             var response = await EvalResponse.create(req.body.EvalResponse).fetch();
 
+            var userObject = await User.findOne(response.evaluator);
+
+            await EvalResponse.update(response.id).set({
+                evaluatorInfo: userObject,
+            }).fetch();
+
             await EvalResponse.addToCollection(response.id, 'inGroup').members(response.groupid);
             await EvalResponse.addToCollection(response.id, 'inEvent').members(response.eventid);
 
