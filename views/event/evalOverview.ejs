@@ -66,25 +66,46 @@
 
         <% evalFormInfo.evaluationTemp.peerEvaluation.forEach( function(q) { %>
 
-            <b><u>Q<%= n+1 %>. <%= q.question %></u></b>
+            <div class="my-4" style="padding-left: 45px;">
 
-            <br>
+                <div class="my-2"><b><u>Q<%= n+1 %>. <%= q.question %></u></b></div>
 
-            <% members.createdBy.forEach( function(m) { %>
+                <br>
 
-                <div class="text-primary">
-                    <%= m.fullName %>
-                </div>
+                <% members.createdBy.forEach( function(m) { %>
+                    <div style="padding-left: 33px;">
 
-                <% evalFormInfo.completedResponse.forEach( function(c) { %>
+                        <h5>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-person-check-fill text-danger" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            </svg>&nbsp; <%= m.fullName %> (<%= m.givenId %>)
+                        </h5>
 
-                    <% c.formResponse.peerEvaluation.forEach( function(r) { %>
+                        <% evalFormInfo.completedResponse.forEach( function(c) { %>
 
-                        <% if(r.evaluatee==m.id) { %>
+                            <% c.formResponse.peerEvaluation.forEach( function(r) { %>
 
-                            <%= r.response[n].answer %> - (Response from <%= c.evaluatorInfo.fullName %> )
+                                <% if(r.evaluatee==m.id) { %>
 
-                                    <br>
+                                    <div class="my-2" style="padding-left: 38px;">
+                                        <figure class="text-start">
+                                            <blockquote class="blockquote">
+                                                <p>
+                                                    <%= r.response[n].answer %>
+                                                </p>
+                                            </blockquote>
+                                            <figcaption class="blockquote-footer">
+                                                Response from
+                                                <cite title="Source Title">
+                                                    <%= c.evaluatorInfo.fullName %>
+                                                </cite>
+                                            </figcaption>
+                                        </figure>
+
+                                    </div>
 
                                     <% } %>
 
@@ -95,71 +116,86 @@
                                             <% }); %>
 
                                                 <br>
+                    </div>
 
+                    <% }); %>
+
+
+                        <br>
+
+                        <% n++ %>
+
+            </div>
+
+
+            <% }); %>
+
+
+
+
+                <br>
+
+                <h4><mark><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+                            class="bi bi-person-fill text-primary" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg> &nbsp;Self Evaluation Question</mark></h4>
+
+                <% var i=0; %>
+
+                    <% evalFormInfo.evaluationTemp.selfEvaluation.forEach( function(q) { %>
+
+                        <div class="my-4" style="padding-left: 45px;">
+
+                            <div class="my-2"><b><u>Q<%= i+1 %>. <%= q.question %></u></b></div>
+
+                            <br>
+
+                            <% members.createdBy.forEach( function(m) { %>
+
+                                <div style="padding-left: 33px;">
+
+                                    <h5><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                            fill="currentColor" class="bi bi-person-check-fill text-primary"
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                            <path
+                                                d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                        </svg>&nbsp; <%= m.fullName %> (<%= m.givenId %>)
+                                    </h5>
+
+
+                                    <% evalFormInfo.completedResponse.forEach( function(c) { %>
+
+                                        <% if (c.evaluator==m.id) { %>
+
+                                            <div class="my-2" style="padding-left: 38px;">
+
+                                                <%= c.formResponse.selfEvaluation[i].answer %>
+
+                                            </div>
+
+
+
+                                            <% } %>
 
                                                 <% }); %>
 
-
                                                     <br>
 
-                                                    <% n++ %>
+                                </div>
+
+                                <% }); %>
+
+                                    <br>
+                                    <br>
 
 
-                                                        <% }); %>
+                                    <% i++ %>
 
+                        </div>
 
-
-
-                                                            <br>
-
-                                                            <h4><mark><svg xmlns="http://www.w3.org/2000/svg" width="35"
-                                                                        height="35" fill="currentColor"
-                                                                        class="bi bi-person-fill text-primary"
-                                                                        viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                                                    </svg> &nbsp;Self Evaluation Question</mark></h4>
-
-                                                            <% var i=0; %>
-
-                                                                <% evalFormInfo.evaluationTemp.selfEvaluation.forEach(
-                                                                    function(q) { %>
-
-                                                                    <b><u>Q<%= i+1 %>. <%= q.question %></u></b>
-
-                                                                    <% members.createdBy.forEach( function(m) { %>
-
-                                                                        <div class="text-primary">
-                                                                            <%= m.fullName %>
-                                                                        </div>
-
-                                                                        <% evalFormInfo.completedResponse.forEach(
-                                                                            function(c) { %>
-
-                                                                            <% if (c.evaluator==m.id) { %>
-
-                                                                                <%= c.formResponse.selfEvaluation[i].answer
-                                                                                    %>
-
-
-
-                                                                                    <% } %>
-
-
-
-                                                                                        <% }); %>
-
-
-
-                                                                                            <% }); %>
-
-                                                                                                <br>
-                                                                                                <br>
-
-
-                                                                                                <% i++ %>
-
-                                                                                                    <% }); %>
+                        <% }); %>
 
 
 
