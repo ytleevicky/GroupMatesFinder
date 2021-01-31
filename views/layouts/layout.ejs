@@ -88,12 +88,12 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <% if (req.session.role=='student' ) { %>
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Calendar</a>
-                      </li>
-                      <li class="nav-item">
+                      </li> -->
+                      <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Discover</a>
-                      </li>
+                      </li> -->
                       <li class="nav-item">
                         <% if(req.session.invitationNum> 0 ) { %>
                           <a class="nav-link" href="/invitation/<%= req.session.userid %>">Invitation <span
