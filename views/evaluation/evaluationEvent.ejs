@@ -68,7 +68,7 @@
                     <th scope="col" span="1" style="text-align: center; width: 15%;">Groups
                     </th>
                     <th scope="col" span="1" style="text-align: center;">Due Date</th>
-                    <!-- <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th> -->
+                    <th scope="col" span="1" style="text-align: center; width: 13%;">Result Released</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,7 +80,9 @@
 
                         <tr>
                             <td style="text-align:center">
-                                <%= event.eventName %>
+                                <a href="/teacher/viewSection/7/project/4/event/<%= event.id %>">
+                                    <%= event.eventName %>
+                                </a>
                             </td>
                             <td style="text-align:center">
                                 <a
@@ -95,6 +97,10 @@
                             <td style="text-align:center">
                                 <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
                                     }).format(event.dueDate) %>
+                            </td>
+
+                            <td style="text-align:center">
+                                Not yet
                             </td>
 
                         </tr>

@@ -64,7 +64,7 @@
                         <select class="form-select form-select" name="chooseTempID" required>
                             <option value="">Please choose an Evaluation Template:</option>
                             <% createdEvaluation.createEvaluation.forEach( function(evaluation) { %>
-                                <option value="<%= evaluation.id %>" name>
+                                <option value="<%= evaluation.id %>">
                                     <%= evaluation.name %>
                                 </option>
                                 <% }); %>

@@ -68,6 +68,19 @@ module.exports = {
         return res.view('project/evaluationEvent', { userid: req.session.userid, sectioninfo: section, eventInfo: event, inGroup: user.create, responseInfo: response });
     },
 
+    viewEventDetails: async function (req, res) {
+
+        var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
+
+        var event = await EvalEvent.findOne(req.params.eid);
+
+        console.log("event");
+        console.log(event);
+
+
+        return res.view('event/viewEventDetails', { userid: req.session.userid, sectioninfo: section, eventInfo: event });
+    },
+
 
     completeEvaluation: async function (req, res) {
 
