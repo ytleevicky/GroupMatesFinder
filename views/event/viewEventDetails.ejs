@@ -32,51 +32,63 @@
 
     <br>
 
+    <div class="row">
+        <h3 class="col-md-6"><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" fill="currentColor"
+                class="bi bi-info-circle text-info" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                    d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+            </svg> &nbsp;Evaluation Event Info</h3>
+    </div>
 
-    <div class="container" style="padding: 40px 150px;">
 
-        <!-- <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/evaluation"
-            class="btn btn-primary mx-1">Edit Event</a> -->
+    <div class="container" style="padding: 5px 150px;">
+
+        <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/event/<%= eventInfo.id %>/editEventDetails"
+            class="my-2" style="float: right; text-decoration: underline;">Edit Event</a>
 
 
-        <div class="mb-4">
-            <div class="form-group row">
-                <label for="example-title" class="col-4 col-form-label">Evaluation Name:</label>
-                <div class="col-8">
-                    <%= eventInfo.eventName %>
-                </div>
-            </div>
-        </div>
+        <table class="table center table-bordered">
 
-        <div class="mb-4">
-            <div class="form-group row">
-                <label for="message-text" class="col-4 col-form-label">Instruction:</label>
+            <tbody>
+                <tr>
+                    <th scope="row">Evaluation Name:</th>
+                    <td>
+                        <%= eventInfo.eventName %>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Instruction:</th>
+                    <td>
+                        <%= eventInfo.eventDes %>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Evaluation Template:</th>
+                    <td>
+                        <%= eventInfo.use[0].name %>
+                    </td>
+                </tr>
 
-                <div class="col-8">
-                    <%= eventInfo.eventDes %>
-                </div>
-            </div>
-        </div>
+                <tr>
+                    <th scope="row">Due Date:</th>
+                    <td>
+                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
+                            }).format(eventInfo.dueDate) %>
+                    </td>
+                </tr>
 
-        <div class="mb-4">
-            <div class="form-group row">
-                <label for="message-text" class="col-4 col-form-label">Evaluation Template:</label>
-                <div class="col-8">
-                    ---
-                </div>
-            </div>
-        </div>
+                <tr>
+                    <th scope="row">Result Release Date:</th>
+                    <td>
+                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
+                            }).format(eventInfo.releaseDate) %>
+                    </td>
+                </tr>
 
-        <div class="mb-4">
-            <div class="form-group row">
-                <label for="message-text" class="col-4 col-form-label">Due Date:</label>
-                <div class="col-8">
-                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
-                        }).format(eventInfo.dueDate) %>
-                </div>
-            </div>
-        </div>
+            </tbody>
 
+        </table>
 
 
         <br>

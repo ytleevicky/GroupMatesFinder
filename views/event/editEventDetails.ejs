@@ -1,0 +1,270 @@
+<body>
+
+    <br>
+
+    <h1><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-book text-primary" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+        </svg>
+        &nbsp;<%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %> (Section <%= sectioninfo.sectionNum
+                    %>)
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/teacher/homepage/<%= userid %>">Home</a></li>
+            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewCourse/<%= sectioninfo.in[0].id %>">
+                    <%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %>
+                </a></li>
+            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>">
+                    Section <%= sectioninfo.sectionNum %>
+                </a></li>
+            <li class="breadcrumb-item"><a
+                    href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/evaluation">
+                    Peer Evaluation
+                </a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Edit Evaluation Event
+            </li>
+        </ol>
+    </nav>
+
+    <br>
+
+    <div class="row">
+        <h3 class="col-md-6"><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" fill="currentColor"
+                class="bi bi-info-circle text-info" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                    d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+            </svg> &nbsp;Edit Evaluation Event</h3>
+    </div>
+
+    <div class="container" style="padding: 40px 150px;">
+
+        <form method="POST" onsubmit="createForm(this);return false" class="was-validated">
+
+            <div class="mb-4">
+                <div class="form-group row">
+                    <label for="example-title" class="col-4 col-form-label">Evaluation Name:</label>
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="EvalEvent[eventName]"
+                            value="<%= eventInfo.eventName %>" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="form-group row">
+                    <label for="message-text" class="col-4 col-form-label">Instruction:</label>
+
+                    <div class="col-8">
+                        <textarea class="form-control" name="EvalEvent[eventDes]" id="myTextarea" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="mb-4">
+                <div class="form-group row">
+                    <label for="message-text" class="col-4 col-form-label">Evaluation Template:</label>
+                    <div class="col-8">
+
+                        <% if (eventInfo.completedResponse.length>0) { %>
+
+                            <select class="form-select form-select" name="chooseTempID" required disabled>
+                                <option value="">Please choose an Evaluation Template:</option>
+                                <% eTemplateInfo.createEvaluation.forEach( function(evaluation) { %>
+
+                                    <% if(evaluation.name==eventInfo.use[0].name) { %>
+
+                                        <option value="<%= evaluation.id %>" selected>
+                                            <%= evaluation.name %>
+                                        </option>
+
+                                        <% } else { %>
+
+                                            <option value="<%= evaluation.id %>">
+                                                <%= evaluation.name %>
+                                            </option>
+
+                                            <% } %>
+
+                                                <% }); %>
+                            </select>
+
+
+                            <% } else { %>
+
+                                <select class="form-select form-select" name="chooseTempID" required>
+                                    <option value="">Please choose an Evaluation Template:</option>
+                                    <% eTemplateInfo.createEvaluation.forEach( function(evaluation) { %>
+
+                                        <% if(evaluation.name==eventInfo.use[0].name) { %>
+
+                                            <option value="<%= evaluation.id %>" selected>
+                                                <%= evaluation.name %>
+                                            </option>
+
+                                            <% } else { %>
+
+                                                <option value="<%= evaluation.id %>">
+                                                    <%= evaluation.name %>
+                                                </option>
+
+                                                <% } %>
+
+                                                    <% }); %>
+                                </select>
+
+                                <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="form-group row">
+                    <label for="message-text" class="col-4 col-form-label">Due Date:</label>
+                    <div class="col-8">
+                        <input type="datetime-local" class="form-control" name="dueDate" id="date" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="mb-4">
+    
+                    <div class="form-group row">
+    
+                        <label for="message-text" class="col-4 col-form-label">Auto-Release
+                            Result:</label>
+    
+                        <div class="col-2 my-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="autoRelease" value="enabled">
+                                <label class="form-check-label">
+                                    Enabled
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-2 my-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="autoRelease" value="disabled" checked>
+                                <label class="form-check-label">
+                                    Disabled
+                                </label>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                </div> -->
+
+            <div class="mb-4">
+                <div class="form-group row">
+                    <label for="message-text" class="col-4 col-form-label">Result Release Date:</label>
+                    <div class="col-8">
+                        <input type="datetime-local" class="form-control" name="releaseDate" id="date2" required>
+                    </div>
+                </div>
+            </div>
+
+
+            <br>
+
+            <button type="submit" class="btn btn-primary mx-1" style="float: right;">Update</button>
+            <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/evaluation"
+                class="btn btn-secondary mx-1" style="float: right;">Return</a>
+
+        </form>
+
+    </div>
+
+</body>
+
+
+<script>
+
+    // document.querySelector('option[value = "<%= eventInfo.eventDes %>"]').selected = "selected";
+
+    document.getElementById("myTextarea").value = "<%= eventInfo.eventDes %>";
+
+
+    // Display due date
+
+    var timestamp = parseInt("<%= eventInfo.dueDate %>");
+
+    dateObj = new Date(timestamp);
+
+    var YYYY = dateObj.getFullYear();
+    var MM = ('0' + (dateObj.getMonth() + 1)).slice(-2);
+    var DD = ('0' + dateObj.getDate()).slice(-2);
+    var hh = ('0' + dateObj.getHours()).slice(-2);
+    var mm = ('0' + dateObj.getMinutes()).slice(-2);
+
+    var dueDate = YYYY + "-" + MM + "-" + DD + "T" + hh + ":" + mm;
+
+    document.getElementById("date").value = dueDate;
+
+
+    // Display release date
+
+    var timestamp2 = parseInt("<%= eventInfo.releaseDate %>");
+
+    dateObj2 = new Date(timestamp2);
+
+    var YYYY = dateObj2.getFullYear();
+    var MM = ('0' + (dateObj2.getMonth() + 1)).slice(-2);
+    var DD = ('0' + dateObj2.getDate()).slice(-2);
+    var hh = ('0' + dateObj2.getHours()).slice(-2);
+    var mm = ('0' + dateObj2.getMinutes()).slice(-2);
+
+    var releaseDate = YYYY + "-" + MM + "-" + DD + "T" + hh + ":" + mm;
+
+    document.getElementById("date2").value = releaseDate;
+
+
+    // function check() {
+    //     var date = new Date(document.getElementById("date").value);
+
+    //     var timestamp = date.getTime();
+
+    //     alert(timestamp);
+    // }
+
+    async function createForm(oFormElement) {
+
+        var response = await fetch("/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/event/<%= eventInfo.id %>/editEventDetails", {
+            method: "PATCH",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
+
+
+
+
+
+
+
+
+
+</script>

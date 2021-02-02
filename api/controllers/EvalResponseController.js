@@ -15,8 +15,6 @@ module.exports = {
 
         var group = await Group.find(event.haveGroup.map(v => v.id)).populate("createdBy").populate("haveResponse", { where: { eventid: req.params.eid } });
 
-        console.log(group);
-
         return res.view('event/viewEvaluationResult', { userid: req.session.userid, sectioninfo: section, eventInfo: event, groupInfo: group, eventid: req.params.eid });
     },
 
@@ -25,8 +23,6 @@ module.exports = {
         var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
 
         var group = await Group.findOne(req.params.gid).populate("createdBy").populate("haveResponse", { where: { groupid: req.params.gid, eventid: req.params.eid } })
-        console.log("group");
-        console.log(group);
 
         return res.view('event/viewGroupEvaluationResult', { userid: req.session.userid, sectioninfo: section, eventid: req.params.eid, groupInfo: group });
     },

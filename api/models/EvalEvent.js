@@ -25,6 +25,14 @@ module.exports = {
       type: 'number',
     },
 
+    autoRelease: {
+      type: 'string'
+    },
+
+    releaseDate: {
+      type: 'number'
+    },
+
     evaluationTemp: {
       type: 'json',
     },
@@ -50,6 +58,11 @@ module.exports = {
     completedResponse: {
       collection: 'EvalResponse',
       via: 'inEvent'
+    },
+
+    use: {
+      collection: 'Evaluation',
+      via: 'usedBy'
     },
 
   },

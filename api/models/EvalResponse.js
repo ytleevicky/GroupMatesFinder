@@ -27,12 +27,12 @@ module.exports = {
       defaultsTo: false,
     },
 
-    // temp - maybe create associations later
+    // create associations with EvalEvent
     eventid: {
       type: 'number',
     },
 
-    // temp - maybe create associations later
+    // create association with group
     groupid: {
       type: 'number',
     },

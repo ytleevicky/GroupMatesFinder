@@ -43,6 +43,11 @@ module.exports = {
       via: 'createEvaluation'
     },
 
+    usedBy: {
+      collection: 'EvalEvent',
+      via: 'use'
+    },
+
 
   },
 

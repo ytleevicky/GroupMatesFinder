@@ -40,12 +40,17 @@ module.exports = {
             var date = new Date(req.body.dueDate);
             var timestamp = date.getTime();
 
+            var date2 = new Date(req.body.releaseDate);
+            var timestamp2 = date2.getTime();
+
             await EvalEvent.update(event.id).set({
                 evaluationTemp: copyTemp,
                 dueDate: timestamp,
+                releaseDate: timestamp2,
             }).fetch();
 
             await Project.addToCollection(req.params.pid, 'haveEvent').members(event.id);
+            await EvalEvent.addToCollection(event.id, 'use').members(evalTemp.id);
 
             res.json({ message: 'Evaluation Event has been created. ', url: '/teacher/viewSection/' + req.params.sid + '/project/' + req.params.pid + '/evaluation' });
 
@@ -72,13 +77,53 @@ module.exports = {
 
         var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
 
-        var event = await EvalEvent.findOne(req.params.eid);
-
-        console.log("event");
-        console.log(event);
-
+        var event = await EvalEvent.findOne(req.params.eid).populate('use');
 
         return res.view('event/viewEventDetails', { userid: req.session.userid, sectioninfo: section, eventInfo: event });
+    },
+
+    editEventDetails: async function (req, res) {
+
+        if (req.method == "GET") {
+
+            var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
+
+            var event = await EvalEvent.findOne(req.params.eid).populate('use').populate('completedResponse');
+
+            var eTemplate = await User.findOne(req.session.userid).populate('createEvaluation');
+
+            return res.view('event/editEventDetails', { userid: req.session.userid, sectioninfo: section, eventInfo: event, eTemplateInfo: eTemplate });
+
+        } else {
+
+            if (!req.body.EvalEvent) { return res.badRequest('Form-data not received.'); }
+
+            var date = new Date(req.body.dueDate);
+            var timestamp = date.getTime();
+
+            var date2 = new Date(req.body.releaseDate);
+            var timestamp2 = date2.getTime();
+
+            var evalTemp = await Evaluation.findOne(req.body.chooseTempID);
+            var copyTemp = evalTemp.createdQuestion;    // Get a copy of the evaluation question
+
+            var evaluations = await User.findOne(req.session.userid).populate('createEvaluation');
+
+            await EvalEvent.removeFromCollection(req.params.eid, 'use').members(evaluations.createEvaluation.map(v => v.id));
+
+            await EvalEvent.update(req.params.eid).set({
+                eventName: req.body.EvalEvent.eventName,
+                eventDes: req.body.EvalEvent.eventDes,
+                dueDate: timestamp,
+                releaseDate: timestamp2,
+                evaluationTemp: copyTemp,
+            }).fetch();
+
+            await EvalEvent.addToCollection(req.params.eid, 'use').members(evalTemp.id);
+
+            return res.json({ message: 'Event has been updated.', url: '/teacher/viewSection/' + req.params.sid + '/project/' + req.params.pid + '/event/' + req.params.eid });
+
+        }
     },
 
 
@@ -128,6 +173,17 @@ module.exports = {
     populate: async function (req, res) {
 
         var model = await EvalEvent.findOne(req.params.id).populate("completedResponse");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
+    // EvalEvent use Evaluation
+    populate: async function (req, res) {
+
+        var model = await EvalEvent.findOne(req.params.id).populate("use");
 
         if (!model) return res.notFound();
 

@@ -89,6 +89,17 @@ module.exports = {
 
     },
 
+    // Evaluation usedBy EvalEvent 
+    populate: async function (req, res) {
+
+        var model = await Evaluation.findOne(req.params.id).populate("useBy");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
 
 };
 

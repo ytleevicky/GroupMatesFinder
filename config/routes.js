@@ -85,6 +85,8 @@ module.exports.routes = {
   '/teacher/viewSection/:sid/project/:pid/event/:eid/group/:gid/evaluationForm/:fid': 'EvalResponseController.viewStudentEvaluationForm',
   '/teacher/viewSection/:sid/project/:pid/event/:eid/group/:gid/evalOverview': 'EvalResponseController.evalOverview',
   '/teacher/viewSection/:sid/project/:pid/event/:eid': 'EvalEventController.viewEventDetails',
+  'GET /teacher/viewSection/:sid/project/:pid/event/:eid/editEventDetails': 'EvalEventController.editEventDetails',
+  'PATCH /teacher/viewSection/:sid/project/:pid/event/:eid/editEventDetails': 'EvalEventController.editEventDetails',
 
   '/student/section/:sid/project/:pid/evaluationEvent': 'EvalEventController.viewEvaluationEvent',
   'GET /section/:sid/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',
@@ -136,12 +138,11 @@ module.exports.routes = {
   'GET /event/:id/completedResponse': 'EvalEventController.populate',
   'GET /response/:id/inEvent': 'EvalResponseController.populate',
 
+  'GET /event/:id/use': 'EvalEventController.populate',
+  'GET /evaluation/:id/useBy': 'EvaluationController.populate',
 
-  // 'GET /user/:id/enrollAt': 'UserController.populate',
-  // 'GET /academicYear/:id/haveStudent': 'AcademicYear.populate',
 
-  // 'GET /course/:id/belongTo': 'CourseController.populate',
-  // 'GET /academicYear/:id/have': 'AcademicYear.populate',
+
 
 
   /***************************************************************************
