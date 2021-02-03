@@ -66,7 +66,7 @@
         <dl class="row my-2">
             <dt class="col-sm-3">Date Submitted</dt>
             <dd class="col-sm-9">
-                <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
+                <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' , hour12: 'true'
                     }).format(formInfo.createdAt) %>
             </dd>
         </dl>
@@ -74,7 +74,7 @@
         <dl class="row my-2">
             <dt class="col-sm-3">Group Number</dt>
             <dd class="col-sm-9">
-                <%= groupInfo.groupNum %>
+                Group <%= groupInfo.groupNum %>
             </dd>
         </dl>
 

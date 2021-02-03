@@ -95,26 +95,64 @@
                                                                 data-bs-parent="#accordionExample">
 
                                                                 <% } %>
+
                                                                     <div class="accordion-body">
-                                                                        <a href="#" class="btn btn-link"
-                                                                            style="float: right;">Edit
-                                                                            Project</a>
-                                                                        <p class="card-text">
-                                                                            <%= project.projectDescription %>
-                                                                        </p>
-                                                                        <p class="card-text">
-                                                                            <b>Number of Student Per Group:</b>
-                                                                            <%= project.numOfStudentMin %> to <%=
-                                                                                    project.numOfStudentMax %>
-                                                                        </p>
-                                                                        <p class="card-text">
-                                                                            <b>Group Formation Deadline:</b>
-                                                                            <%= project.groupFormationDate %>
-                                                                        </p>
-                                                                        <p class="card-text">
-                                                                            <b>Project Submission Deadline:</b>
-                                                                            <%= project.projectSubmitDate %>
-                                                                        </p>
+
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <a href="#" class="btn btn-link"
+                                                                                    style="float: right;">Edit
+                                                                                    Project</a>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <dl class="row my-2">
+                                                                            <dt class="col-sm-4">Project Description:
+                                                                            </dt>
+                                                                            <dd class="col-sm-8">
+                                                                                <%= project.projectDescription %>
+                                                                            </dd>
+                                                                        </dl>
+
+                                                                        <dl class="row my-2">
+                                                                            <dt class="col-sm-4">Student Per
+                                                                                Group:
+                                                                            </dt>
+                                                                            <dd class="col-sm-8">
+                                                                                <%= project.numOfStudentMin %> to <%=
+                                                                                        project.numOfStudentMax %>
+                                                                            </dd>
+                                                                        </dl>
+
+                                                                        <dl class="row my-2">
+                                                                            <dt class="col-sm-4">
+                                                                                Group Formation Due Date:
+                                                                            </dt>
+                                                                            <dd class="col-sm-8">
+                                                                                <%= new Intl.DateTimeFormat('en-GB', {
+                                                                                    dateStyle: 'medium' ,
+                                                                                    timeStyle: 'short' , hour12: 'true'
+                                                                                    }).format(project.groupFormationDate)
+                                                                                    %>
+                                                                            </dd>
+                                                                        </dl>
+
+                                                                        <dl class="row my-2">
+                                                                            <dt class="col-sm-4">
+                                                                                Project Submission Due Date:
+                                                                            </dt>
+                                                                            <dd class="col-sm-8">
+                                                                                <%= new Intl.DateTimeFormat('en-GB', {
+                                                                                    dateStyle: 'medium' ,
+                                                                                    timeStyle: 'short' , hour12: 'true'
+                                                                                    }).format(project.projectSubmitDate)
+                                                                                    %>
+                                                                            </dd>
+                                                                        </dl>
+
+                                                                        <br>
+
                                                                         <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>/evaluation"
                                                                             class="btn btn-success"
                                                                             style="float: right; margin-left: 10px;">Peer
@@ -128,6 +166,7 @@
                                                                         <br>
 
                                                                     </div>
+
                                                             </div>
                                                     </div>
 
@@ -143,7 +182,7 @@
                                     <div class="modal fade" id="exampleModal" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true"
                                         data-bs-backdrop="static">
-                                        <div class="modal-dialog modal-lg">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Initiate
@@ -155,7 +194,7 @@
                                                 <form action="/createProject/<%= sectioninfo.id %>/<%= userid %>"
                                                     method="POST" onsubmit="createForm(this);return false"
                                                     class="was-validated">
-                                                    <div class="modal-body">
+                                                    <div class="modal-body" style="padding: 20px 50px;">
 
                                                         <div class="mb-3">
                                                             <label for="recipient-name" class="col-form-label">Project
@@ -171,28 +210,36 @@
                                                                     Group:</label></div>
 
                                                             <div class="container">
-                                                                <div class="row">
-                                                                    <div class="col-6">
+                                                                <div class="row" style="align-content: center;">
+                                                                    <div class="col-6 my-2">
                                                                         <div class="row">
-                                                                            <label class="col-3"
+                                                                            <label class="col-2"
                                                                                 for="numberOfStudentMin"
                                                                                 class="col-form-label">Min:</label>
-                                                                            <div class="col-5"><input type="number"
+                                                                            <div class="col-10">
+                                                                                <input type="number"
                                                                                     class="form-control"
+                                                                                    style="width: 50%;"
                                                                                     name="Project[numOfStudentMin]"
-                                                                                    required min="1">
+                                                                                    required min="1" max="" id="minStu"
+                                                                                    onchange="validateMinStu();">
+                                                                                <div id="displayMinError"></div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-6">
+                                                                    <div class="col-6 my-2">
                                                                         <div class="row">
-                                                                            <label class="col-3"
+                                                                            <label class="col-2"
                                                                                 for="numberOfStudentMax"
                                                                                 class="col-form-label">Max:</label>
-                                                                            <div class="col-5"><input type="number"
+                                                                            <div class="col-10">
+                                                                                <input type="number"
                                                                                     class="form-control"
+                                                                                    style="width: 50%;"
                                                                                     name="Project[numOfStudentMax]"
-                                                                                    required min="1">
+                                                                                    required min="1" id="maxStu"
+                                                                                    onchange="validateMaxStu();">
+                                                                                <div id="displayMaxError"></div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -204,15 +251,19 @@
                                                             <label for="numberOfStudent" class="col-form-label">Group
                                                                 Formation
                                                                 Deadline:</label>
-                                                            <input type="date" class="form-control"
-                                                                name="Project[groupFormationDate]" required>
+                                                            <input type="datetime-local" class="form-control"
+                                                                name="formDate" onchange="validateFormationDate();"
+                                                                max="" id="formationDate" required>
+                                                            <div id="displayFDateError"></div>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="numberOfStudent" class="col-form-label">Group
                                                                 Project Submission
                                                                 Date:</label>
-                                                            <input type="date" class="form-control"
-                                                                name="Project[projectSubmitDate]" required>
+                                                            <input type="datetime-local" class="form-control"
+                                                                name="submitDate" id="submissionDate"
+                                                                onchange="validateSubmissionDate();" min="" required>
+                                                            <div id="displaySDateError"></div>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="message-text" class="col-form-label">Project
@@ -269,6 +320,68 @@
 
 
 <script>
+
+    function validateFormationDate() {
+
+        var fDate = document.getElementById("formationDate");
+
+        var sDate = document.getElementById("submissionDate");
+
+        fDate.max = sDate.value;
+
+        var msg = "<div class='invalid-feedback'>Invalid date! Group Formation Deadline must be earlier than or equal to Submission Date.</div>";
+
+        $('#displayFDateError').replaceWith(msg);
+
+    }
+
+    function validateSubmissionDate() {
+
+        var fDate = document.getElementById("formationDate");
+
+        var sDate = document.getElementById("submissionDate");
+
+        sDate.min = fDate.value;
+
+        var msg = "<div class='invalid-feedback'>Invalid date! Submission Date must be later than or equal to Group Formation Date.</div>";
+
+        $('#displaySDateError').replaceWith(msg);
+
+    }
+
+
+    function validateMinStu() {
+
+        var minS = document.getElementById("minStu");
+
+        var maxS = document.getElementById("maxStu");
+
+        minS.max = maxS.value;
+
+        var msg = "<div class='invalid-feedback'>Min must be <span>&#8804;</span> Max</div>";
+
+        $('#displayMinError').replaceWith(msg);
+
+    }
+
+
+    function validateMaxStu() {
+
+        var minS = document.getElementById("minStu");
+
+        var maxS = document.getElementById("maxStu");
+
+        maxS.min = minS.value;
+
+        var msg = "<div class='invalid-feedback'>Max must be <span>&#8805;</span> Min</div>";
+
+        $('#displayMaxError').replaceWith(msg);
+
+    }
+
+
+
+
     async function createForm(oFormElement) {
 
         var response = await fetch(oFormElement.action, {

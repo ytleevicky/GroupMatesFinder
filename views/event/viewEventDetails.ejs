@@ -73,15 +73,22 @@
                 <tr>
                     <th scope="row">Due Date:</th>
                     <td>
-                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
+                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' , hour12: 'true'
                             }).format(eventInfo.dueDate) %>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Auto-Release:</th>
+                    <td>
+                        <%= eventInfo.autoRelease %>
                     </td>
                 </tr>
 
                 <tr>
                     <th scope="row">Result Release Date:</th>
                     <td>
-                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
+                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' , hour12: 'true'
                             }).format(eventInfo.releaseDate) %>
                     </td>
                 </tr>

@@ -30,6 +30,19 @@ module.exports = {
 
         } else {
 
+            var r = req.body.autoRelease;
+            var result;
+
+            for (var i = 0; i < r.length; i++) {
+                if (r[i] == "Enabled") {
+                    result = "Enabled";
+                    break;
+                } else if (r[i] == "Disabled") {
+                    result = "Disabled";
+                    break;
+                }
+            }
+
             var event = await EvalEvent.create(req.body.EvalEvent).fetch();
 
             var evalTemp = await Evaluation.findOne({ id: req.body.chooseTempID });
@@ -47,6 +60,7 @@ module.exports = {
                 evaluationTemp: copyTemp,
                 dueDate: timestamp,
                 releaseDate: timestamp2,
+                autoRelease: result,
             }).fetch();
 
             await Project.addToCollection(req.params.pid, 'haveEvent').members(event.id);
@@ -98,6 +112,19 @@ module.exports = {
 
             if (!req.body.EvalEvent) { return res.badRequest('Form-data not received.'); }
 
+            var r = req.body.autoRelease;
+            var result;
+
+            for (var i = 0; i < r.length; i++) {
+                if (r[i] == "Enabled") {
+                    result = "Enabled";
+                    break;
+                } else if (r[i] == "Disabled") {
+                    result = "Disabled";
+                    break;
+                }
+            }
+
             var date = new Date(req.body.dueDate);
             var timestamp = date.getTime();
 
@@ -117,6 +144,7 @@ module.exports = {
                 dueDate: timestamp,
                 releaseDate: timestamp2,
                 evaluationTemp: copyTemp,
+                autoRelease: result,
             }).fetch();
 
             await EvalEvent.addToCollection(req.params.eid, 'use').members(evalTemp.id);

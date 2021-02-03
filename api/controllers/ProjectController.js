@@ -18,9 +18,18 @@ module.exports = {
 
         var section = await Section.findOne(req.params.id).populate('in');
 
+        // Convert the date & time to a timestamp
+        var date = new Date(req.body.formDate);
+        var timestamp = date.getTime();
+
+        var date2 = new Date(req.body.submitDate);
+        var timestamp2 = date2.getTime();
+
         await Project.update(createProject.id).set({
             courseName: section.in[0].courseName,
-            courseID: section.in[0].courseID
+            courseID: section.in[0].courseID,
+            groupFormationDate: timestamp,
+            projectSubmitDate: timestamp2,
         }).fetch();
 
         await Project.addToCollection(createProject.id, 'inSection').members(req.params.id);

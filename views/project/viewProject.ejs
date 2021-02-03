@@ -55,21 +55,46 @@
 
                                             <% } %>
                                                 <div class="accordion-body">
-                                                    <p class="card-text">
-                                                        <%= project.projectDescription %>
-                                                    </p>
-                                                    <p class="card-text">
-                                                        <b>Number of Student Per Group:</b>
-                                                        <%= project.numOfStudentMin %> to <%= project.numOfStudentMax %>
-                                                    </p>
-                                                    <p class="card-text">
-                                                        <b>Group Formation Deadline:</b>
-                                                        <%= project.groupFormationDate %>
-                                                    </p>
-                                                    <p class="card-text">
-                                                        <b>Project Submission Deadline:</b>
-                                                        <%= project.projectSubmitDate %>
-                                                    </p>
+
+                                                    <dl class="row my-2">
+                                                        <dt class="col-sm-4">Project Description:
+                                                        </dt>
+                                                        <dd class="col-sm-8">
+                                                            <%= project.projectDescription %>
+                                                        </dd>
+                                                    </dl>
+
+                                                    <dl class="row my-2">
+                                                        <dt class="col-sm-4">Student Per
+                                                            Group:
+                                                        </dt>
+                                                        <dd class="col-sm-8">
+                                                            <%= project.numOfStudentMin %> to <%=
+                                                                    project.numOfStudentMax %>
+                                                        </dd>
+                                                    </dl>
+
+                                                    <dl class="row my-2">
+                                                        <dt class="col-sm-4">
+                                                            Group Formation Due Date:
+                                                        </dt>
+                                                        <dd class="col-sm-8">
+                                                            <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' ,
+                                                                timeStyle: 'short' , hour12: 'true'
+                                                                }).format(project.groupFormationDate) %>
+                                                        </dd>
+                                                    </dl>
+
+                                                    <dl class="row my-2">
+                                                        <dt class="col-sm-4">
+                                                            Project Submission Due Date:
+                                                        </dt>
+                                                        <dd class="col-sm-8">
+                                                            <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' ,
+                                                                timeStyle: 'short' , hour12: 'true'
+                                                                }).format(project.projectSubmitDate) %>
+                                                        </dd>
+                                                    </dl>
 
                                                     <a href="/student/section/<%= sectionInfo.id %>/project/<%= project.id %>/evaluationEvent"
                                                         style="float: right; margin-left: 10px;"

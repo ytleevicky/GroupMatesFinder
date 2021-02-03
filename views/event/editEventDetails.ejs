@@ -133,33 +133,35 @@
                 </div>
             </div>
 
-            <!-- <div class="mb-4">
-    
-                    <div class="form-group row">
-    
-                        <label for="message-text" class="col-4 col-form-label">Auto-Release
-                            Result:</label>
-    
-                        <div class="col-2 my-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="autoRelease" value="enabled">
-                                <label class="form-check-label">
-                                    Enabled
-                                </label>
-                            </div>
+            <div class="mb-4">
+
+                <div class="form-group row">
+
+                    <label for="message-text" class="col-4 col-form-label">Auto-Release
+                        Result:</label>
+
+                    <div class="col-2 my-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="autoRelease" id="e" value=""
+                                onclick="changeStatus();">
+                            <label class="form-check-label" for="e">
+                                Enabled
+                            </label>
                         </div>
-                        <div class="col-2 my-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="autoRelease" value="disabled" checked>
-                                <label class="form-check-label">
-                                    Disabled
-                                </label>
-                            </div>
-                        </div>
-    
                     </div>
-    
-                </div> -->
+                    <div class="col-2 my-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="autoRelease" id="d" value="" checked
+                                onclick="changeStatus();">
+                            <label class="form-check-label" for="d">
+                                Disabled
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
 
             <div class="mb-4">
                 <div class="form-group row">
@@ -178,6 +180,8 @@
                 class="btn btn-secondary mx-1" style="float: right;">Return</a>
 
         </form>
+
+        <br>
 
     </div>
 
@@ -232,6 +236,50 @@
 
     //     alert(timestamp);
     // }
+
+
+    // Handle the radio button
+
+    var status = "<%= eventInfo.autoRelease %>";
+
+    var enabled = document.getElementById("e");
+    var disabled = document.getElementById("d");
+
+    if (status == "Enabled") {
+
+        enabled.checked = "checked";
+        enabled.value = "Enabled"
+
+    } else if (status == "Disabled") {
+
+        disabled.checked = "checked";
+        disabled.value = "Disabled"
+
+    }
+
+
+    // For radio button modification
+
+    function changeStatus() {
+
+        enabled.value = null;
+        disabled.value = null;
+
+        if (enabled.checked) {
+
+            enabled.value = "Enabled";
+
+        } else if (disabled.checked) {
+
+            disabled.value = "Disabled";
+
+        }
+
+    }
+
+
+
+
 
     async function createForm(oFormElement) {
 

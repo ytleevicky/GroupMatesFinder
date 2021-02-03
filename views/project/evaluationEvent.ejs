@@ -68,8 +68,8 @@
                                     Group <%= inGroup[0].groupNum %>
                                 </td>
                                 <td style="text-align:center">
-                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
-                                        }).format(event.dueDate) %>
+                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' ,
+                                        hour12: 'true' }).format(event.dueDate) %>
                                 </td>
 
                                 <% var s=false; %>

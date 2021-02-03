@@ -34,13 +34,11 @@ module.exports = {
     },
 
     groupFormationDate: {
-      type: 'string',
-      required: true,
+      type: 'number',
     },
 
     projectSubmitDate: {
-      type: 'string',
-      required: true,
+      type: 'number',
     },
 
     projectDescription: {

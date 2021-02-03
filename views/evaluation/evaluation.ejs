@@ -45,7 +45,7 @@
                         <th scope="col" span="1" style="text-align: center; width: 15%;">Self Evaluation Question
                         </th>
                         <th scope="col" span="1" style="text-align: center;">Creator</th>
-                        <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th>
+                        <th scope="col" span="1" style="text-align: center; width: 18%;">Creation Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,8 +75,8 @@
                                 </td>
 
                                 <td style="text-align:center">
-                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
-                                        }).format(model.createdAt) %>
+                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' ,
+                                        hour12: 'true' }).format(model.createdAt) %>
                                 </td>
                             </tr>
 
