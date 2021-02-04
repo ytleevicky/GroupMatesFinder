@@ -1,21 +1,27 @@
 <body>
 
+    <br>
+
+    <h1><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor"
+            class="bi bi-pencil-square text-warning" viewBox="0 0 16 16">
+            <path
+                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+            <path fill-rule="evenodd"
+                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+        </svg> &nbsp;Add Mixed Evaluation</h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/teacher/evaluation">Evaluation</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Mixed Evaluation
+            </li>
+        </ol>
+    </nav>
 
 
     <div class="container" style="padding: 40px 150px;">
 
-
-        <h4 style="margin: 0px;">Create Mixed Evaluation</h4>
-
-        <br>
-        <br>
-
-
-        <form method="POST" action="/teacher/evaluation/add">
-
-            <h5>Info:</h5>
-
-            <br>
+        <form method="POST" action="/teacher/evaluation/add" onsubmit="createForm(this);return false">
 
             <div class="mb-3">
                 <div class="form-group row">
@@ -35,17 +41,17 @@
             <br>
 
 
-            <h5>Peer Evaluation Questions:</h5>
+            <h5><mark>Peer Evaluation Questions:</mark></h5>
 
             <div class="my-3 row">
-                <div class="col-5">
+                <div class="col-5" style="padding-left: 60px;">
                     <p>Peer Evaluation Question Type:</p>
                 </div>
                 <div class="col-3">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="mySelect">
                         <option value="Rating" id="rating">Rating</option>
                         <option value="Paragraph" id="paragraph">Paragraph</option>
-                        <option value="Sentence" id="sentence">Sentence</option>
+                        <!-- <option value="Sentence" id="sentence">Sentence</option> -->
                     </select>
                 </div>
                 <div class="col-4">
@@ -60,17 +66,19 @@
 
             </div>
 
-            <h5>Self Evaluation Questions:</h5>
+            <br>
+
+            <h5><mark>Evaluation Questions:</mark></h5>
 
             <div class="my-3 row">
-                <div class="col-5">
+                <div class="col-5" style="padding-left: 60px;">
                     <p>Self Evaluation Question Type:</p>
                 </div>
                 <div class="col-3">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="mySelect2">
                         <option value="Rating" id="rating">Rating</option>
                         <option value="Paragraph" id="paragraph">Paragraph</option>
-                        <option value="Sentence" id="sentence">Sentence</option>
+                        <!-- <option value="Sentence" id="sentence">Sentence</option> -->
                     </select>
                 </div>
                 <div class="col-4">
@@ -90,6 +98,8 @@
 
             <button type="submit" class="btn btn-primary mx-1" style="float: right;">Create</button>
             <a href="/teacher/evaluation" class="btn btn-secondary mx-1" style="float: right;">Return</a>
+
+            <br>
 
         </form>
 
@@ -111,9 +121,13 @@
 
 <script>
 
+    var haveQuestion = false;
+
     var i = 1;
 
     function showQuestion() {
+
+        haveQuestion = true;
 
         var ansType = document.getElementById("mySelect").value;
 
@@ -129,6 +143,8 @@
 
     function showQuestion2() {
 
+        haveQuestion = true;
+
         var ansType2 = document.getElementById("mySelect2").value;
 
         var data2 = "<div class='form-group w-60'>Q" + n + ". " + ansType2 + " Answer Question<div class='mb-3 row'><div class='col-2'><label class='col-form-label'>Question</label></div><div class='col-10 my-2'><input type='text' class='form-control form-control' name='Evaluation[createdQuestion][selfEvaluation][" + n + "][question]' required/></div></div><input type='hidden' name='Evaluation[createdQuestion][selfEvaluation][" + n + "][type]' value='" + ansType2 + "'></div>";
@@ -138,6 +154,35 @@
         n++;
 
     }
+
+
+    async function createForm(oFormElement) {
+
+        if (haveQuestion == false) {
+            alert("Please create at lease one question.")
+            return;
+        }
+
+        var response = await fetch(oFormElement.action, {
+            method: "POST",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            var data = await response.json();   // for res.ok() or res.json()
+            window.location = data.url;
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
 
 
 </script>

@@ -40,7 +40,7 @@ module.exports = {
 
         await Evaluation.addToCollection(evaluation.id, 'creator').members(user.id);
 
-        return res.redirect('/teacher/evaluation');
+        return res.json({ url: '/teacher/evaluation' });
 
     },
 
