@@ -50,21 +50,21 @@ module.exports = {
 
         var evalForm = await EvalEvent.findOne(req.params.eid).populate('completedResponse', { where: { groupid: req.params.gid } });
 
-        console.log("evalForm")
-        console.log(evalForm)
-
         var groupMember = await Group.findOne(req.params.gid).populate('createdBy');
-
-        console.log("groupMember")
-        console.log(groupMember)
-
-
 
         return res.view('event/evalOverview', { userid: req.session.userid, sectioninfo: section, evalFormInfo: evalForm, members: groupMember, eventid: req.params.eid });
     },
 
+    evalResult: async function (req, res) {
 
+        var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
 
+        var evalForm = await EvalEvent.findOne(req.params.eid).populate('completedResponse', { where: { groupid: req.params.gid } });
+
+        var groupMember = await Group.findOne(req.params.gid).populate('createdBy');
+
+        return res.view('event/evalResult', { userid: req.session.userid, sectioninfo: section, evalFormInfo: evalForm, members: groupMember, eventid: req.params.eid });
+    },
 
 
 

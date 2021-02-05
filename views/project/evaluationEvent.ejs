@@ -101,19 +101,19 @@
                                                                         </td>
 
                                                                         <td style="text-align:center">
-                                                                            <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                                                                class="btn btn-primary btn-sm">Start</a>
+                                                                            <a
+                                                                                href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
                                                                         </td>
                                                                         <% } else { %>
 
                                                                             <td style="text-align:center">
                                                                                 <span
-                                                                                    class="badge rounded-pill bg-danger">Late</span>
+                                                                                    class="badge rounded-pill bg-danger">&nbsp;Late&nbsp;</span>
                                                                             </td>
 
                                                                             <td style="text-align:center">
-                                                                                <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                                                                    class="btn btn-primary btn-sm">Start</a>
+                                                                                <a
+                                                                                    href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
                                                                             </td>
 
 
@@ -164,8 +164,8 @@
 
                                                                                                 <td
                                                                                                     style="text-align:center">
-                                                                                                    <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                                                                                        class="btn btn-primary btn-sm">Start</a>
+                                                                                                    <a
+                                                                                                        href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
                                                                                                 </td>
                                                                                                 <% } else { %>
 
@@ -177,8 +177,8 @@
 
                                                                                                     <td
                                                                                                         style="text-align:center">
-                                                                                                        <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                                                                                            class="btn btn-primary btn-sm">Start</a>
+                                                                                                        <a
+                                                                                                            href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
                                                                                                     </td>
 
                                                                                                     <% } %>
@@ -313,9 +313,20 @@
                                                                     </td>
                                                                     <% } %>
 
-                                                                        <td style="text-align: center;">
-                                                                            ---
-                                                                        </td>
+                                                                        <% if((new Date().getTime()> event.releaseDate)
+                                                                            && event.autoRelease == 'Enabled') {
+                                                                            %>
+                                                                            <td style="text-align: center;">
+                                                                                <a
+                                                                                    href="/student/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/event/<%= event.id %>/group/<%= inGroup[0].id %>/evalResult">Result</a>
+                                                                            </td>
+
+                                                                            <% } else { %>
+
+                                                                                <td style="text-align: center;">
+                                                                                    ---
+                                                                                </td>
+                                                                                <% } %>
                                                         </tr>
 
                                                         <% cnt++ %>

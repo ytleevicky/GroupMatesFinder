@@ -92,6 +92,9 @@ module.exports.routes = {
   'GET /section/:sid/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',
   'POST /section/:sid/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',
 
+  '/student/section/:sid/project/:pid/event/:eid/group/:gid/evalResult': 'EvalResponseController.evalResult',
+
+
   // Associations
 
   'GET /teacher/:id/instruct': 'UserController.populate',

@@ -100,9 +100,19 @@
                                     hour12: 'true' }).format(event.dueDate) %>
                             </td>
 
-                            <td style="text-align:center">
-                                Not yet
-                            </td>
+                            <% if ((new Date().getTime()> event.releaseDate) && event.autoRelease == 'Enabled') { %>
+
+                                <td style="text-align:center">
+                                    Released
+                                </td>
+
+                                <% } else { %>
+
+                                    <td style="text-align:center">
+                                        Not yet
+                                    </td>
+
+                                    <% }%>
 
                         </tr>
 
