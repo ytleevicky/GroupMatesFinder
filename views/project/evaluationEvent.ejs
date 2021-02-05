@@ -43,12 +43,12 @@
         <table class="table table-bordered">
             <thead style="vertical-align: middle;">
                 <tr class="table-secondary">
-                    <th scope="col" span="1" style="text-align: center;">Evaluation Title</th>
-                    <th scope="col" span="1" style="text-align: center; width: 15%;">Group
+                    <th scope="col" span="1" style="text-align: center; width: 25%;">Evaluation Title</th>
+                    <th scope="col" span="1" style="text-align: center; width: 8%;">Group
                     </th>
-                    <th scope="col" span="1" style="text-align: center;">Due Date</th>
-                    <th scope="col" span="1" style="text-align: center; width: 15%;">Status</th>
-                    <th scope="col" span="1" style="text-align: center; width: 15%;"> </th>
+                    <th scope="col" span="1" style="text-align: center; width: 17%;">Due Date</th>
+                    <th scope="col" span="1" style="text-align: center; width: 10%;">Status</th>
+                    <th scope="col" span="1" style="text-align: center; width: 8%;"> </th>
                 </tr>
             </thead>
             <tbody>
@@ -58,18 +58,9 @@
                     <!-- Ensure that person has group -->
                     <% if (inGroup.length> 0) { %>
 
-                        <% responseInfo.forEach( function(event) { %>
-                            <tr>
-                                <td style="text-align:center">
-                                    <%= event.eventName %>
-                                </td>
-                                <td style="text-align:center">
-                                    Group <%= inGroup[0].groupNum %>
-                                </td>
-                                <td style="text-align:center">
-                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' ,
-                                        hour12: 'true' }).format(event.dueDate) %>
-                                </td>
+                        <% var n=0; %>
+
+                            <% responseInfo.forEach( function(event) { %>
 
                                 <% var s=false; %>
 
@@ -85,136 +76,273 @@
                                                     <% } %>
                                                         <% }); %>
 
-                                                            <% if (s==true) { %>
 
-                                                                <td style="text-align:center">
-                                                                    <span
-                                                                        class="badge rounded-pill bg-success">Submitted</span>
-                                                                </td>
+                                                            <% if (s==false) { %>
 
-                                                                <% if(event.dueDate> new Date().getTime() ) { %>
-
+                                                                <tr>
                                                                     <td style="text-align:center">
-                                                                        <a href="#"
-                                                                            class="btn btn-primary btn-sm">Modify</a>
+                                                                        <%= event.eventName %>
+                                                                    </td>
+                                                                    <td style="text-align:center">
+                                                                        Group <%= inGroup[0].groupNum %>
+                                                                    </td>
+                                                                    <td style="text-align:center">
+                                                                        <%= new Intl.DateTimeFormat('en-GB', {
+                                                                            dateStyle: 'medium' , timeStyle: 'short' ,
+                                                                            hour12: 'true' }).format(event.dueDate) %>
                                                                     </td>
 
-                                                                    <% } else { %>
+
+                                                                    <% if(event.dueDate> new
+                                                                        Date().getTime() ) { %>
+                                                                        <td style="text-align:center">
+                                                                            <span
+                                                                                class="badge rounded-pill bg-success">In-progress</span>
+                                                                        </td>
 
                                                                         <td style="text-align:center">
-                                                                            <a href="#"
-                                                                                class="btn btn-primary btn-sm">View</a>
+                                                                            <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
+                                                                                class="btn btn-primary btn-sm">Start</a>
                                                                         </td>
+                                                                        <% } else { %>
+
+                                                                            <td style="text-align:center">
+                                                                                <span
+                                                                                    class="badge rounded-pill bg-danger">Late</span>
+                                                                            </td>
+
+                                                                            <td style="text-align:center">
+                                                                                <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
+                                                                                    class="btn btn-primary btn-sm">Start</a>
+                                                                            </td>
+
+
+                                                                            <% } %>
+
+                                                                                <% n++ %>
+
+                                                                                    <% } %>
+
+
+
+                                                                                        <% } else { %>
+
+                                                                                            <!-- Display for the 1st evalResponse -->
+
+                                                                                            <td
+                                                                                                style="text-align:center">
+                                                                                                <%= event.eventName %>
+                                                                                            </td>
+                                                                                            <td
+                                                                                                style="text-align:center">
+                                                                                                Group <%=
+                                                                                                    inGroup[0].groupNum
+                                                                                                    %>
+                                                                                            </td>
+                                                                                            <td
+                                                                                                style="text-align:center">
+                                                                                                <%= new
+                                                                                                    Intl.DateTimeFormat('en-GB',
+                                                                                                    {
+                                                                                                    dateStyle: 'medium'
+                                                                                                    , timeStyle: 'short'
+                                                                                                    , hour12: 'true'
+                                                                                                    }).format(event.dueDate)
+                                                                                                    %>
+                                                                                            </td>
+
+
+                                                                                            <% if(event.dueDate>
+                                                                                                new
+                                                                                                Date().getTime()
+                                                                                                ) { %>
+                                                                                                <td
+                                                                                                    style="text-align:center">
+                                                                                                    <span
+                                                                                                        class="badge rounded-pill bg-success">In-progress</span>
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    style="text-align:center">
+                                                                                                    <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
+                                                                                                        class="btn btn-primary btn-sm">Start</a>
+                                                                                                </td>
+                                                                                                <% } else { %>
+
+                                                                                                    <td
+                                                                                                        style="text-align:center">
+                                                                                                        <span
+                                                                                                            class="badge rounded-pill bg-danger">Late</span>
+                                                                                                    </td>
+
+                                                                                                    <td
+                                                                                                        style="text-align:center">
+                                                                                                        <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
+                                                                                                            class="btn btn-primary btn-sm">Start</a>
+                                                                                                    </td>
+
+                                                                                                    <% } %>
+
+                                                                                                        <% n++ %>
+
+
+                                                                                                            <% } %>
+
+                                                                </tr>
+                                                                <% }); %>
+
+                                                                    <% if (n==0) { %>
+
+                                                                        <tr>
+                                                                            <td colspan="5" style="text-align: center;">
+                                                                                No evaluation event at this moment.
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        <% } %>
+
+
+                                                                            <% } else { %>
+
+                                                                                <tr>
+                                                                                    <td colspan="5"
+                                                                                        style="text-align: center;">
+                                                                                        Please complete the group
+                                                                                        formation first.
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                <% } %>
+
+
+                                                                                    <% } else { %>
+
+                                                                                        <tr>
+                                                                                            <td colspan="5"
+                                                                                                style="text-align: center;">
+                                                                                                No evaluation event has
+                                                                                                been created
+                                                                                                at this moment.
+                                                                                            </td>
+                                                                                        </tr>
+
+                                                                                        <% } %>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <br>
+    <br>
+
+
+    <h3><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" fill="currentColor"
+            class="bi bi-check2-square text-success" viewBox="0 0 16 16">
+            <path
+                d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+            <path
+                d="M8.354 10.354l7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+        </svg> &nbsp;Submitted Evaluation</h3>
+
+    <table class="table table-bordered">
+        <thead style="vertical-align: middle;">
+            <tr class="table-secondary">
+                <th scope="col" span="1" style="text-align: center; width: 25%;">Evaluation Title</th>
+                <th scope="col" span="1" style="text-align: center; width: 17%;">Result Available
+                </th>
+                <th scope="col" span="1" style="text-align: center; width: 8%;">Group</th>
+                <th scope="col" span="1" style="text-align: center; width: 17%;">Due Date</th>
+                <th scope="col" span="1" style="text-align: center; width: 17%;">Date Submitted</th>
+                <th scope="col" span="1" style="text-align: center; width: 5%;">Result</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% var cnt=0; %>
+
+                <% responseInfo.forEach( function(event) { %>
+
+                    <% var s=false; %>
+                        <% var responseDate=0; %>
+
+                            <!-- Check the status -->
+                            <% event.completedResponse.forEach( function(response) { %>
+
+                                <% if (response.evaluator==userid && response.eventid==event.id) { %>
+
+                                    <% s=true %>
+                                        <% responseDate=response.updatedAt %>
+
+                                            <% } %>
+                                                <% }); %>
+
+                                                    <% if (s==true) { %>
+
+                                                        <tr>
+                                                            <td style="text-align:center">
+                                                                <a href="#">
+                                                                    <%= event.eventName %>
+                                                                </a>
+                                                            </td>
+                                                            <td style="text-align: center;">
+                                                                <%= new Intl.DateTimeFormat('en-GB', {
+                                                                    dateStyle: 'medium' , timeStyle: 'short' ,
+                                                                    hour12: 'true' }).format(event.releaseDate) %>
+                                                            </td>
+                                                            <td style="text-align:center">
+                                                                Group <%= inGroup[0].groupNum %>
+                                                            </td>
+                                                            <td style="text-align:center">
+                                                                <%= new Intl.DateTimeFormat('en-GB', {
+                                                                    dateStyle: 'medium' , timeStyle: 'short' ,
+                                                                    hour12: 'true' }).format(event.dueDate) %>
+                                                            </td>
+
+                                                            <% if(responseDate> event.dueDate) { %>
+                                                                <td style="text-align: center;" class="text-danger">
+                                                                    <%= new Intl.DateTimeFormat('en-GB', {
+                                                                        dateStyle: 'medium' , timeStyle: 'short' ,
+                                                                        hour12: 'true' }).format(responseDate) %>
+                                                                </td>
+                                                                <% } else { %>
+                                                                    <td style="text-align: center;">
+                                                                        <%= new Intl.DateTimeFormat('en-GB', {
+                                                                            dateStyle: 'medium' , timeStyle: 'short' ,
+                                                                            hour12: 'true' }).format(responseDate) %>
+                                                                    </td>
+                                                                    <% } %>
+
+                                                                        <td style="text-align: center;">
+                                                                            ---
+                                                                        </td>
+                                                        </tr>
+
+                                                        <% cnt++ %>
+
+                                                            <% } %>
+
+
+                                                                <% }); %>
+
+                                                                    <% if (cnt==0) { %>
+
+                                                                        <tr>
+                                                                            <td colspan="6" style="text-align: center;">
+                                                                                No evaluation event has been submitted
+                                                                                at this
+                                                                                moment.
+                                                                            </td>
+                                                                        </tr>
+
 
                                                                         <% } %>
 
 
 
-                                                                            <% } else { %>
+        </tbody>
 
-
-                                                                                <% if(event.dueDate> new
-                                                                                    Date().getTime() ) { %>
-                                                                                    <td style="text-align:center">
-                                                                                        <span
-                                                                                            class="badge rounded-pill bg-success">In-progress</span>
-                                                                                    </td>
-
-                                                                                    <td style="text-align:center">
-                                                                                        <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                                                                            class="btn btn-primary btn-sm">Start</a>
-                                                                                    </td>
-                                                                                    <% } else { %>
-
-                                                                                        <td style="text-align:center">
-                                                                                            <span
-                                                                                                class="badge rounded-pill bg-danger">Late</span>
-                                                                                        </td>
-
-                                                                                        <td style="text-align:center">
-                                                                                            <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                                                                                class="btn btn-primary btn-sm">Start</a>
-                                                                                        </td>
-
-
-                                                                                        <% } %>
-
-
-
-                                                                                            <% } %>
-
-
-
-                                                                                                <% } else { %>
-
-
-                                                                                                    <% if(event.dueDate>
-                                                                                                        new
-                                                                                                        Date().getTime()
-                                                                                                        ) { %>
-                                                                                                        <td
-                                                                                                            style="text-align:center">
-                                                                                                            <span
-                                                                                                                class="badge rounded-pill bg-success">In-progress</span>
-                                                                                                        </td>
-
-                                                                                                        <td
-                                                                                                            style="text-align:center">
-                                                                                                            <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                                                                                                class="btn btn-primary btn-sm">Start</a>
-                                                                                                        </td>
-                                                                                                        <% } else { %>
-
-                                                                                                            <td
-                                                                                                                style="text-align:center">
-                                                                                                                <span
-                                                                                                                    class="badge rounded-pill bg-danger">Late</span>
-                                                                                                            </td>
-
-                                                                                                            <td
-                                                                                                                style="text-align:center">
-                                                                                                                <a href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>"
-                                                                                                                    class="btn btn-primary btn-sm">Start</a>
-                                                                                                            </td>
-
-                                                                                                            <% } %>
-
-
-                                                                                                                <% } %>
-
-                            </tr>
-                            <% }); %>
-
-
-                                <% } else { %>
-
-                                    <tr>
-                                        <td colspan="5" style="text-align: center;">
-                                            Please complete the group formation first.
-                                        </td>
-                                    </tr>
-
-                                    <% } %>
-
-
-                                        <% } else { %>
-
-                                            <tr>
-                                                <td colspan="5" style="text-align: center;">
-                                                    No evaluation event has been created at this moment.
-                                                </td>
-                                            </tr>
-
-                                            <% } %>
-
-            </tbody>
-        </table>
-
-
-
-
-
-    </div>
+    </table>
 
 
 </body>
