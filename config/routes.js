@@ -144,6 +144,15 @@ module.exports.routes = {
   'GET /event/:id/use': 'EvalEventController.populate',
   'GET /evaluation/:id/useBy': 'EvaluationController.populate',
 
+  'GET /user/:id/haveForm': 'UserController.populate',
+  'GET /form/:id/saveTo': 'SavedFormController.populate',
+
+  'GET /group/:id/generateForm': 'GroupController.populate',
+  'GET /form/:id/getFrom': 'SavedFormController.populate',
+
+  'GET /project/:id/haveForm': 'ProjectController.populate',
+  'GET /form/:id/formBelongTo': 'SavedFormController.populate',
+
 
 
 

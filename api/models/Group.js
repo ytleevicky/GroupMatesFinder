@@ -60,6 +60,11 @@ module.exports = {
       via: 'inGroup'
     },
 
+    generateForm: {
+      collection: 'SavedForm',
+      via: 'getFrom'
+    },
+
 
 
   },

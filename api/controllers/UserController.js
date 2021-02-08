@@ -73,16 +73,15 @@ module.exports = {
 
     profile: async function (req, res) {
 
-        // console.log(req.session.userid);
-
         var user = await User.findOne({ id: req.session.userid });
 
         if (!user) { return res.notFound(); }
 
-        console.log(user);
-        // console.log(user.name);
+        var forms = await User.findOne(req.session.userid).populate('haveForm');
 
-        return res.view('user/profile', { userinfo: user, userid: req.session.userid });
+        var form2 = await SavedForm.find(forms.haveForm.map(v => v.id)).populate('getFrom').populate('formBelongTo');
+
+        return res.view('user/profile', { userinfo: user, userid: req.session.userid, allForm: form2 });
 
     },
 
@@ -219,16 +218,18 @@ module.exports = {
 
     },
 
-    // User enrollAt AcademicYear
-    // populate: async function (req, res) {
+    // User-S haveForm SavedForm 
+    populate: async function (req, res) {
 
-    //     var model = await User.findOne(req.params.id).populate("enrollAt");
+        var model = await User.findOne(req.params.id).populate("haveForm");
 
-    //     if (!model) return res.notFound();
+        if (!model) return res.notFound();
 
-    //     return res.json(model);
+        return res.json(model);
 
-    // },
+    },
+
+
 
 
 

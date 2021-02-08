@@ -1,27 +1,5 @@
 <body>
 
-    <!-- <br>
-    <div class="container row">
-
-        <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-person text-info" fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-        </svg>
-
-        &nbsp&nbsp&nbsp
-
-        <h1>Profile</h1>
-
-    </div>
-
-   
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Profile</li>
-        </ol>
-    </nav> -->
-
     <br>
     <h1><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person text-info" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
@@ -351,8 +329,90 @@
 
         <!-- Past Performance -->
         <div class="tab-pane fade" id="performance" role="tabpanel" aria-labelledby="profile-tab">
-            <br>
-            Here is the past performance
+
+            <% if (allForm.length> 0) { %>
+
+                <% allForm.forEach( function(f) { %>
+
+                    <div class="card my-4" style="margin: 10px 180px;">
+
+                        <div class="card-header">
+                            Peer Evaluation from <%= f.formBelongTo[0].projectName %> - Group <%= f.getFrom[0].groupNum
+                                    %>
+                        </div>
+
+                        <div class="card-body">
+
+                            <!-- <h4><mark><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+                                        class="bi bi-people-fill text-danger" viewBox="0 0 16 16">
+                                        <path
+                                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                        <path fill-rule="evenodd"
+                                            d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                                    </svg> &nbsp;Peer Evaluation Question</mark></h4> -->
+
+                            <% var n=0; %>
+
+                                <% f.evalQuestion.forEach( function(q) { %>
+
+                                    <div class="my-4" style="padding-left: 45px;">
+
+                                        <div class="my-3"><b><u>Q<%= n+1 %>. <%= q.question %></u></b></div>
+
+                                        <div style="padding-left: 33px;">
+
+                                            <% f.evalResponse.forEach( function(c) { %>
+
+
+                                                <div class="my-2" style="padding-left: 38px;">
+                                                    <figure class="text-start">
+                                                        <blockquote class="blockquote">
+                                                            <p>
+                                                                <%= c.response[n].answer %>
+                                                            </p>
+                                                        </blockquote>
+                                                        <figcaption class="blockquote-footer">
+                                                            <!-- Anonymous feeback -->
+                                                            <cite title="Source Title">
+                                                                Anonymous feeback
+                                                            </cite>
+                                                        </figcaption>
+                                                    </figure>
+
+                                                </div>
+
+                                                <% }); %>
+
+
+                                        </div>
+
+
+                                        <br>
+
+                                        <% n++ %>
+
+                                    </div>
+
+
+                                    <% }); %>
+
+
+
+
+                        </div>
+
+                    </div>
+
+                    <% }); %>
+
+
+                        <% } else { %>
+
+                            No evaluation at this moment.
+
+                            <% } %>
+
         </div>
 
 

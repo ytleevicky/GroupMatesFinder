@@ -171,5 +171,16 @@ module.exports = {
 
     },
 
+    // Project haveForm SavedForm
+    populate: async function (req, res) {
+
+        var model = await Project.findOne(req.params.id).populate("haveForm");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
 };
 

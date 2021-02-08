@@ -471,6 +471,17 @@ module.exports = {
 
     },
 
+    // Group generateForm SavedForm
+    populate: async function (req, res) {
+
+        var model = await Group.findOne(req.params.id).populate("generateForm");
+
+        if (!model) return res.notFound();
+
+        return res.json(model);
+
+    },
+
 
 };
 

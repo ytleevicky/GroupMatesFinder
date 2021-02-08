@@ -63,6 +63,44 @@ module.exports = {
 
         var groupMember = await Group.findOne(req.params.gid).populate('createdBy');
 
+
+        var sForm = await SavedForm.findOne({ where: { userid: req.session.userid, eventid: req.params.eid, groupid: req.params.gid } });
+
+        if (sForm == undefined || sForm.length == 0) {
+
+            var response = await EvalResponse.find({ where: { eventid: req.params.eid, groupid: req.params.gid, evaluator: { '!=': req.session.userid } } });
+
+            var content = [];
+
+            for (var i = 0; i < response.length; i++) {
+
+                for (var y = 0; y < response[i].formResponse.peerEvaluation.length; y++) {
+
+                    if (parseInt(response[i].formResponse.peerEvaluation[y].evaluatee) == req.session.userid) {
+                        content[i] = response[i].formResponse.peerEvaluation[y];
+                    }
+
+                }
+
+            }
+
+            savedForm = await SavedForm.create().fetch();
+
+            await SavedForm.update(savedForm.id).set({
+                projectid: req.params.pid,
+                eventid: req.params.eid,
+                groupid: req.params.gid,
+                userid: req.session.userid,
+                evalQuestion: evalForm.evaluationTemp.peerEvaluation,
+                evalResponse: content
+            }).fetch();
+
+            await SavedForm.addToCollection(savedForm.id, 'saveTo').members(req.session.userid);
+            await SavedForm.addToCollection(savedForm.id, 'getFrom').members(req.params.gid);
+            await SavedForm.addToCollection(savedForm.id, 'formBelongTo').members(req.params.pid);
+
+        }
+
         return res.view('event/evalResult', { userid: req.session.userid, sectioninfo: section, evalFormInfo: evalForm, members: groupMember, eventid: req.params.eid });
     },
 

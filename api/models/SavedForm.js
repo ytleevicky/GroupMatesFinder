@@ -1,5 +1,5 @@
 /**
- * Project.js
+ * SavedForm.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -13,46 +13,29 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    // projectID: {
-    //   type: 'string',
-    //   required: true,
-    // },
-
-    projectName: {
-      type: 'string',
-      required: true,
-    },
-
-    numOfStudentMin: {
-      type: 'number',
-      required: true,
-    },
-
-    numOfStudentMax: {
-      type: 'number',
-      required: true,
-    },
-
-    groupFormationDate: {
+    projectid: {
       type: 'number',
     },
 
-    projectSubmitDate: {
+    eventid: {
       type: 'number',
     },
 
-    projectDescription: {
-      type: 'string',
+    groupid: {
+      type: 'number'
     },
 
-    courseName: {
-      type: 'string',
+    userid: {
+      type: 'number'
     },
 
-    courseID: {
-      type: 'string'
+    evalQuestion: {
+      type: 'json'
     },
 
+    evalResponse: {
+      type: 'json'
+    },
 
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -64,25 +47,21 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    inSection: {
-      collection: 'Section',
-      via: 'haveProject'
+    saveTo: {
+      collection: 'User',
+      via: 'haveForm'
     },
 
-    haveGroup: {
+    getFrom: {
       collection: 'Group',
-      via: 'inProject'
+      via: 'generateForm'
     },
 
-    haveEvent: {
-      collection: 'EvalEvent',
-      via: 'belongTo'
+    formBelongTo: {
+      collection: 'Project',
+      via: 'haveForm'
     },
 
-    haveForm: {
-      collection: 'SavedForm',
-      via: 'formBelongTo'
-    },
 
   },
 
