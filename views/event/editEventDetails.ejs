@@ -128,7 +128,9 @@
                 <div class="form-group row">
                     <label for="message-text" class="col-4 col-form-label">Due Date:</label>
                     <div class="col-8">
-                        <input type="datetime-local" class="form-control" name="dueDate" id="date" required>
+                        <input type="datetime-local" class="form-control" name="dueDate" id="date"
+                            onchange="validateDueDate();" required>
+                        <div id="displayDueDateError"></div>
                     </div>
                 </div>
             </div>
@@ -167,7 +169,9 @@
                 <div class="form-group row">
                     <label for="message-text" class="col-4 col-form-label">Result Release Date:</label>
                     <div class="col-8">
-                        <input type="datetime-local" class="form-control" name="releaseDate" id="date2" required>
+                        <input type="datetime-local" class="form-control" name="releaseDate" id="date2"
+                            onchange="validateReleaseDate();" required>
+                        <div id="displayRDateError"></div>
                     </div>
                 </div>
             </div>
@@ -190,7 +194,6 @@
 
 <script>
 
-    // document.querySelector('option[value = "<%= eventInfo.eventDes %>"]').selected = "selected";
 
     document.getElementById("myTextarea").value = "<%= eventInfo.eventDes %>";
 
@@ -227,15 +230,6 @@
     var releaseDate = YYYY + "-" + MM + "-" + DD + "T" + hh + ":" + mm;
 
     document.getElementById("date2").value = releaseDate;
-
-
-    // function check() {
-    //     var date = new Date(document.getElementById("date").value);
-
-    //     var timestamp = date.getTime();
-
-    //     alert(timestamp);
-    // }
 
 
     // Handle the radio button
@@ -279,8 +273,6 @@
 
 
 
-
-
     async function createForm(oFormElement) {
 
         var response = await fetch("/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/event/<%= eventInfo.id %>/editEventDetails", {
@@ -307,12 +299,35 @@
 
     };
 
+    // Validate dueDate and result release date
 
+    function validateDueDate() {
 
+        var fDate = document.getElementById("date");
 
+        var sDate = document.getElementById("date2");
 
+        fDate.max = sDate.value;
 
+        var msg = "<div class='invalid-feedback'>Invalid date! Due Date must be earlier than or equal to Result Release Date.</div>";
 
+        $('#displayDueDateError').replaceWith(msg);
+
+    }
+
+    function validateReleaseDate() {
+
+        var fDate = document.getElementById("date");
+
+        var sDate = document.getElementById("date2");
+
+        sDate.min = fDate.value;
+
+        var msg = "<div class='invalid-feedback'>Invalid date! Result Release Date must be later than or equal to Due Date.</div>";
+
+        $('#displayRDateError').replaceWith(msg);
+
+    }
 
 
 </script>

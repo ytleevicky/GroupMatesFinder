@@ -77,7 +77,9 @@
                 <div class="form-group row">
                     <label for="message-text" class="col-4 col-form-label">Due Date:</label>
                     <div class="col-8">
-                        <input type="datetime-local" class="form-control" name="dueDate" id="date" required>
+                        <input type="datetime-local" class="form-control" name="dueDate" id="dueDate"
+                            onchange="validateDueDate();" required>
+                        <div id="displayDueDateError"></div>
                     </div>
                 </div>
             </div>
@@ -116,7 +118,9 @@
                 <div class="form-group row">
                     <label for="message-text" class="col-4 col-form-label">Result Release Date:</label>
                     <div class="col-8">
-                        <input type="datetime-local" class="form-control" name="releaseDate" required>
+                        <input type="datetime-local" class="form-control" name="releaseDate" id="releaseDate"
+                            onchange="validateReleaseDate();" required>
+                        <div id="displayRDateError"></div>
                     </div>
                 </div>
             </div>
@@ -159,15 +163,6 @@
 
     }
 
-
-    // function check() {
-    //     var date = new Date(document.getElementById("date").value);
-
-    //     var timestamp = date.getTime();
-
-    //     alert(timestamp);
-    // }
-
     async function createForm(oFormElement) {
 
         var response = await fetch(oFormElement.action, {
@@ -193,6 +188,36 @@
         }
 
     };
+
+    // Validate dueDate and result release date
+
+    function validateDueDate() {
+
+        var fDate = document.getElementById("dueDate");
+
+        var sDate = document.getElementById("releaseDate");
+
+        fDate.max = sDate.value;
+
+        var msg = "<div class='invalid-feedback'>Invalid date! Due Date must be earlier than or equal to Result Release Date.</div>";
+
+        $('#displayDueDateError').replaceWith(msg);
+
+    }
+
+    function validateReleaseDate() {
+
+        var fDate = document.getElementById("dueDate");
+
+        var sDate = document.getElementById("releaseDate");
+
+        sDate.min = fDate.value;
+
+        var msg = "<div class='invalid-feedback'>Invalid date! Result Release Date must be later than or equal to Due Date.</div>";
+
+        $('#displayRDateError').replaceWith(msg);
+
+    }
 
 
 
