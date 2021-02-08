@@ -1,0 +1,492 @@
+<body>
+
+    <br>
+
+    <h2 style="text-align: center;">
+        <%= eventInfo.eventName %> - Group <%= groupMemberInfo.groupNum %>
+    </h2>
+
+    <div class="my-4">
+
+        <div class="my-5">
+            <h5><b>Instruction:</b></h5>
+            <%= eventInfo.eventDes %>
+        </div>
+
+        <div class="my-5">
+            <h5><b>Notes:</b></h5>
+            <ul>
+                <li>Check the Group Members before start </li>
+                <li>The evaluation is due on <b class="text-danger">
+                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' , hour12: 'true'
+                            }).format(eventInfo.dueDate) %>
+                    </b>
+                </li>
+                <li>You can continue to update the evaluation until the due date.</li>
+            </ul>
+        </div>
+
+        <br>
+
+        <form method="POST" id="target"
+            action="/section/<%= sectionid %>/project/<%= projectid %>/group/<%= groupid %>/viewEvent/<%= eventInfo.id %>/form/<%= formid %>"
+            onsubmit="createForm(this);return false">
+
+            <% if (eventInfo.evaluationTemp.peerEvaluation!=null ) { %>
+
+
+                <h4><mark><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+                            class="bi bi-people-fill text-danger" viewBox="0 0 16 16">
+                            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            <path fill-rule="evenodd"
+                                d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+                            <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+                        </svg> &nbsp;Peer Evaluation Question:</mark></h4>
+
+                <% n=1 %>
+
+
+                    <% responseInfo.peerEvaluation.forEach( function(r) { %>
+
+                        <div class="my-6">
+
+                            <h4 class="text-secondary" style="text-align: center;">
+                                <%= r.evaluateeFullName %> (<%= r.evaluateeStudentID %>)
+                            </h4>
+
+                            <input type="hidden" name="EvalResponse[formResponse][peerEvaluation][<%= n %>][evaluatee]"
+                                value="<%= r.evaluatee %>">
+                            <input type="hidden"
+                                name="EvalResponse[formResponse][peerEvaluation][<%= n %>][evaluateeFullName]"
+                                value="<%= r.evaluateeFullName %>">
+                            <input type="hidden"
+                                name="EvalResponse[formResponse][peerEvaluation][<%= n %>][evaluateeStudentID]"
+                                value="<%= r.evaluateeStudentID %>">
+                        </div>
+
+                        <br>
+
+
+                        <% var i=1 %>
+
+                            <% r.response.forEach( function(response) { %>
+
+                                <div class="mb-5">
+
+                                    <b>Q<%= i %>. <%= response.question %></b>
+
+                                    <input type="hidden"
+                                        name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][question]"
+                                        value="<%= response.question %>">
+
+                                    <% if(response.type=="Rating" ) { %>
+
+                                        <input type="hidden"
+                                            name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][type]"
+                                            value="<%= response.type %>">
+
+                                        <div class="my-2" style="padding-left: 50px; width: 650px;">
+                                            <select class="form-select w-30" aria-label="Default select example"
+                                                name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][answer]"
+                                                required>
+                                                <option value="">Please rate</option>
+
+                                                <% if (response.answer=='1: Very Unsatisfactory' ) { %>
+                                                    <option value="1: Very Unsatisfactory" selected>1: Very
+                                                        Unsatisfactory
+                                                    </option>
+                                                    <option value="2: Unsatisfactory">2: Unsatisfactory</option>
+                                                    <option value="3: Average">3: Average</option>
+                                                    <option value="4: Good">4: Good</option>
+                                                    <option value="5: Excellent">5: Excellent
+                                                    </option>
+
+                                                    <% } else if (response.answer=='2: Unsatisfactory' ) { %>
+                                                        <option value="1: Very Unsatisfactory">1: Very Unsatisfactory
+                                                        </option>
+                                                        <option value="2: Unsatisfactory" selected>2: Unsatisfactory
+                                                        </option>
+                                                        <option value="3: Average">3: Average</option>
+                                                        <option value="4: Good">4: Good</option>
+                                                        <option value="5: Excellent">5: Excellent
+                                                        </option>
+
+                                                        <% } else if (response.answer=='3: Average' ) { %>
+                                                            <option value="1: Very Unsatisfactory">1: Very
+                                                                Unsatisfactory
+                                                            </option>
+                                                            <option value="2: Unsatisfactory">2: Unsatisfactory
+                                                            </option>
+                                                            <option value="3: Average" selected>3: Average</option>
+                                                            <option value="4: Good">4: Good</option>
+                                                            <option value="5: Excellent">5: Excellent
+                                                            </option>
+                                                            <% } else if (response.answer=='4: Good' ) { %>
+                                                                <option value="1: Very Unsatisfactory">1: Very
+                                                                    Unsatisfactory
+                                                                </option>
+                                                                <option value="2: Unsatisfactory">2: Unsatisfactory
+                                                                </option>
+                                                                <option value="3: Average">3: Average</option>
+                                                                <option value="4: Good" selected>4: Good</option>
+                                                                <option value="5: Excellent">5: Excellent
+                                                                </option>
+                                                                <% } else if (response.answer=='5: Excellent' ) { %>
+                                                                    <option value="1: Very Unsatisfactory">1: Very
+                                                                        Unsatisfactory</option>
+                                                                    <option value="2: Unsatisfactory">2: Unsatisfactory
+                                                                    </option>
+                                                                    <option value="3: Average">3: Average</option>
+                                                                    <option value="4: Good">4: Good</option>
+                                                                    <option value="5: Excellent" selected>5: Excellent
+                                                                    </option>
+                                                                    <% } %>
+                                            </select>
+                                        </div>
+
+                                        <% } else if (response.type=="Paragraph" ) { %>
+
+                                            <input type="hidden"
+                                                name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][type]"
+                                                value="<%= response.type %>">
+
+                                            <div style="padding-left: 50px;">
+                                                <textarea class="form-control my-2"
+                                                    name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][answer]"
+                                                    rows="4" required><%= response.answer %></textarea>
+                                            </div>
+
+                                            <% } else { %>
+
+                                                <input type="hidden"
+                                                    name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][type]"
+                                                    value="<%= response.type %>">
+
+                                                <div class="input-group flex-nowrap my-2" style="padding-left: 50px;">
+
+                                                    <input type="text" class="form-control" aria-label="answer"
+                                                        aria-describedby="addon-wrapping"
+                                                        name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][answer]"
+                                                        required value="<%= response.answer %>">
+                                                </div>
+
+                                                <% } %>
+
+
+                                                    <% i++ %>
+
+                                </div>
+
+                                <% }); %>
+
+
+                                    <% n++ %>
+
+
+                                        <% }); %>
+
+
+                                            <br>
+
+                                            <% } %>
+
+
+                                                <% if(eventInfo.evaluationTemp.peerEvaluation!=null &&
+                                                    eventInfo.evaluationTemp.selfEvaluation!=null) { %>
+                                                    <hr>
+                                                    <br>
+                                                    <% } %>
+
+
+                                                        <% if (eventInfo.evaluationTemp.selfEvaluation!=null ) { %>
+
+                                                            <div class="my-8">
+
+                                                                <h4><mark><svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="35" height="35" fill="currentColor"
+                                                                            class="bi bi-person-fill text-primary"
+                                                                            viewBox="0 0 16 16">
+                                                                            <path
+                                                                                d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                                                        </svg> &nbsp;Self Evaluation
+                                                                        Question:</mark></h4>
+                                                                <br>
+
+                                                                <% var i=1 %>
+                                                                    <% responseInfo.selfEvaluation.forEach(
+                                                                        function(question) { %>
+
+                                                                        <div class="mb-5">
+                                                                            <b>Q<%= i %>. <%= question.question %>
+                                                                            </b>
+
+                                                                            <input type="hidden"
+                                                                                name="EvalResponse[formResponse][selfEvaluation][<%= i %>][question]"
+                                                                                value="<%= question.question %>">
+
+
+                                                                            <% if(question.type=="Rating" ) { %>
+
+                                                                                <input type="hidden"
+                                                                                    name="EvalResponse[formResponse][selfEvaluation][<%= i %>][type]"
+                                                                                    value="<%= question.type %>">
+
+                                                                                <div class="my-2"
+                                                                                    style="padding-left: 50px; width: 650px;">
+
+                                                                                    <select class="form-select w-30"
+                                                                                        aria-label="Default select example"
+                                                                                        name="EvalResponse[formResponse][selfEvaluation][<%= i %>][answer]"
+                                                                                        required>
+                                                                                        <option value="">Please rate
+                                                                                        </option>
+
+                                                                                        <% if
+                                                                                            (response.answer=='1: Very Unsatisfactory'
+                                                                                            ) { %>
+                                                                                            <option
+                                                                                                value="1: Very Unsatisfactory"
+                                                                                                selected>1: Very
+                                                                                                Unsatisfactory
+                                                                                            </option>
+                                                                                            <option
+                                                                                                value="2: Unsatisfactory">
+                                                                                                2: Unsatisfactory
+                                                                                            </option>
+                                                                                            <option value="3: Average">
+                                                                                                3: Average</option>
+                                                                                            <option value="4: Good">4:
+                                                                                                Good</option>
+                                                                                            <option
+                                                                                                value="5: Excellent">5:
+                                                                                                Excellent
+                                                                                            </option>
+
+                                                                                            <% } else if
+                                                                                                (response.answer=='2: Unsatisfactory'
+                                                                                                ) { %>
+                                                                                                <option
+                                                                                                    value="1: Very Unsatisfactory">
+                                                                                                    1: Very
+                                                                                                    Unsatisfactory
+                                                                                                </option>
+                                                                                                <option
+                                                                                                    value="2: Unsatisfactory"
+                                                                                                    selected>2:
+                                                                                                    Unsatisfactory
+                                                                                                </option>
+                                                                                                <option
+                                                                                                    value="3: Average">
+                                                                                                    3: Average</option>
+                                                                                                <option value="4: Good">
+                                                                                                    4: Good</option>
+                                                                                                <option
+                                                                                                    value="5: Excellent">
+                                                                                                    5: Excellent
+                                                                                                </option>
+
+                                                                                                <% } else if
+                                                                                                    (response.answer=='3: Average'
+                                                                                                    ) { %>
+                                                                                                    <option
+                                                                                                        value="1: Very Unsatisfactory">
+                                                                                                        1: Very
+                                                                                                        Unsatisfactory
+                                                                                                    </option>
+                                                                                                    <option
+                                                                                                        value="2: Unsatisfactory">
+                                                                                                        2:
+                                                                                                        Unsatisfactory
+                                                                                                    </option>
+                                                                                                    <option
+                                                                                                        value="3: Average"
+                                                                                                        selected>3:
+                                                                                                        Average</option>
+                                                                                                    <option
+                                                                                                        value="4: Good">
+                                                                                                        4: Good</option>
+                                                                                                    <option
+                                                                                                        value="5: Excellent">
+                                                                                                        5: Excellent
+                                                                                                    </option>
+                                                                                                    <% } else if
+                                                                                                        (response.answer=='4: Good'
+                                                                                                        ) { %>
+                                                                                                        <option
+                                                                                                            value="1: Very Unsatisfactory">
+                                                                                                            1: Very
+                                                                                                            Unsatisfactory
+                                                                                                        </option>
+                                                                                                        <option
+                                                                                                            value="2: Unsatisfactory">
+                                                                                                            2:
+                                                                                                            Unsatisfactory
+                                                                                                        </option>
+                                                                                                        <option
+                                                                                                            value="3: Average">
+                                                                                                            3: Average
+                                                                                                        </option>
+                                                                                                        <option
+                                                                                                            value="4: Good"
+                                                                                                            selected>4:
+                                                                                                            Good
+                                                                                                        </option>
+                                                                                                        <option
+                                                                                                            value="5: Excellent">
+                                                                                                            5: Excellent
+                                                                                                        </option>
+                                                                                                        <% } else if
+                                                                                                            (response.answer=='5: Excellent'
+                                                                                                            ) { %>
+                                                                                                            <option
+                                                                                                                value="1: Very Unsatisfactory">
+                                                                                                                1: Very
+                                                                                                                Unsatisfactory
+                                                                                                            </option>
+                                                                                                            <option
+                                                                                                                value="2: Unsatisfactory">
+                                                                                                                2:
+                                                                                                                Unsatisfactory
+                                                                                                            </option>
+                                                                                                            <option
+                                                                                                                value="3: Average">
+                                                                                                                3:
+                                                                                                                Average
+                                                                                                            </option>
+                                                                                                            <option
+                                                                                                                value="4: Good">
+                                                                                                                4: Good
+                                                                                                            </option>
+                                                                                                            <option
+                                                                                                                value="5: Excellent"
+                                                                                                                selected>
+                                                                                                                5:
+                                                                                                                Excellent
+                                                                                                            </option>
+
+                                                                                                            <% } %>
+                                                                                    </select>
+                                                                                </div>
+
+                                                                                <% } else if (question.type=="Paragraph"
+                                                                                    ) { %>
+
+                                                                                    <input type="hidden"
+                                                                                        name="EvalResponse[formResponse][selfEvaluation][<%= i %>][type]"
+                                                                                        value="<%= question.type %>">
+
+                                                                                    <div style="padding-left: 50px;">
+                                                                                        <textarea
+                                                                                            class="form-control my-2"
+                                                                                            name="EvalResponse[formResponse][selfEvaluation][<%= i %>][answer]"
+                                                                                            rows="4"
+                                                                                            required><%= question.answer %></textarea>
+                                                                                    </div>
+
+                                                                                    <% } else { %>
+
+                                                                                        <input type="hidden"
+                                                                                            name="EvalResponse[formResponse][selfEvaluation][<%= i %>][type]"
+                                                                                            value="<%= question.type %>">
+
+                                                                                        <div class="input-group flex-nowrap my-2"
+                                                                                            style="padding-left: 50px;">
+
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                aria-label="answer"
+                                                                                                aria-describedby="addon-wrapping"
+                                                                                                name="EvalResponse[formResponse][selfEvaluation][<%= i %>][answer]"
+                                                                                                required>
+                                                                                        </div>
+
+                                                                                        <% } %>
+
+                                                                        </div>
+
+                                                                        <% i++ %>
+
+                                                                            <% }); %>
+
+
+                                                            </div>
+
+                                                            <% } %>
+
+                                                                <div class="d-grid gap-2 col-3 mx-auto">
+                                                                    <button class="btn btn-primary" type="submit">Submit
+                                                                        the
+                                                                        Evaluation</button>
+                                                                </div>
+
+                                                                <input type="hidden" name="EvalResponse[evaluator]"
+                                                                    value="<%= userid %>">
+
+                                                                <input type="hidden" name="EvalResponse[eventid]"
+                                                                    value="<%= eventInfo.id %>">
+
+                                                                <input type="hidden" name="EvalResponse[groupid]"
+                                                                    value="<%= groupid %>">
+
+
+        </form>
+
+    </div>
+
+
+
+</body>
+
+<style>
+    b {
+        color: #324880;
+        font-size: large;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
+<script>
+
+    var d = "<%= eventInfo.dueDate %>";
+    var dueDate = parseInt(d);
+
+    if (new Date().getTime() > dueDate) {
+        $(document).ready(function () {
+            $("#target :input").prop("disabled", true);
+        });
+    }
+
+
+
+    async function createForm(oFormElement) {
+
+        var response = await fetch(oFormElement.action, {
+            method: "PATCH",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
+
+
+
+
+</script>

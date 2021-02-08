@@ -111,82 +111,102 @@
                                                                                     class="badge rounded-pill bg-danger">&nbsp;Late&nbsp;</span>
                                                                             </td>
 
-                                                                            <td style="text-align:center">
-                                                                                <a
-                                                                                    href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
-                                                                            </td>
+                                                                            <% if( new Date().getTime()>
+                                                                                event.releaseDate ) { %>
 
+                                                                                <td style="text-align:center">
+                                                                                    <button class="btn btn-link"
+                                                                                        style="text-decoration: none; padding: 0px;"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#exampleModal">Start</button>
+                                                                                </td>
 
-                                                                            <% } %>
+                                                                                <% } else { %>
 
-                                                                                <% n++ %>
-
+                                                                                    <td style="text-align:center">
+                                                                                        <a
+                                                                                            href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
+                                                                                    </td>
                                                                                     <% } %>
 
 
+                                                                                        <% } %>
 
-                                                                                        <% } else { %>
+                                                                                            <% n++ %>
 
-                                                                                            <!-- Display for the 1st evalResponse -->
-
-                                                                                            <td
-                                                                                                style="text-align:center">
-                                                                                                <%= event.eventName %>
-                                                                                            </td>
-                                                                                            <td
-                                                                                                style="text-align:center">
-                                                                                                Group <%=
-                                                                                                    inGroup[0].groupNum
-                                                                                                    %>
-                                                                                            </td>
-                                                                                            <td
-                                                                                                style="text-align:center">
-                                                                                                <%= new
-                                                                                                    Intl.DateTimeFormat('en-GB',
-                                                                                                    {
-                                                                                                    dateStyle: 'medium'
-                                                                                                    , timeStyle: 'short'
-                                                                                                    , hour12: 'true'
-                                                                                                    }).format(event.dueDate)
-                                                                                                    %>
-                                                                                            </td>
+                                                                                                <% } %>
 
 
-                                                                                            <% if(event.dueDate>
-                                                                                                new
-                                                                                                Date().getTime()
-                                                                                                ) { %>
-                                                                                                <td
-                                                                                                    style="text-align:center">
-                                                                                                    <span
-                                                                                                        class="badge rounded-pill bg-success">In-progress</span>
-                                                                                                </td>
 
-                                                                                                <td
-                                                                                                    style="text-align:center">
-                                                                                                    <a
-                                                                                                        href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
-                                                                                                </td>
-                                                                                                <% } else { %>
+                                                                                                    <% } else { %>
 
-                                                                                                    <td
-                                                                                                        style="text-align:center">
-                                                                                                        <span
-                                                                                                            class="badge rounded-pill bg-danger">Late</span>
-                                                                                                    </td>
+                                                                                                        <!-- Display for the 1st evalResponse -->
 
-                                                                                                    <td
-                                                                                                        style="text-align:center">
-                                                                                                        <a
-                                                                                                            href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
-                                                                                                    </td>
-
-                                                                                                    <% } %>
-
-                                                                                                        <% n++ %>
+                                                                                                        <td
+                                                                                                            style="text-align:center">
+                                                                                                            <%= event.eventName
+                                                                                                                %>
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="text-align:center">
+                                                                                                            Group <%=
+                                                                                                                inGroup[0].groupNum
+                                                                                                                %>
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="text-align:center">
+                                                                                                            <%= new
+                                                                                                                Intl.DateTimeFormat('en-GB',
+                                                                                                                {
+                                                                                                                dateStyle: 'medium'
+                                                                                                                ,
+                                                                                                                timeStyle: 'short'
+                                                                                                                ,
+                                                                                                                hour12: 'true'
+                                                                                                                }).format(event.dueDate)
+                                                                                                                %>
+                                                                                                        </td>
 
 
-                                                                                                            <% } %>
+                                                                                                        <%
+                                                                                                            if(event.dueDate>
+                                                                                                            new
+                                                                                                            Date().getTime()
+                                                                                                            ) { %>
+                                                                                                            <td
+                                                                                                                style="text-align:center">
+                                                                                                                <span
+                                                                                                                    class="badge rounded-pill bg-success">In-progress</span>
+                                                                                                            </td>
+
+                                                                                                            <td
+                                                                                                                style="text-align:center">
+                                                                                                                <a
+                                                                                                                    href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
+                                                                                                            </td>
+                                                                                                            <% } else {
+                                                                                                                %>
+
+                                                                                                                <td
+                                                                                                                    style="text-align:center">
+                                                                                                                    <span
+                                                                                                                        class="badge rounded-pill bg-danger">Late</span>
+                                                                                                                </td>
+
+                                                                                                                <td
+                                                                                                                    style="text-align:center">
+                                                                                                                    <a
+                                                                                                                        href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/event/<%= event.id %>">Start</a>
+                                                                                                                </td>
+
+                                                                                                                <% } %>
+
+                                                                                                                    <% n++
+                                                                                                                        %>
+
+
+                                                                                                                        <% }
+                                                                                                                            %>
 
                                                                 </tr>
                                                                 <% }); %>
@@ -281,7 +301,8 @@
 
                                                         <tr>
                                                             <td style="text-align:center">
-                                                                <a href="#">
+                                                                <a
+                                                                    href="/section/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/group/<%= inGroup[0].id %>/viewEvent/<%= event.id %>">
                                                                     <%= event.eventName %>
                                                                 </a>
                                                             </td>
@@ -354,6 +375,25 @@
         </tbody>
 
     </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">End of Submission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Since the result has been released, you can no longer submit this evaluation.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </body>

@@ -16,21 +16,20 @@
         <div class="my-5">
             <h5><b>Notes:</b></h5>
             <ul>
-                <li>Only ONE attempt allowed for this peer evaluation</li>
-                <li>You cannot REATTEMPT the peer evaluation once you finished evaluate all of your group members</li>
-                <li>Check the Group Members before Start </li>
+                <li>Check the Group Members before start </li>
                 <li>The evaluation is due on <b class="text-danger">
-                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short'
+                        <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' , hour12: 'true'
                             }).format(eventInfo.dueDate) %>
                     </b>
                 </li>
+                <li>You can continue to update the evaluation until the due date.</li>
             </ul>
         </div>
 
         <br>
 
         <form method="POST"
-            action="/section/<%= sectionid %>/project/<%= projectid %>/group/<%= projectid %>/event/<%= eventInfo.id %>"
+            action="/section/<%= sectionid %>/project/<%= projectid %>/group/<%= groupid %>/event/<%= eventInfo.id %>"
             onsubmit="createForm(this);return false">
 
             <% if (eventInfo.evaluationTemp.peerEvaluation!=null ) { %>

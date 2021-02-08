@@ -184,6 +184,32 @@ module.exports = {
 
     },
 
+    viewCompletedEvaluation: async function (req, res) {
+
+        if (req.method == "GET") {
+
+            var event = await EvalEvent.findOne(req.params.eid);
+
+            var response = await EvalResponse.findOne({ where: { groupid: req.params.gid, eventid: req.params.eid, evaluator: req.session.userid } });
+
+            var groupMember = await Group.findOne(req.params.gid).populate('createdBy', { where: { id: { '!=': req.session.userid } } });
+
+            return res.view('event/viewCompletedEval', { eventInfo: event, responseInfo: response.formResponse, groupMemberInfo: groupMember, userid: req.session.userid, projectid: req.params.pid, groupid: req.params.gid, sectionid: req.params.sid, formid: response.id });
+
+        } else {
+
+            if (!req.body.EvalResponse) { return res.badRequest('Form-data not received.'); }
+
+            await EvalResponse.update(req.params.fid).set({
+                formResponse: req.body.EvalResponse.formResponse,
+            }).fetch();
+
+            return res.json({ message: 'Evaluation has been updated', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/evaluationEvent' });
+
+        }
+
+    },
+
 
 
     // EvalEvent belongTo Project

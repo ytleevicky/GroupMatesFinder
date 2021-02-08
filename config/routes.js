@@ -91,6 +91,8 @@ module.exports.routes = {
   '/student/section/:sid/project/:pid/evaluationEvent': 'EvalEventController.viewEvaluationEvent',
   'GET /section/:sid/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',
   'POST /section/:sid/project/:pid/group/:gid/event/:eid': 'EvalEventController.completeEvaluation',
+  'GET /section/:sid/project/:pid/group/:gid/viewEvent/:eid': 'EvalEventController.viewCompletedEvaluation',
+  'PATCH /section/:sid/project/:pid/group/:gid/viewEvent/:eid/form/:fid': 'EvalEventController.viewCompletedEvaluation',
 
   '/student/section/:sid/project/:pid/event/:eid/group/:gid/evalResult': 'EvalResponseController.evalResult',
 

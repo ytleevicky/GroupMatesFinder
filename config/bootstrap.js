@@ -86,7 +86,7 @@ module.exports.bootstrap = async function () {
             },
             {
               question: "Areas of improvement for this group member",
-              type: "Sentence"
+              type: "Paragraph"
             },
             {
               question: "Overall feedback and comments about this group member",
