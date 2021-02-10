@@ -1,3 +1,8 @@
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+
+</head>
+
 <body>
 
     <section class="hero">
@@ -12,13 +17,19 @@
 
 
         <div class="container text-center">
-            <h1>GroupMatesFinder</h1>
-            <h2 style="color: #666;">Form group without difficulties</h2>
+            <h1 class="ml6">
+                <span class="text-wrapper">
+                    <span class="letters">GroupMatesFinder</span>
+                </span>
+            </h1>
+            <h2 style="color: #666;" class="ml4">Form group without difficulties</h2>
         </div>
 
         <div class="more-info-text text-info">
             <div class="text">
-                <h5>Learn more</h5>
+                <a href="#bottom">
+                    <h4 class="text-uppercase">Learn more</h4>
+                </a>
             </div>
             <div class="icon"><b>&darr;</b></div>
         </div>
@@ -27,7 +38,7 @@
 
 
 
-    <main style="background-color: rgb(72, 196, 214); color: white;">
+    <main style="background-color: rgb(72, 196, 214); color: white;" id="bottom">
 
         <div class="container" id="des" style="padding: 70px 50px;">
             <br>
@@ -156,6 +167,12 @@
 
     }
 
+    a:visited {
+        color: #39C0ED;
+
+
+    }
+
 
     .btn {
         transition-duration: 0.4s;
@@ -166,7 +183,7 @@
         color: white;
     }
 
-    /*  Text Animation */
+    /*  Text Animation - Learn More */
 
     @-webkit-keyframes mover {
         0% {
@@ -187,4 +204,43 @@
             transform: translateY(-20px);
         }
     }
+
+
+
+    /* Big header - GroupMatesFinder */
+    .ml6 {
+        position: relative;
+        font-weight: 900;
+        font-size: 3.3em;
+    }
+
+    .ml6 .text-wrapper {
+        position: relative;
+        display: inline-block;
+        padding-top: 0.2em;
+        padding-right: 0.05em;
+        padding-bottom: 0.1em;
+        overflow: hidden;
+    }
+
+    .ml6 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
 </style>
+
+<script>
+    // Wrap every letter in a span
+    var textWrapper = document.querySelector('.ml6 .letters');
+    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+    anime.timeline({ loop: false })
+        .add({
+            targets: '.ml6 .letter',
+            translateY: ["1.1em", 0],
+            translateZ: 0,
+            duration: 750,
+            delay: (el, i) => 50 * i
+        });
+
+</script>
