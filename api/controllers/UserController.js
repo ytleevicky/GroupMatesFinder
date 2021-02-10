@@ -8,6 +8,12 @@
 
 module.exports = {
 
+    landing: async function (req, res) {
+
+        return res.view('user/landing');
+
+    },
+
     login: async function (req, res) {
 
         if (req.method == "GET") return res.view('user/login');

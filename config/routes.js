@@ -21,7 +21,7 @@ module.exports.routes = {
 
   // '/': { view: 'pages/homepage' },
 
-  '/': 'UserController.login',
+  '/': 'UserController.landing',
 
   '/homepage/:id': 'CourseController.homepage',
   '/teacher/homepage/:id': 'CourseController.teacherHomepage',
