@@ -136,6 +136,40 @@ module.exports = {
 
     },
 
+    editProject: async function (req, res) {
+
+        if (req.method == 'GET') {
+
+            var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
+
+            return res.view('project/editProject', { userid: req.session.userid, sectioninfo: section, projectinfo: section.haveProject[0] });
+
+        } else {
+
+            if (!req.body.Project) { return res.badRequest('Form-data not received.'); }
+
+            var date = new Date(req.body.formDate);
+            var timestamp = date.getTime();
+
+            var date2 = new Date(req.body.submitDate);
+            var timestamp2 = date2.getTime();
+
+            await Project.update(req.params.pid).set({
+                projectName: req.body.Project.projectName,
+                numOfStudentMin: req.body.Project.numOfStudentMin,
+                numOfStudentMax: req.body.Project.numOfStudentMax,
+                groupFormationDate: timestamp,
+                projectSubmitDate: timestamp2,
+                projectDescription: req.body.Project.projectDescription,
+
+            }).fetch();
+
+            return res.json({ message: 'Project has been updated.', url: '/teacher/' + req.session.userid + '/viewSection/' + req.params.sid });
+
+        }
+
+    },
+
 
 
     // Project inSection Section

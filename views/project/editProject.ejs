@@ -1,0 +1,260 @@
+<body>
+
+    <br>
+
+    <h1><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-book text-primary" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+        </svg>
+        &nbsp;<%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %> (Section <%= sectioninfo.sectionNum
+                    %>)
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/teacher/homepage/<%= userid %>">Home</a></li>
+            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewCourse/<%= sectioninfo.in[0].id %>">
+                    <%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %>
+                </a></li>
+            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>">
+                    Section <%= sectioninfo.sectionNum %>
+                </a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Project
+            </li>
+        </ol>
+    </nav>
+
+    <br>
+
+    <div class="row">
+        <h3 class="col-md-6"><svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" fill="currentColor"
+                class="bi bi-info-circle text-info" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                    d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+            </svg> &nbsp;Edit Project</h3>
+    </div>
+
+    <div class="container" style="padding: 40px 150px;">
+
+        <form method="POST" onsubmit="createForm(this);return false" class="was-validated">
+
+            <div class="mb-4">
+                <div class="form-group row">
+                    <label for="example-title" class="col-4 col-form-label">Project Name:</label>
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="Project[projectName]"
+                            value="<%= projectinfo.projectName %>" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="row">
+                    <div class="col-5"> <label for="numberOfStudent" class="col-form-label">Number
+                            of
+                            Student Per
+                            Group:</label></div>
+
+                    <div class="col-7">
+                        <div class="row">
+                            <div class="col-6 my-2">
+                                <div class="row">
+                                    <label class="col-2" for="numberOfStudentMin" class="col-form-label">Min:</label>
+                                    <div class="col-10">
+                                        <input type="number" class="form-control" style="width: 50%;"
+                                            name="Project[numOfStudentMin]" value="<%= projectinfo.numOfStudentMin %>"
+                                            required min="1" max="" id="minStu" onchange="validateMinStu();">
+                                        <div id="displayMinError"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 my-2">
+                                <div class="row">
+                                    <label class="col-2" for="numberOfStudentMax" class="col-form-label">Max:</label>
+                                    <div class="col-10">
+                                        <input type="number" class="form-control" style="width: 50%;"
+                                            name="Project[numOfStudentMax]" required
+                                            value="<%= projectinfo.numOfStudentMax %>" min="1" id="maxStu"
+                                            onchange="validateMaxStu();">
+                                        <div id="displayMaxError"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="form-group row">
+                    <label for="message-text" class="col-4 col-form-label">Group Formation Due Date:</label>
+                    <div class="col-8">
+                        <input type="datetime-local" class="form-control" name="formDate" id="date"
+                            onchange="validateFormDate();" required>
+                        <div id="displayDueDateError"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="form-group row">
+                    <label for="message-text" class="col-4 col-form-label">Project Submission Due Date:</label>
+                    <div class="col-8">
+                        <input type="datetime-local" class="form-control" name="submitDate" id="date2"
+                            onchange="validateSubmitDate();" required>
+                        <div id="displayRDateError"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="form-group row">
+                    <label for="example-title" class="col-4 col-form-label">Project Description:</label>
+                    <div class="col-8">
+                        <textarea class="form-control" name="Project[projectDescription]"
+                            required><%= projectinfo.projectDescription %></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <br>
+
+            <button type="submit" class="btn btn-primary mx-1" style="float: right;">Update</button>
+            <a href="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>" class="btn btn-secondary mx-1"
+                style="float: right;">Return</a>
+
+        </form>
+
+        <br>
+
+    </div>
+
+</body>
+
+<script>
+
+    function validateMinStu() {
+
+        var minS = document.getElementById("minStu");
+
+        var maxS = document.getElementById("maxStu");
+
+        minS.max = maxS.value;
+
+        var msg = "<div class='invalid-feedback'>Min must be <span>&#8804;</span> Max</div>";
+
+        $('#displayMinError').replaceWith(msg);
+
+    }
+
+
+    function validateMaxStu() {
+
+        var minS = document.getElementById("minStu");
+
+        var maxS = document.getElementById("maxStu");
+
+        maxS.min = minS.value;
+
+        var msg = "<div class='invalid-feedback'>Max must be <span>&#8805;</span> Min</div>";
+
+        $('#displayMaxError').replaceWith(msg);
+
+    }
+
+    // Display due date
+
+    var timestamp = parseInt("<%= projectinfo.groupFormationDate %>");
+
+    dateObj = new Date(timestamp);
+
+    var YYYY = dateObj.getFullYear();
+    var MM = ('0' + (dateObj.getMonth() + 1)).slice(-2);
+    var DD = ('0' + dateObj.getDate()).slice(-2);
+    var hh = ('0' + dateObj.getHours()).slice(-2);
+    var mm = ('0' + dateObj.getMinutes()).slice(-2);
+
+    var dueDate = YYYY + "-" + MM + "-" + DD + "T" + hh + ":" + mm;
+
+    document.getElementById("date").value = dueDate;
+
+
+    // Display release date
+
+    var timestamp2 = parseInt("<%= projectinfo.projectSubmitDate %>");
+
+    dateObj2 = new Date(timestamp2);
+
+    var YYYY = dateObj2.getFullYear();
+    var MM = ('0' + (dateObj2.getMonth() + 1)).slice(-2);
+    var DD = ('0' + dateObj2.getDate()).slice(-2);
+    var hh = ('0' + dateObj2.getHours()).slice(-2);
+    var mm = ('0' + dateObj2.getMinutes()).slice(-2);
+
+    var releaseDate = YYYY + "-" + MM + "-" + DD + "T" + hh + ":" + mm;
+
+    document.getElementById("date2").value = releaseDate;
+
+
+    // Validate dueDate and result release date
+
+    function validateFormDate() {
+
+        var fDate = document.getElementById("date");
+
+        var sDate = document.getElementById("date2");
+
+        fDate.max = sDate.value;
+
+        var msg = "<div class='invalid-feedback'>Invalid date! Formation Date must be earlier than or equal to Submission Date.</div>";
+
+        $('#displayDueDateError').replaceWith(msg);
+
+    }
+
+    function validateSubmitDate() {
+
+        var fDate = document.getElementById("date");
+
+        var sDate = document.getElementById("date2");
+
+        sDate.min = fDate.value;
+
+        var msg = "<div class='invalid-feedback'>Invalid date! Submission Date must be later than or equal to Formation Date.</div>";
+
+        $('#displayRDateError').replaceWith(msg);
+
+    }
+
+
+    async function createForm(oFormElement) {
+
+        var response = await fetch("/teacher/viewSection/<%= sectioninfo.id %>/project/<%= projectinfo.id %>", {
+            method: "PATCH",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
+
+
+</script>

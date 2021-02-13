@@ -22,12 +22,11 @@ module.exports = {
 
         var user = await User.findOne({ where: { givenId: req.body.givenId } });
 
-        if (!user) return res.status(401).send("User not found");
+        if (!user) return res.status(401).send("Invalid Username or Password");
 
         const match = await sails.bcrypt.compare(req.body.password, user.password);
 
-        if (!match) return res.status(401).send("Wrong Password");
-
+        if (!match) return res.status(401).send("Invalid Username or Password");
 
         var student = await User.findOne(user.id).populate('apply');
 

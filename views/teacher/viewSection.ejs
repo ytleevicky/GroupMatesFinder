@@ -61,10 +61,12 @@
 
 
                     <!-- Display project in this section (accordion) -->
-                    <div class="my-4">
-                        <% if(sectioninfo.haveProject.length==0) { %>
 
-                            <% } else { %>
+                    <% if(sectioninfo.haveProject.length==0) { %>
+
+                        <% } else { %>
+
+                            <div class="my-4">
 
                                 <% var i=0; %>
 
@@ -100,7 +102,8 @@
 
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <a href="#" class="btn btn-link"
+                                                                                <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>"
+                                                                                    class="btn btn-link"
                                                                                     style="float: right;">Edit
                                                                                     Project</a>
                                                                             </div>
@@ -175,104 +178,100 @@
 
                                             </div>
 
-                                            <% } %>
-
                                     </div>
 
-                                    <div class="modal fade" id="exampleModal" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true"
-                                        data-bs-backdrop="static">
-                                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Initiate
-                                                        Group
-                                                        Project</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                    <% } %>
+
+                            </div>
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true" data-bs-backdrop="static">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Initiate
+                                                Group
+                                                Project</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form action="/createProject/<%= sectioninfo.id %>/<%= userid %>" method="POST"
+                                            onsubmit="createForm(this);return false" class="was-validated">
+                                            <div class="modal-body" style="padding: 20px 50px;">
+
+                                                <div class="mb-3">
+                                                    <label for="recipient-name" class="col-form-label">Project
+                                                        Name:</label>
+                                                    <input type="text" class="form-control" name="Project[projectName]"
+                                                        required>
                                                 </div>
-                                                <form action="/createProject/<%= sectioninfo.id %>/<%= userid %>"
-                                                    method="POST" onsubmit="createForm(this);return false"
-                                                    class="was-validated">
-                                                    <div class="modal-body" style="padding: 20px 50px;">
+                                                <div class="mb-3">
+                                                    <div class="row"><label for="numberOfStudent"
+                                                            class="col-form-label">Number
+                                                            of
+                                                            Student Per
+                                                            Group:</label></div>
 
-                                                        <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Project
-                                                                Name:</label>
-                                                            <input type="text" class="form-control"
-                                                                name="Project[projectName]" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <div class="row"><label for="numberOfStudent"
-                                                                    class="col-form-label">Number
-                                                                    of
-                                                                    Student Per
-                                                                    Group:</label></div>
-
-                                                            <div class="container">
-                                                                <div class="row" style="align-content: center;">
-                                                                    <div class="col-6 my-2">
-                                                                        <div class="row">
-                                                                            <label class="col-2"
-                                                                                for="numberOfStudentMin"
-                                                                                class="col-form-label">Min:</label>
-                                                                            <div class="col-10">
-                                                                                <input type="number"
-                                                                                    class="form-control"
-                                                                                    style="width: 50%;"
-                                                                                    name="Project[numOfStudentMin]"
-                                                                                    required min="1" max="" id="minStu"
-                                                                                    onchange="validateMinStu();">
-                                                                                <div id="displayMinError"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-6 my-2">
-                                                                        <div class="row">
-                                                                            <label class="col-2"
-                                                                                for="numberOfStudentMax"
-                                                                                class="col-form-label">Max:</label>
-                                                                            <div class="col-10">
-                                                                                <input type="number"
-                                                                                    class="form-control"
-                                                                                    style="width: 50%;"
-                                                                                    name="Project[numOfStudentMax]"
-                                                                                    required min="1" id="maxStu"
-                                                                                    onchange="validateMaxStu();">
-                                                                                <div id="displayMaxError"></div>
-                                                                            </div>
-                                                                        </div>
+                                                    <div class="container">
+                                                        <div class="row" style="align-content: center;">
+                                                            <div class="col-6 my-2">
+                                                                <div class="row">
+                                                                    <label class="col-2" for="numberOfStudentMin"
+                                                                        class="col-form-label">Min:</label>
+                                                                    <div class="col-10">
+                                                                        <input type="number" class="form-control"
+                                                                            style="width: 50%;"
+                                                                            name="Project[numOfStudentMin]" required
+                                                                            min="1" max="" id="minStu"
+                                                                            onchange="validateMinStu();">
+                                                                        <div id="displayMinError"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-6 my-2">
+                                                                <div class="row">
+                                                                    <label class="col-2" for="numberOfStudentMax"
+                                                                        class="col-form-label">Max:</label>
+                                                                    <div class="col-10">
+                                                                        <input type="number" class="form-control"
+                                                                            style="width: 50%;"
+                                                                            name="Project[numOfStudentMax]" required
+                                                                            min="1" id="maxStu"
+                                                                            onchange="validateMaxStu();">
+                                                                        <div id="displayMaxError"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="numberOfStudent" class="col-form-label">Group
-                                                                Formation
-                                                                Deadline:</label>
-                                                            <input type="datetime-local" class="form-control"
-                                                                name="formDate" onchange="validateFormationDate();"
-                                                                max="" id="formationDate" required>
-                                                            <div id="displayFDateError"></div>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="numberOfStudent" class="col-form-label">Group
-                                                                Project Submission
-                                                                Date:</label>
-                                                            <input type="datetime-local" class="form-control"
-                                                                name="submitDate" id="submissionDate"
-                                                                onchange="validateSubmissionDate();" min="" required>
-                                                            <div id="displaySDateError"></div>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="message-text" class="col-form-label">Project
-                                                                Description:</label>
-                                                            <textarea class="form-control"
-                                                                name="Project[projectDescription]" required></textarea>
-                                                        </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="numberOfStudent" class="col-form-label">Group
+                                                        Formation
+                                                        Deadline:</label>
+                                                    <input type="datetime-local" class="form-control" name="formDate"
+                                                        onchange="validateFormationDate();" max="" id="formationDate"
+                                                        required>
+                                                    <div id="displayFDateError"></div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="numberOfStudent" class="col-form-label">Group
+                                                        Project Submission
+                                                        Date:</label>
+                                                    <input type="datetime-local" class="form-control" name="submitDate"
+                                                        id="submissionDate" onchange="validateSubmissionDate();" min=""
+                                                        required>
+                                                    <div id="displaySDateError"></div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="message-text" class="col-form-label">Project
+                                                        Description:</label>
+                                                    <textarea class="form-control" name="Project[projectDescription]"
+                                                        required></textarea>
+                                                </div>
 
-                                                        <!-- <div class="mb-3">
+                                                <!-- <div class="mb-3">
                                                             <label for="message-text" class="col-form-label">Ways to
                                                                 form group:</label>
 
@@ -302,17 +301,17 @@
                                                             </div>
                                                         </div> -->
 
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Create</button>
-                                                    </div>
-
-                                                </form>
                                             </div>
-                                        </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Create</button>
+                                            </div>
+
+                                        </form>
                                     </div>
+                                </div>
+                            </div>
 
 
 
