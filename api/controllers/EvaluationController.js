@@ -68,8 +68,6 @@ module.exports = {
 
             var evaluation = await Evaluation.findOne(req.params.eid).populate('creator');
 
-            console.log(evaluation)
-
             return res.view('evaluation/viewEvaluation', { evaluationInfo: evaluation });
 
         }

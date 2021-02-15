@@ -211,7 +211,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="list-group-item">
+                                    <!-- <li class="list-group-item">
                                         <div class="row m-2">
                                             <div class="col-sm-4">
                                                 <h6 class="mb-0">Phone</h6>
@@ -220,8 +220,7 @@
                                                 <%= userinfo.contact_mobile %>
                                             </div>
                                         </div>
-                                    </li>
-
+                                    </li> -->
                                 </ul>
                             </div>
 
@@ -337,9 +336,22 @@
                     <div class="card my-4" style="margin: 10px 180px;">
 
                         <div class="card-header">
-                            Peer Evaluation from <%= f.formBelongTo[0].projectName %> - Group <%= f.getFrom[0].groupNum
-                                    %>
+                            <div class="row">
+                                <div class="col-10">
+                                    <h5>
+                                        Peer Evaluation from <u>
+                                            <%= f.formBelongTo[0].projectName %> - Group <%= f.getFrom[0].groupNum %>
+                                        </u>
+                                    </h5>
+                                </div>
+
+                                <div class="col-2 text-muted">
+                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(f.createdAt )
+                                        %>
+                                </div>
+                            </div>
                         </div>
+
 
                         <div class="card-body">
 
@@ -358,12 +370,12 @@
 
                                     <div class="my-4" style="padding-left: 45px;">
 
-                                        <div class="my-3"><b><u>Q<%= n+1 %>. <%= q.question %></u></b></div>
+                                        <div class="my-3" style="color: #324880;"><b><u>Q<%= n+1 %>. <%= q.question %>
+                                                </u></b></div>
 
                                         <div style="padding-left: 33px;">
 
                                             <% f.evalResponse.forEach( function(c) { %>
-
 
                                                 <div class="my-2" style="padding-left: 38px;">
                                                     <figure class="text-start">
@@ -388,7 +400,6 @@
                                         </div>
 
 
-                                        <br>
 
                                         <% n++ %>
 
@@ -397,10 +408,11 @@
 
                                     <% }); %>
 
-
-
-
                         </div>
+
+                        <!-- <div class="card-footer text-center text-muted">
+                            <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(f.createdAt ) %>
+                        </div> -->
 
                     </div>
 
@@ -409,7 +421,11 @@
 
                         <% } else { %>
 
-                            No evaluation at this moment.
+                            <br>
+
+                            <div class="alert alert-warning" role="alert">
+                                No past evaluation at this moment.
+                            </div>
 
                             <% } %>
 

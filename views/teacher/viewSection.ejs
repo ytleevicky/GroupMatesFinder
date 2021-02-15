@@ -249,16 +249,16 @@
                                                 <div class="mb-3">
                                                     <label for="numberOfStudent" class="col-form-label">Group
                                                         Formation
-                                                        Deadline:</label>
+                                                        Due Date:</label>
                                                     <input type="datetime-local" class="form-control" name="formDate"
                                                         onchange="validateFormationDate();" max="" id="formationDate"
                                                         required>
                                                     <div id="displayFDateError"></div>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="numberOfStudent" class="col-form-label">Group
-                                                        Project Submission
-                                                        Date:</label>
+                                                    <label for="numberOfStudent" class="col-form-label">Project
+                                                        Submission
+                                                        Due Date:</label>
                                                     <input type="datetime-local" class="form-control" name="submitDate"
                                                         id="submissionDate" onchange="validateSubmissionDate();" min=""
                                                         required>
@@ -328,7 +328,7 @@
 
         fDate.max = sDate.value;
 
-        var msg = "<div class='invalid-feedback'>Invalid date! Group Formation Deadline must be earlier than or equal to Submission Date.</div>";
+        var msg = "<div class='invalid-feedback'>Invalid date! Group Formation Due Date must be earlier than or equal to Submission Due Date.</div>";
 
         $('#displayFDateError').replaceWith(msg);
 
@@ -342,7 +342,7 @@
 
         sDate.min = fDate.value;
 
-        var msg = "<div class='invalid-feedback'>Invalid date! Submission Date must be later than or equal to Group Formation Date.</div>";
+        var msg = "<div class='invalid-feedback'>Invalid date! Project Submission Due Date must be later than or equal to Group Formation Due Date.</div>";
 
         $('#displaySDateError').replaceWith(msg);
 

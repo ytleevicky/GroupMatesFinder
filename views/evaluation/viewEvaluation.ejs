@@ -2,66 +2,30 @@
 
     <br>
 
-    <h1>Evaluation > View > <%= evaluationInfo.name %>
-    </h1>
+    <h2 style="text-align: center;">
+        <%= evaluationInfo.name %> (Evaluation Preview)
+    </h2>
+
 
     <br>
 
-    <div style="padding-left: 130px;">
 
-        <dl class="row my-2">
-            <dt class="col-sm-2">Name</dt>
-            <dd class="col-sm-10">
-                <%= evaluationInfo.name %>
-            </dd>
-        </dl>
-
-        <dl class="row my-2">
-            <dt class="col-sm-2">Creator</dt>
-            <dd class="col-sm-10">
-                <%= evaluationInfo.creator[0].preferred_name %>
-            </dd>
-        </dl>
-
-        <dl class="row my-2">
-            <dt class="col-sm-2">Created</dt>
-            <dd class="col-sm-10">
-                <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' , hour12: 'true'
-                    }).format(evaluationInfo.createdAt) %>
-            </dd>
-        </dl>
-
-        <dl class="row my-2">
-            <dt class="col-sm-2">Modified</dt>
-            <dd class="col-sm-10">
-                <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' , hour12: 'true'
-                    }).format(evaluationInfo.updatedAt) %>
-            </dd>
-        </dl>
-
-    </div>
-
-    <br>
-    <br>
-
-    <h3>Evaluation Preview</h3>
 
     <div class="my-4">
 
         <h4 style="text-align: center;">Preview Event - Demo Group</h4>
 
         <div class="my-5">
-            <h5>Description:</h5>
+            <h5><b>Description:</b></h5>
             <%= evaluationInfo.description %>
         </div>
 
         <div class="my-5">
-            <h5>Notes:</h5>
+            <h5><b>Notes:</b></h5>
             <ul>
-                <li>Only ONE attempt allowed for this peer evaluation</li>
-                <li>You cannot REATTEMPT the peer evaluation once you finished evaluate all of your group members</li>
-                <li>Check check the Group Members before Start </li>
-                <li>The evaluation is due on 18 Jan 2021, 05:00 pm</li>
+                <li>Check the Group Members before Start.</li>
+                <li>The evaluation is due on <b class="text-danger">18 Jan 2021, 05:00 pm</b>.</li>
+                <li>You can continue to update the evaluation until the due date.</li>
             </ul>
         </div>
 

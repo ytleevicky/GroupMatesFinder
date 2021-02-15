@@ -86,9 +86,11 @@ module.exports = {
 
             var student = await User.findOne({ where: { id: req.params.id } });
 
-            //  var section = await Section.findOne({ where: { id: req.params.fk } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
+            var forms = await User.findOne(req.params.id).populate('haveForm');
 
-            return res.view('user/viewStudentProfile', { studentInfo: student });
+            var form2 = await SavedForm.find(forms.haveForm.map(v => v.id)).populate('getFrom').populate('formBelongTo');
+
+            return res.view('user/viewStudentProfile', { studentInfo: student, allForm: form2 });
 
         }
 

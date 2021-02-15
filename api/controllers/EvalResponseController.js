@@ -36,9 +36,6 @@ module.exports = {
 
         var form = await EvalResponse.findOne(req.params.fid);
 
-        console.log("form");
-        console.log(form.formResponse);
-
         var evaluator = await User.findOne(form.evaluator);
 
         return res.view('event/viewStudentEvaluationForm', { userid: req.session.userid, sectioninfo: section, eventid: req.params.eid, formInfo: form, evaluatorInfo: evaluator, groupInfo: group });

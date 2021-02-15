@@ -21,9 +21,6 @@ module.exports = {
 
         var currentGroup = await Project.findOne(req.params.pid).populate('haveGroup');
 
-        console.log("Num of group in this project:");
-        console.log(currentGroup.haveGroup.length);
-
         // Intalize the first group for this project
         if (currentGroup.haveGroup.length == 0) {
 
@@ -63,8 +60,6 @@ module.exports = {
 
                 }
             }
-
-            console.log("End of the forloop");
 
             // All the existing group already have members --> Create new group
             if (assigned == false) {
@@ -108,8 +103,6 @@ module.exports = {
     inviteMember: async function (req, res) {
 
         if (req.method == 'GET') { return res.forbidden(); }
-
-        console.log("POST");
 
         var sectionid = parseInt(req.params.sid);
 
@@ -169,7 +162,6 @@ module.exports = {
         // Check if the group is completed
 
         var g = await Group.findOne(req.params.gid);
-        console.log("project" + g);
 
         if (g.formationStatus == 'completed') {
 
