@@ -50,6 +50,8 @@ module.exports.routes = {
 
 
   '/student/:sid/viewProject/:id': 'ProjectController.viewProject',
+  '/student/section/:sid/project/:pid/calendarSubmitDate': 'ProjectController.calendarSubmitDate',
+  '/student/section/:sid/project/:pid/calendarFormDate': 'ProjectController.calendarFormDate',
   '/student/:sid/section/:id/project/:pid': 'ProjectController.groupFormation',
   '/teacher/:id/section/:fk/participants': 'CourseController.addParticipants',
   '/viewStudentProfile/:id': 'ProjectController.viewStudentProfile',

@@ -5,6 +5,7 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const { google } = require("calendar-link");
 
 module.exports = {
 
@@ -49,6 +50,44 @@ module.exports = {
             return res.view('project/viewProject', { sectionInfo: section, userid: req.params.sid });
 
         }
+
+    },
+
+    calendarSubmitDate: async function (req, res) {
+
+        var project = await Project.findOne(req.params.pid);
+
+        // Set event as an object
+        const event = {
+            title: project.courseID + '-Project Due Date',
+            description: project.courseID + ': ' + project.projectName + ' - Project Due Date',
+            start: project.projectSubmitDate,
+            end: project.projectSubmitDate,
+        };
+
+        // Then fetch the link
+        var link = google(event); // https://calendar.google.com/calendar/render...
+
+        return res.redirect(link);
+
+    },
+
+    calendarFormDate: async function (req, res) {
+
+        var project = await Project.findOne(req.params.pid);
+
+        // Set event as an object
+        const event = {
+            title: project.courseID + '-Group Formation Due Date',
+            description: project.courseID + ': ' + project.projectName + ' - Group Formation Due Date',
+            start: project.groupFormationDate,
+            end: project.groupFormationDate,
+        };
+
+        // Then fetch the link
+        var link = google(event); // https://calendar.google.com/calendar/render...
+
+        return res.redirect(link);
 
     },
 
