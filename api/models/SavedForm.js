@@ -29,6 +29,11 @@ module.exports = {
       type: 'number'
     },
 
+    availability: {
+      type: 'string',
+      defaultsTo: 'show',
+    },
+
     evalQuestion: {
       type: 'json'
     },

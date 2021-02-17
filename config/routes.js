@@ -32,6 +32,7 @@ module.exports.routes = {
   'GET /user/profile': 'UserController.profile',
   'GET /user/editProfile/:id': 'UserController.editProfile',
   'PATCH /user/:id': 'UserController.editProfile',
+  'PATCH /updateForm': 'SavedFormController.updateForm',
 
   '/createCourse/:id': 'CourseController.createCourse',
   'POST /createCourse/:id': 'CourseController.createCourse',
