@@ -132,14 +132,14 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-            var user = await User.findOne(req.params.id).populate('apply');
+            var user = await User.findOne(req.session.userid).populate('apply');
 
             // Update the invitation Num 
             req.session.invitationNum = user.apply.length;
 
             var project = await Group.find(user.apply.map(v => v.id)).populate('inProject').populate('createdBy');
 
-            return res.view('project/invitation', { projectInfo: project, userid: req.params.id, invitationNum: req.session.invitationNum });
+            return res.view('project/invitation', { projectInfo: project, userid: req.session.userid, invitationNum: req.session.invitationNum });
         }
 
     },
@@ -156,7 +156,7 @@ module.exports = {
 
         if (alreadyFormGroup.create.length > 0) {
 
-            return res.json({ message: 'You cannot accept the invitation. You have already formed group in this project.', url: '/invitation/' + req.params.uid })
+            return res.json({ message: 'You cannot accept the invitation. You have already formed group in this project.', url: '/invitation' })
         }
 
         // Check if the group is completed
@@ -165,7 +165,7 @@ module.exports = {
 
         if (g.formationStatus == 'completed') {
 
-            return res.json({ message: 'This group is completed. You cannot accept this invitation', url: '/invitation/' + req.params.uid });
+            return res.json({ message: 'This group is completed. You cannot accept this invitation', url: '/invitation' });
 
         }
 
@@ -188,11 +188,11 @@ module.exports = {
             var student = await User.findOne(req.params.uid).populate('apply');
             req.session.invitationNum = student.apply.length;
 
-            return res.json({ message: 'You have accepted the invitation.', url: '/invitation/' + req.params.uid });
+            return res.json({ message: 'You have accepted the invitation.', url: '/invitation' });
 
         } else {
 
-            return res.json({ message: 'This group is full. You cannot accept this invitation.', url: '/invitation/' + req.params.uid });
+            return res.json({ message: 'This group is full. You cannot accept this invitation.', url: '/invitation' });
 
         }
 
@@ -210,7 +210,7 @@ module.exports = {
         var student = await User.findOne(req.params.uid).populate('apply');
         req.session.invitationNum = student.apply.length;
 
-        return res.json({ message: 'You have successfully reject the invitation.', url: '/invitation/' + req.params.uid });
+        return res.json({ message: 'You have successfully reject the invitation.', url: '/invitation' });
 
     },
 

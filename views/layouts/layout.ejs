@@ -88,30 +88,78 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <% if (req.session.role=='student' ) { %>
-                      <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Calendar</a>
-                      </li> -->
-                      <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Discover</a>
-                      </li> -->
-                      <li class="nav-item">
-                        <% if(req.session.invitationNum> 0 ) { %>
-                          <a class="nav-link" href="/invitation/<%= req.session.userid %>">Invitation <span
-                              class="badge rounded-pill bg-danger">
-                              <%= req.session.invitationNum %>
-                            </span></a>
-                          <% } else { %>
-                            <a class="nav-link" href="/invitation/<%= req.session.userid %>">Invitation</a>
-                            <% } %>
-                      </li>
-                      <% } else { %>
+
+                      <% if (req.path!='/invitation' && req.path !='/user/profile' && req.path !='/user/editProfile' ) {
+                        %>
 
                         <li class="nav-item">
-                          <a class="nav-link <%= req.path == "/teacher/evaluation" ? "active" : "" %>"
-                            href="/teacher/evaluation">Evaluation</a>
+                          <a class="nav-link active" href="/homepage/<%= req.session.userid %>">Courses</a>
                         </li>
 
-                        <% } %>
+                        <% } else { %>
+
+                          <li class="nav-item">
+                            <a class="nav-link" href="/homepage/<%= req.session.userid %>">Courses</a>
+                          </li>
+
+                          <% } %>
+
+                            <% if(req.session.invitationNum> 0 ) { %>
+                              <a class="nav-link <%= req.path == "/invitation" ? "active" : "" %>"
+                                href="/invitation">Invitation <span class="badge rounded-pill bg-danger">
+                                  <%= req.session.invitationNum %>
+                                </span></a>
+                              <% } else { %>
+                                <a class="nav-link <%= req.path == "/invitation" ? "active" : "" %>"
+                                  href="/invitation">Invitation</a>
+                                <% } %>
+
+                                  <% } else { %>
+
+                                    <% if (req.path!='/teacher/evaluation' ) { %>
+
+                                      <% if(req.path=='/teacher/evaluation/add' || (req.path).includes('/teacher/viewEvaluation') ) { %>
+
+                                        <li class="nav-item">
+                                          <a class="nav-link"
+                                            href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
+                                        </li>
+
+                                        <% } else { %>
+
+                                          <li class="nav-item">
+                                            <a class="nav-link active"
+                                              href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
+                                          </li>
+
+                                          <% } %>
+
+                                            <% } else { %>
+
+                                              <li class="nav-item">
+                                                <a class="nav-link"
+                                                  href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
+                                              </li>
+
+                                              <% } %>
+
+
+                                                <% if (req.path=='/teacher/evaluation' ||
+                                                  req.path=='/teacher/evaluation/add' ||
+                                                  (req.path).includes('/teacher/viewEvaluation') ) { %>
+                                                  <li class="nav-item">
+                                                    <a class="nav-link active" href="/teacher/evaluation">Evaluation</a>
+                                                  </li>
+                                                  <% } else { %>
+
+                                                    <li class="nav-item">
+                                                      <a class="nav-link" href="/teacher/evaluation">Evaluation</a>
+                                                    </li>
+
+
+                                                        <% } %>
+
+                                                          <% } %>
                   </ul>
 
 
@@ -287,6 +335,30 @@
   a {
     text-decoration: none;
   }
+
+  .navbar-nav a.active {
+    border-bottom: 2px solid rgb(72, 196, 214);
+  }
+
+  .navbar-nav a:hover {
+    border-bottom: 2px solid rgb(72, 196, 214);
+  }
 </style>
+
+<script>
+
+  var currentP = "<%= req.path %>";
+
+  var n = false;
+
+  if (currentP.includes("/teacher/viewEvaluation")) {
+    n = true;
+  }
+
+  if (n == true) {
+
+  }
+
+</script>
 
 </html>

@@ -97,7 +97,7 @@ module.exports = {
             console.log("Update Profile is here GET");
             console.log(req.params.id);
 
-            var user = await User.findOne(req.params.id);
+            var user = await User.findOne(req.session.userid);
 
             if (!user) { return res.notFound(); }
 
@@ -105,7 +105,7 @@ module.exports = {
             console.log(user);
             // console.log(user.name);
 
-            return res.view('user/editProfile', { userinfo: user, userid: req.params.id });
+            return res.view('user/editProfile', { userinfo: user, userid: req.session.userid });
 
         } else {
 

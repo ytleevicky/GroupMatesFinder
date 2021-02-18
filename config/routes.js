@@ -30,7 +30,7 @@ module.exports.routes = {
   'POST /user/login': 'UserController.login',
   'GET /user/logout': 'UserController.logout',
   'GET /user/profile': 'UserController.profile',
-  'GET /user/editProfile/:id': 'UserController.editProfile',
+  'GET /user/editProfile': 'UserController.editProfile',
   'PATCH /user/:id': 'UserController.editProfile',
   'PATCH /updateForm': 'SavedFormController.updateForm',
 
@@ -63,7 +63,7 @@ module.exports.routes = {
 
 
   // Invitation
-  '/invitation/:id': 'GroupController.invitation',
+  '/invitation': 'GroupController.invitation',
   'POST /student/:uid/acceptInvitation/:gid': 'GroupController.acceptInvitation',
   'POST /student/:uid/rejectInvitation/:gid': 'GroupController.rejectInvitation',
   '/student/:uid/section/:sid/project/:pid/viewGroup/:gid': 'GroupController.viewGroup',
