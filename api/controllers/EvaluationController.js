@@ -74,6 +74,20 @@ module.exports = {
 
     },
 
+    removeEvalTemplate: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        var models = await Evaluation.destroy(req.params.tid).fetch();
+
+        if (models.length == 0) return res.notFound();
+
+        if (req.wantsJSON) {
+            return res.json({ url: '/teacher/evaluation' });    // for ajax request
+        }
+
+    },
+
 
 
     // Evaluation creator User 

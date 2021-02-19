@@ -80,6 +80,8 @@ module.exports.routes = {
   '/teacher/evaluation/add': 'EvaluationController.addEvaluation',
   'POST /teacher/evaluation/add': 'EvaluationController.addEvaluation',
   '/teacher/viewEvaluation/:eid': 'EvaluationController.viewEvaluation',
+  'DELETE /removeEvalTemplate/:tid': 'EvaluationController.removeEvalTemplate',
+
 
   // Peer Evaluation Event
   '/teacher/viewSection/:sid/project/:pid/evaluation': 'EvalEventController.evaluationEvent',

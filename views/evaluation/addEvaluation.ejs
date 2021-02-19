@@ -160,7 +160,7 @@
 
     }
 
-    var n = 1;
+    var a = 1;
 
     function showQuestion2() {
 
@@ -168,11 +168,11 @@
 
         var ansType2 = document.getElementById("mySelect2").value;
 
-        var data2 = "<div class='form-group w-60'>Q" + n + ". " + ansType2 + " Answer Question<div class='mb-3 row'><div class='col-2'><label class='col-form-label'>Question</label></div><div class='col-10 my-2'><input type='text' class='form-control form-control' name='Evaluation[createdQuestion][selfEvaluation][" + n + "][question]' required/></div></div><input type='hidden' name='Evaluation[createdQuestion][selfEvaluation][" + n + "][type]' value='" + ansType2 + "'></div>";
+        var data2 = "<div class='form-group w-60'>Q" + a + ". " + ansType2 + " Answer Question<div class='mb-3 row'><div class='col-2'><label class='col-form-label'>Question</label></div><div class='col-10 my-2'><input type='text' class='form-control form-control' name='Evaluation[createdQuestion][selfEvaluation][" + a + "][question]' required/></div></div><input type='hidden' name='Evaluation[createdQuestion][selfEvaluation][" + a + "][type]' value='" + ansType2 + "'></div>";
 
         $('#myLocation2').before(data2);
 
-        n++;
+        a++;
 
     }
 
