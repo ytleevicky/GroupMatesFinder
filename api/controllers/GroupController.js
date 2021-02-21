@@ -95,7 +95,13 @@ module.exports = {
 
             var pplRequest = await Group.findOne(req.params.gid).populate('consider');
 
-            return res.view('project/viewCreatedGroup', { userid: req.params.uid, sectionInfo: section, groupInfo: group, requestToJoin: pplRequest });
+            var project = await Project.findOne(req.params.pid).populate('haveGroup');
+
+            var student = await Section.findOne(req.params.sid).populate('haveStudent', { where: { id: { '!=': req.session.userid } } });
+
+            var list = await User.find(student.haveStudent.map(v => v.id)).populate('create', { where: { id: project.haveGroup.map(a => a.id) } }).sort(['givenId']);
+
+            return res.view('project/viewCreatedGroup', { userid: req.params.uid, sectionInfo: section, groupInfo: group, requestToJoin: pplRequest, listInfo: list });
         }
 
     },

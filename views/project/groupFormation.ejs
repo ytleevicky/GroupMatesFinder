@@ -42,7 +42,7 @@
                     <path fill-rule="evenodd"
                         d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
                     <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
-                </svg> View all students
+                </svg> &nbsp;View all students
             </button>
         </div>
     </div>
@@ -257,87 +257,81 @@
                 </div>
                 <div class="modal-body">
 
-                    <!-- Display number of students -->
+                    <!-- Student List -->
+                    <!-- Table (Display Student List) -->
                     <% if (listInfo.length !=0 ) { %>
-                        <p class="text-muted" style="float: right;">Number of Students: <%= listInfo.length %>
-                        </p>
-                        <% } %>
 
-                            <!-- Student List -->
-                            <!-- Table (Display Student List) -->
-                            <% if (listInfo.length !=0 ) { %>
+                        <table class="table table-hover table-striped">
 
-                                <table class="table table-hover table-striped">
+                            <thead class="table-light" style="vertical-align: middle;">
+                                <tr>
+                                    <th scope="col" span="1" style="width: 5%;">#</th>
+                                    <th scope="col" span="1">Student ID:
+                                    </th>
+                                    <th scope="col" span="1">Student Full Name
+                                    </th>
+                                    <th scope="col" span="1" style="width: 10%;">Gender</th>
+                                    <th scope="col" span="1">Study Programme
+                                    </th>
+                                    <th scope="col" span="1" style="text-align: center;">Study Year
+                                    </th>
 
-                                    <thead class="table-light" style="vertical-align: middle;">
+                                    <th scope="col" span="1" style="text-align: center;">Group</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <% var n=1; %>
+
+                                    <% listInfo.forEach( function(model) { %>
                                         <tr>
-                                            <th scope="col" span="1" style="width: 5%;">#</th>
-                                            <th scope="col" span="1">Student ID:
-                                            </th>
-                                            <th scope="col" span="1">Student Full Name
-                                            </th>
-                                            <th scope="col" span="1" style="width: 10%;">Gender</th>
-                                            <th scope="col" span="1">Study Programme
-                                            </th>
-                                            <th scope="col" span="1" style="text-align: center;">Study Year
-                                            </th>
+                                            <td>
+                                                <%= n %>
+                                            </td>
+                                            <td>
+                                                <a href="/viewStudentProfile/<%= model.id %>" target="_blank"
+                                                    rel="noopener noreferrer">
+                                                    <%= model.givenId %>
+                                                </a>
 
-                                            <th scope="col" span="1" style="text-align: center;">Group</th>
+                                            </td>
+                                            <td>
+                                                <img src="<%= model.imgURL %>" alt="Admin" class="rounded-circle"
+                                                    width="40">
+                                                <%= model.fullName %>
+                                            </td>
+                                            <td>
+                                                <%= model.gender %>
+                                            </td>
+                                            <td>
+
+                                                <%= model.study_programme %>
+
+                                            </td>
+                                            <td>
+                                                <div style="text-align:center">
+                                                    <%= model.study_year %>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div style="text-align:center">
+                                                    <%= model.create.length> 0 ? 'Group ' +
+                                                        model.create[0].groupNum
+                                                        : '---' %>
+                                                </div>
+                                            </td>
+
+                                            <% n++; %>
+
+                                                <% }); %>
                                         </tr>
-                                    </thead>
 
-                                    <tbody>
+                            </tbody>
+                        </table>
 
-                                        <% var n=1; %>
-
-                                            <% listInfo.forEach( function(model) { %>
-                                                <tr>
-                                                    <td>
-                                                        <%= n %>
-                                                    </td>
-                                                    <td>
-                                                        <a href="/viewStudentProfile/<%= model.id %>" target="_blank"
-                                                            rel="noopener noreferrer">
-                                                            <%= model.givenId %>
-                                                        </a>
-
-                                                    </td>
-                                                    <td>
-                                                        <img src="<%= model.imgURL %>" alt="Admin"
-                                                            class="rounded-circle" width="40">
-                                                        <%= model.fullName %>
-                                                    </td>
-                                                    <td>
-                                                        <%= model.gender %>
-                                                    </td>
-                                                    <td>
-
-                                                        <%= model.study_programme %>
-
-                                                    </td>
-                                                    <td>
-                                                        <div style="text-align:center">
-                                                            <%= model.study_year %>
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-                                                        <div style="text-align:center">
-                                                            <%= model.create.length> 0 ? 'Group ' +
-                                                                model.create[0].groupNum
-                                                                : '---' %>
-                                                        </div>
-                                                    </td>
-
-                                                    <% n++; %>
-
-                                                        <% }); %>
-                                                </tr>
-
-                                    </tbody>
-                                </table>
-
-                                <% } %>
+                        <% } %>
 
                 </div>
                 <div class="modal-footer">
