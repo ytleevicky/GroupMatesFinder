@@ -39,6 +39,7 @@ module.exports.routes = {
   '/teacher/:fk/viewCourse/:id': 'CourseController.viewCourse',
   '/teacher/:fk/viewSection/:id': 'CourseController.viewSection',
   '/teacher/:uid/viewSection/:sid/project/:pid/viewProgress': 'ProjectController.viewProgress',
+  'POST /teacher/:uid/viewSection/:sid/project/:pid/formGroupReminder': 'ProjectController.formGroupReminder',
   'GET /teacher/viewSection/:sid/project/:pid': 'ProjectController.editProject',
   'PATCH /teacher/viewSection/:sid/project/:pid': 'ProjectController.editProject',
 

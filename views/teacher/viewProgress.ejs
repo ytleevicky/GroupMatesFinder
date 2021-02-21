@@ -155,179 +155,265 @@
 
                     </div>
 
-                    <!-- Table -->
-                    <table class="table table-hover" id="myTable" style="padding: 20px;">
+                    <form
+                        action="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>/project/<%= projectid %>/formGroupReminder"
+                        method="POST" onsubmit="createForm(this);return false">
 
-                        <thead class="table-light">
-                            <tr>
-                                <th scope="col" span="1" style="width: 15%; text-align: center;">Select</th>
+                        <!-- Table -->
+                        <table class="table table-hover" id="myTable" style="padding: 20px;">
 
-                                <th scope="col" span="1" style="width: 15%;">Student ID:
-                                </th>
-                                <th scope="col" span="1" style="width: 25%;">Student Full Name</th>
-                                <th scope="col" span="1" style="width: 30%;">Email address</th>
-                                <th scope="col" span="1" style="width: 15%;">Group</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <% studentInfo.forEach( function(model) { %>
-
+                            <thead class="table-light">
                                 <tr>
-                                    <td style="text-align:center">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                    </td>
+                                    <th scope="col" span="1" style="width: 15%; text-align: center;">Select
+                                        &nbsp; <input type="checkbox" class="form-check-input"
+                                            onclick="check_all(this,'remindStudent')">
+                                    </th>
 
-                                    <td>
-                                        <%= model.givenId %>
-                                    </td>
-                                    <td>
-                                        <img src="<%= model.imgURL %>" alt="Admin" class="rounded-circle" width="40">
-                                        <%= model.fullName %>
-                                    </td>
-
-                                    <td>
-                                        <%= model.contact_mail %>
-                                    </td>
-
-                                    <td>
-                                        <%= model.create.length> 0 ? 'Group ' + model.create[0].groupNum : 'No Group' %>
-                                    </td>
-
-
-                                    <% }); %>
+                                    <th scope="col" span="1" style="width: 15%;">Student ID:
+                                    </th>
+                                    <th scope="col" span="1" style="width: 25%;">Student Full Name</th>
+                                    <th scope="col" span="1" style="width: 30%;">Email address</th>
+                                    <th scope="col" span="1" style="width: 15%;">Group</th>
                                 </tr>
+                            </thead>
 
-                        </tbody>
-                    </table>
+                            <tbody>
 
-                    <% } %>
+                                <% studentInfo.forEach( function(model) { %>
 
+                                    <tr>
+                                        <td style="text-align:center">
+                                            <input class="form-check-input" type="checkbox" name="remindStudent"
+                                                value="<%= model.contact_mail %>" id="defaultCheck1">
+                                        </td>
 
-                        <script>
+                                        <td>
+                                            <%= model.givenId %>
+                                        </td>
+                                        <td>
+                                            <img src="<%= model.imgURL %>" alt="Admin" class="rounded-circle"
+                                                width="40">
+                                            <%= model.fullName %>
+                                        </td>
 
-                            var ctx = document.getElementById('myChart').getContext('2d');
+                                        <td>
+                                            <%= model.contact_mail %>
+                                        </td>
 
-                            // For a pie chart
-                            var myPieChart = new Chart(ctx, {
-                                type: 'pie',
-                                data: {
-                                    datasets: [{
-                                        data: [<%= completedGroupNum %>, <%= inCompletedGroupNum %>],
-                                        backgroundColor: [
-                                            'rgba(255, 99, 132)',
-                                            'rgba(255, 206, 86)',
+                                        <td>
+                                            <%= model.create.length> 0 ? 'Group ' + model.create[0].groupNum :
+                                                'No Group' %>
+                                        </td>
 
-                                        ],
-                                    }],
+                                        <% }); %>
+                                    </tr>
 
-                                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                                    labels: [
-                                        'Completed Group',
-                                        'Incompleted Group',
+                            </tbody>
+                        </table>
 
-                                    ]
-                                },
+                        <% } %>
 
-
-
-                            });
-
-
-                            var ctx2 = document.getElementById('myChart2').getContext('2d');
-
-                            // For a pie chart
-                            var myPieChart = new Chart(ctx2, {
-                                type: 'doughnut',
-                                data: {
-                                    datasets: [{
-                                        data: [<%= haveGroup %>, <%= noGroup %>],
-                                        backgroundColor: [
-                                            'rgba(0, 142, 204)',
-                                            'rgba(192, 192, 192)',
-
-                                        ],
-                                    }],
-
-                                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                                    labels: [
-                                        'Have Group',
-                                        'No Group',
-
-                                    ]
-                                },
-
-
-                            });
+                            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                data-bs-target="#emailModal">
+                                Send Reminder
+                            </button>
 
 
 
+                            <!-- Modal -->
+                            <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="emailModalLabel">Send Reminder - Group formation
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Confirm to send an email reminder to student(s) ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Confirm to send</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </form>
 
 
 
-                            function myFunction() {
-                                // Declare variables
-                                var input, filter, table, tr, td, i, txtValue;
-                                input = document.getElementById("myInput");
-                                filter = input.value.toUpperCase();
-                                table = document.getElementById("myTable");
-                                tr = table.getElementsByTagName("tr");
 
-                                // Loop through all table rows, and hide those who don't match the search query
-                                for (i = 0; i < tr.length; i++) {
-                                    td = tr[i].getElementsByTagName("td")[2];
-                                    if (td) {
-                                        txtValue = td.textContent || td.innerText;
-                                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                            tr[i].style.display = "";
-                                        } else {
-                                            tr[i].style.display = "none";
-                                        }
-                                    }
-                                }
-                            }
-
-                            function sortTable() {
-                                var table, rows, switching, i, x, y, shouldSwitch;
-                                table = document.getElementById("myTable");
-                                switching = true;
-                                /* Make a loop that will continue until
-                                no switching has been done: */
-                                while (switching) {
-                                    // Start by saying: no switching is done:
-                                    switching = false;
-                                    rows = table.rows;
-                                    /* Loop through all table rows (except the
-                                    first, which contains table headers): */
-                                    for (i = 1; i < (rows.length - 1); i++) {
-                                        // Start by saying there should be no switching:
-                                        shouldSwitch = false;
-                                        /* Get the two elements you want to compare,
-                                        one from current row and one from the next: */
-                                        x = rows[i].getElementsByTagName("TD")[4];
-                                        y = rows[i + 1].getElementsByTagName("TD")[4];
-                                        // Check if the two rows should switch place:
-                                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                            // If so, mark as a switch and break the loop:
-                                            shouldSwitch = true;
-                                            break;
-                                        }
-                                    }
-                                    if (shouldSwitch) {
-                                        /* If a switch has been marked, make the switch
-                                        and mark that a switch has been done: */
-                                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                                        switching = true;
-                                    }
-                                }
-                            }
-
-
-                        </script>
 
 
 </body>
+
+<script>
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    // For a pie chart
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [<%= completedGroupNum %>, <%= inCompletedGroupNum %>],
+                backgroundColor: [
+                    'rgba(255, 99, 132)',
+                    'rgba(255, 206, 86)',
+
+                ],
+            }],
+
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [
+                'Completed Group',
+                'Incompleted Group',
+
+            ]
+        },
+
+
+
+    });
+
+
+    var ctx2 = document.getElementById('myChart2').getContext('2d');
+
+    // For a pie chart
+    var myPieChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [<%= haveGroup %>, <%= noGroup %>],
+                backgroundColor: [
+                    'rgba(0, 142, 204)',
+                    'rgba(192, 192, 192)',
+
+                ],
+            }],
+
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [
+                'Have Group',
+                'No Group',
+
+            ]
+        },
+
+
+    });
+
+
+
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function sortTable() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("myTable");
+        switching = true;
+        /* Make a loop that will continue until
+        no switching has been done: */
+        while (switching) {
+            // Start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /* Loop through all table rows (except the
+            first, which contains table headers): */
+            for (i = 1; i < (rows.length - 1); i++) {
+                // Start by saying there should be no switching:
+                shouldSwitch = false;
+                /* Get the two elements you want to compare,
+                one from current row and one from the next: */
+                x = rows[i].getElementsByTagName("TD")[4];
+                y = rows[i + 1].getElementsByTagName("TD")[4];
+                // Check if the two rows should switch place:
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    // If so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                /* If a switch has been marked, make the switch
+                and mark that a switch has been done: */
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+
+    var myModal = document.getElementById('emailModal');
+
+    function checkAnyChecked() {
+        if (Array.from(document.querySelectorAll('input[type="checkbox"]')).filter(e => e.checked).length > 0) {
+            return true;
+        } else {
+            alert('Please select at least one student.');
+            return false;
+        }
+
+    }
+
+    function check_all(obj, cName) {
+        var checkboxs = document.getElementsByName(cName);
+        for (var i = 0; i < checkboxs.length; i++) { checkboxs[i].checked = obj.checked; }
+    }
+
+
+    async function createForm(oFormElement) {
+
+        var abc = checkAnyChecked();
+
+        if (abc == true) {
+            var response = await fetch(oFormElement.action, {
+                method: "POST",
+                credentials: 'same-origin',
+                headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+                //put into array            //map into input and encode                                                         //join it
+                body: Array.from(document.querySelectorAll('input[type="checkbox"]')).filter(e => e.checked).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+            });
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            }
+
+        } else {
+            return;
+        }
+
+    };
+
+
+
+
+</script>
 
 <style>
     .callout1 {

@@ -6,6 +6,7 @@
  */
 
 const { google } = require("calendar-link");
+let nodemailer = require('nodemailer');
 
 module.exports = {
 
@@ -171,9 +172,51 @@ module.exports = {
 
             var list = await User.find(student.haveStudent.map(v => v.id)).populate('create', { where: { id: p.haveGroup.map(a => a.id) } }).sort(['givenId']);
 
-            return res.view('teacher/viewProgress', { groupInfo: group, completedGroupNum: completed.haveGroup.length, inCompletedGroupNum: inCompleted.haveGroup.length, haveGroup: cnt, noGroup: noGroupNum, studentInfo: list, userid: req.params.uid, sectioninfo: section });
+            return res.view('teacher/viewProgress', { groupInfo: group, completedGroupNum: completed.haveGroup.length, inCompletedGroupNum: inCompleted.haveGroup.length, haveGroup: cnt, noGroup: noGroupNum, studentInfo: list, userid: req.params.uid, sectioninfo: section, projectid: req.params.pid });
 
         }
+
+    },
+
+    formGroupReminder: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        var data = typeof req.body.remindStudent === 'string' ? [req.body.remindStudent] : req.body.remindStudent;
+
+        console.log(data);
+
+        var projectInfo = await Project.findOne(req.params.pid);
+
+        var deadline = new Intl.DateTimeFormat('en-GB', {
+            dateStyle: 'medium',
+            timeStyle: 'short', hour12: 'true'
+        }).format(projectInfo.groupFormationDate);
+
+        let mailOptions = {
+            from: 'noreply.GroupMatesFinder@gmail.com',
+            to: data,
+            subject: 'GroupMatesFinder',
+            text: '*** This is an automatically generated email, please do not reply. ***\n\n\nDear students,\n\nThe group formation deadline for the group project - ' + projectInfo.projectName + ' is on ' + deadline + '. \n\nPlease log in to GroupMatesFinder System to form a group as soon as possible.\n\nThank you,\n\nGroupMatesFinder System'
+        };
+
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'noreply.GroupMatesFinder@gmail.com',
+                pass: 'GroupMatesFinder2021'
+            }
+        });
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+        return res.json({ message: 'Reminder(s) have been sent.', url: '/teacher/' + req.session.userid + '/viewSection/' + req.params.sid + '/project/' + req.params.pid + '/viewProgress' });
 
     },
 
