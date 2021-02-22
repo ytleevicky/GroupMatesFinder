@@ -197,7 +197,7 @@ module.exports = {
             from: 'noreply.GroupMatesFinder@gmail.com',
             to: data,
             subject: 'GroupMatesFinder',
-            text: '*** This is an automatically generated email, please do not reply. ***\n\n\nDear students,\n\nThe group formation deadline for the group project - ' + projectInfo.projectName + ' is on ' + deadline + '. \n\nPlease log in to GroupMatesFinder System to form a group as soon as possible.\n\nThank you,\n\nGroupMatesFinder System'
+            text: '*** This is an automatically generated email, please do not reply. ***\n\nDear students,\n\nThe group formation deadline for the group project - ' + projectInfo.projectName + ' is on ' + deadline + '. \n\nPlease log in to GroupMatesFinder System to form a group as soon as possible.\n\nThank you,\n\nGroupMatesFinder System'
         };
 
         let transporter = nodemailer.createTransport({
