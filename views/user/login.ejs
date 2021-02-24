@@ -10,32 +10,58 @@
         <a href="/user/login" class="btn btn-outline-info" style="float: right;">Login</a>
     </div>
 
-    <div class="d-flex justify-content-center align-items-center login-container w3-animate-opacity">
-        <form class="login-form text-center" action="/user/login" method="POST"
-            onsubmit="submitForm(this);return false">
+    <div class="d-flex justify-content-center align-items-center login-container w3-animate-opacity"
+        style="padding: 0px;">
 
-            <h3>Please login into your account</h5>
-                <hr>
+        <div class="container">
 
-                <div class="mb-3">
-                    <input type="text" class="form-control rounded-pill form-control-lg" name="givenId"
-                        placeholder="Student/Staff ID" required autofocus>
-                </div>
-                <div class="mb-2">
-                    <input type="password" class="form-control rounded-pill form-control-lg" name="password"
-                        placeholder="Password" required>
-                </div>
+            <div class="row">
 
-                <div id="alert"></div>
+                <form class="login-form text-center" action="/user/login" method="POST"
+                    onsubmit="submitForm(this);return false">
 
-                <div class="d-grid gap-2 col-10 mx-auto">
-                    <button type="submit"
-                        class="btn mt-4 btn-lg rounded-pill btn-custom btn-lg text-uppercase">Login</button>
-                </div>
+                    <h3>Please login into your account</h3>
+                    <hr>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control rounded-pill form-control-lg" name="givenId"
+                            placeholder="Student/Staff ID" required autofocus>
+                    </div>
+                    <div class="mb-2">
+                        <input type="password" class="form-control rounded-pill form-control-lg" name="password"
+                            placeholder="Password" required>
+                    </div>
+
+                    <div id="alert"></div>
+
+                    <div class="d-grid gap-2 col-10 mx-auto">
+                        <button type="submit"
+                            class="btn mt-4 btn-lg rounded-pill btn-custom btn-lg text-uppercase">Login</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div style="color: #324880; position: fixed; bottom: 0; right: 0; left: 0;">
+                <p style="text-align: center;">Copyright © <%= new Date().getFullYear() %> GroupMatesFinder. All Rights
+                        Reserved.</p>
+            </div>
+
+        </div>
+
+        <!-- <div style="text-align: center; color: #324880;">
+            Copyright © <%= new Date().getFullYear() %> GroupMatesFinder. All Rights Reserved.
+        </div> -->
+
+
+
+
     </div>
 
-    </form>
     </div>
+
+
 
 
 </body>
@@ -114,8 +140,8 @@
 
     .login-form {
         margin: auto;
-        width: 450px;
-        padding: 15px;
+        width: 480px;
+        padding: 20px;
         max-width: 100%;
     }
 

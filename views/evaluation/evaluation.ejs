@@ -12,7 +12,7 @@
     <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="allEvaluation-tab">
 
         <div class="row">
-            <h3 class="col-md-4"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+            <h3 class="col-md-6"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
                     fill="currentColor" class="bi bi-bar-chart-line text-warning" viewBox="0 0 16 16">
                     <path
                         d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z" />
@@ -40,13 +40,12 @@
             <table class="table table-bordered">
                 <thead style="vertical-align: middle;">
                     <tr class="table-secondary">
-                        <th scope="col" span="1" style="text-align: center;">Name</th>
+                        <th scope="col" span="1" style="text-align: center; width: 20%;">Name</th>
                         <th scope="col" span="1" style="text-align: center; width: 15%;">Peer Evaluation Question
                         </th>
                         <th scope="col" span="1" style="text-align: center; width: 15%;">Self Evaluation Question
                         </th>
-                        <th scope="col" span="1" style="text-align: center;">Creator</th>
-                        <th scope="col" span="1" style="text-align: center; width: 18%;">Creation Date</th>
+                        <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,10 +70,6 @@
                                         model.createdQuestion.selfEvaluation.length : 0 %>
                                 </td>
 
-                                <td style="text-align:center" class="text">
-                                    <%= model.creator[0].preferred_name %>
-                                </td>
-
                                 <td style="text-align:center">
                                     <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' ,
                                         hour12: 'true' }).format(model.createdAt) %>
@@ -88,7 +83,7 @@
             <% } else { %>
 
                 <tr>
-                    <td colspan="5" style="text-align: center;">
+                    <td colspan="4" style="text-align: center;">
                         No Mixed Evaluation at this moment.
                     </td>
                 </tr>

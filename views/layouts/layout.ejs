@@ -73,7 +73,7 @@
 
       <% } else { %>
 
-        <div class="container" style="padding: 10px;">
+        <div class="container" style="padding: 30px;">
 
           <div class="card main-card">
 
@@ -95,17 +95,18 @@
                         <% if(req.path=='/teacher/evaluation/add' || (req.path).includes('/teacher/viewEvaluation') ) {
                           %>
 
-                          <a href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
+                          <a class="left" href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
 
                           <% } else { %>
 
-                            <a class="nav-is-active" href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
+                            <a class="nav-is-active left"
+                              href="/teacher/homepage/<%= req.session.userid %>"><b>Courses</b></a>
 
                             <% } %>
 
                               <% } else { %>
 
-                                <a href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
+                                <a class="left" href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
 
                                 <% } %>
 
@@ -118,10 +119,11 @@
                                     <% if (req.path!='/invitation' && req.path !='/user/profile' && req.path
                                       !='/user/editProfile' ) { %>
 
-                                      <a class="nav-is-active" href="/homepage/<%= req.session.userid %>">Courses</a>
+                                      <a class="nav-is-active left"
+                                        href="/homepage/<%= req.session.userid %>"><b>Courses</b></a>
                                       <% } else { %>
 
-                                        <a href="/homepage/<%= req.session.userid %>">Courses</a>
+                                        <a class="left" href="/homepage/<%= req.session.userid %>">Courses</a>
 
                                         <% } %>
 
@@ -134,11 +136,11 @@
                       <!-- Evaluation Nav -->
                       <% if(req.path=='/teacher/evaluation' || req.path=='/teacher/evaluation/add' ||
                         (req.path).includes('/teacher/viewEvaluation')) { %>
-                        <a class="nav-is-active" href="/teacher/evaluation">Evaluation</a>
+                        <a class="nav-is-active left" href="/teacher/evaluation"><b>Evaluation</b></a>
 
                         <% } else { %>
 
-                          <a href="/teacher/evaluation">Evaluation</a>
+                          <a class="left" href="/teacher/evaluation">Evaluation</a>
 
                           <% } %>
 
@@ -149,13 +151,14 @@
                               <% if(req.session.invitationNum> 0 ) { %>
 
                                 <% if(req.path=='/invitation' ) { %>
-                                  <a class="nav-is-active" href="/invitation">Invitation <span
+                                  <a class="nav-is-active left" href="/invitation"><b>Invitation</b><span
                                       class="badge rounded-pill bg-danger">
                                       <%= req.session.invitationNum %>
                                     </span></a>
 
                                   <% } else { %>
-                                    <a href="/invitation">Invitation <span class="badge rounded-pill bg-danger">
+                                    <a class="left" href="/invitation">Invitation <span
+                                        class="badge rounded-pill bg-danger">
                                         <%= req.session.invitationNum %>
                                       </span></a>
                                     <% } %>
@@ -163,10 +166,10 @@
                                       <% } else { %>
 
                                         <% if(req.path=='/invitation' ) { %>
-                                          <a class="nav-is-active" href="/invitation">Invitation</a>
+                                          <a class="nav-is-active left" href="/invitation"><b>Invitation</b></a>
 
                                           <% } else { %>
-                                            <a href="/invitation">Invitation</a>
+                                            <a class="left" href="/invitation">Invitation</a>
                                             <% } %>
 
                                               <% }%>
@@ -222,6 +225,9 @@
 
           </div>
 
+          <p class="my-2" style="text-align: center; color: #324880;">
+            Copyright © <%= new Date().getFullYear() %> GroupMatesFinder. All Rights Reserved.
+          </p>
 
 
         </div>
@@ -330,14 +336,20 @@
 
   }
 
-  a:hover {
+  .left:hover {
     color: #039d69;
+    font-weight: bold;
+    border-bottom: 3px solid rgb(72, 196, 214);
   }
 
   a {
     text-decoration: none;
   }
 
+  a:hover {
+    text-decoration: none;
+    color: #039d69;
+  }
 
   .main-card {
     border-radius: 20px;
@@ -354,7 +366,6 @@
 
   .nav-is-active {
     border-bottom: 3px solid rgb(72, 196, 214);
-
   }
 
 
@@ -406,7 +417,7 @@
 
   .nav-item a:hover {
     color: #039d69;
-    /* border-bottom: 3px solid rgb(72, 196, 214); */
+
   }
 
 

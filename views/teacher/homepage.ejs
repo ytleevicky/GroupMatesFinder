@@ -38,11 +38,11 @@
             <div class="card-body ">
                 <div class="row">
                     <div class="col-12 ">
-                        <h4 class="card-title "><b><a href="/teacher/<%= userid %>/viewCourse/<%= course.id %>">
-                                    <%= course.courseID %> -
-                                        <%= course.courseName %>
-                                            [<%= course.courseTerm %>]
-                                </a></b></h4>
+                        <h4 class="card-title "><a href="/teacher/<%= userid %>/viewCourse/<%= course.id %>">
+                                <%= course.courseID %> -
+                                    <%= course.courseName %>
+                                        [<%= course.courseTerm %>]
+                            </a></h4>
                     </div>
                     <div class="col">
                         <h6 class="card-subtitle mb-2 text-muted">
@@ -160,6 +160,7 @@
 <style>
     a {
         text-decoration: none;
+        color: #000000;
     }
 
     .card {
