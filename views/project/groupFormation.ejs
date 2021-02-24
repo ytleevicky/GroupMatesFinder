@@ -1,13 +1,5 @@
 <body>
     <br>
-    <h1><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-book text-primary" fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
-        </svg>
-        &nbsp;<%= sectionInfo.in[0].courseID %>: <%= sectionInfo.in[0].courseName %> (Section <%= sectionInfo.sectionNum
-                    %>)
-    </h1>
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -22,17 +14,17 @@
         </ol>
     </nav>
 
-    <div class="row">
+    <div class="row" style="padding: 5px 30px;">
         <div class="col-6">
             <h3>
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor"
                     class="bi bi-flag-fill text-danger" viewBox="0 0 16 16">
                     <path
                         d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
                 </svg> &nbsp;<%= sectionInfo.haveProject[0].projectName %>
             </h3>
         </div>
-        <div class="col-6" style="padding-right: 150px;">
+        <div class="col-6">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-outline-primary mb-4" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" style="float: right;">
@@ -99,24 +91,105 @@
 
 
         <div class="col-sm-9">
-            <table class="table table-bordered" style="width:800px;">
+            <div class="container" style="margin: auto;">
 
-                <thead style="vertical-align: middle;">
-                    <tr class="table-secondary">
-                        <th scope="col" span="1" style="width: 20%; text-align: center;">Group</th>
-                        <th scope="col" span="1" style="width: 20%; text-align: center;">Members
-                        </th>
-                        <th scope="col" span="1" style="width: 30%; text-align: center;">Description</th>
-                    </tr>
-                </thead>
+                <table class="table table-bordered" style="width:800px;">
 
-                <tbody>
+                    <thead style="vertical-align: middle;">
+                        <tr class="table-secondary">
+                            <th scope="col" span="1" style="width: 20%; text-align: center;">Group</th>
+                            <th scope="col" span="1" style="width: 20%; text-align: center;">Members
+                            </th>
+                            <th scope="col" span="1" style="width: 30%; text-align: center;">Description</th>
+                        </tr>
+                    </thead>
 
-                    <% if(availableGroup.length> 0 ) { %>
+                    <tbody>
 
-                        <% availableGroup.forEach( function(model) { %>
+                        <% if(availableGroup.length> 0 ) { %>
 
-                            <% if (model.createdBy.length> 0) { %>
+                            <% availableGroup.forEach( function(model) { %>
+
+                                <% if (model.createdBy.length> 0) { %>
+                                    <tr>
+                                        <td>
+                                            <% var s=[]; for(i=0; i < model.createdBy.length; i++) {
+                                                s[i]=model.createdBy[i]; } %>
+
+                                                <div style="text-align:center">
+
+                                                    <% if (a==model.id) { %>
+                                                        <u>Group <%= model.groupNum %>
+                                                        </u>
+
+                                                        <% } else { %>
+                                                            <a
+                                                                href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= projectInfo.id %>/viewGroup/<%= model.id %>">Group
+                                                                <%= model.groupNum %>
+                                                            </a>
+                                                            <% } %>
+                                                </div>
+                                        </td>
+                                        <td>
+                                            <div style="text-align:center">
+                                                <%= model.createdBy.length %> / <%=
+                                                        sectionInfo.haveProject[0].numOfStudentMax %>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="text-align:center">
+                                                <%= model.groupDescription=="" ? '---' : model.groupDescription %>
+                                            </div>
+                                        </td>
+
+                                        <% } %>
+
+                                    </tr>
+
+                                    <% }); %>
+
+                                        <% } else { %>
+
+                                            <tr>
+                                                <td colspan="3" style="text-align: center;">
+                                                    No available group at this moment.
+                                                </td>
+                                            </tr>
+
+
+                                            <% } %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Display Group Formation Completed -->
+    <div class="container my-5 text-secondary" style="width:900px;">
+        <div class="col-sm-9">
+            <h5 class="my-3"><b>Completed Groups</b></h5>
+            <div class="container" style="margin: auto;">
+                <table class="table table-bordered" style="width:800px;">
+
+                    <thead style="vertical-align: middle;">
+                        <tr class="table-secondary">
+                            <th scope="col" span="1" style="width: 20%; text-align: center;">Group</th>
+                            <th scope="col" span="1" style="width: 20%; text-align: center;">Members
+                            </th>
+                            <th scope="col" span="1" style="width: 30%; text-align: center;">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <% if (completedGroup.length> 0 ) { %>
+
+                            <% completedGroup.forEach( function(model) { %>
+
                                 <tr>
                                     <td>
                                         <% var s=[]; for(i=0; i < model.createdBy.length; i++) {
@@ -148,8 +221,6 @@
                                         </div>
                                     </td>
 
-                                    <% } %>
-
                                 </tr>
 
                                 <% }); %>
@@ -157,89 +228,15 @@
                                     <% } else { %>
 
                                         <tr>
-                                            <td colspan="3" style="text-align: center;">
-                                                No available group at this moment.
+                                            <td colspan="5" style="text-align: center;">
+                                                No completed group at this moment.
                                             </td>
                                         </tr>
 
-
-                                        <% } %>
-
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-
-
-
-    <!-- Display Group Formation Completed -->
-    <div class="container my-5 text-secondary" style="width:900px;">
-        <div class="col-sm-9">
-            <h5><b>Completed Groups</b></h5>
-            <table class="table table-bordered" style="width:800px;">
-
-                <thead style="vertical-align: middle;">
-                    <tr class="table-secondary">
-                        <th scope="col" span="1" style="width: 20%; text-align: center;">Group</th>
-                        <th scope="col" span="1" style="width: 20%; text-align: center;">Members
-                        </th>
-                        <th scope="col" span="1" style="width: 30%; text-align: center;">Description</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <% if (completedGroup.length> 0 ) { %>
-
-                        <% completedGroup.forEach( function(model) { %>
-
-                            <tr>
-                                <td>
-                                    <% var s=[]; for(i=0; i < model.createdBy.length; i++) { s[i]=model.createdBy[i]; }
-                                        %>
-
-                                        <div style="text-align:center">
-
-                                            <% if (a==model.id) { %>
-                                                <u>Group <%= model.groupNum %>
-                                                </u>
-
-                                                <% } else { %>
-                                                    <a
-                                                        href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= projectInfo.id %>/viewGroup/<%= model.id %>">Group
-                                                        <%= model.groupNum %>
-                                                    </a>
-                                                    <% } %>
-                                        </div>
-                                </td>
-                                <td>
-                                    <div style="text-align:center">
-                                        <%= model.createdBy.length %> / <%= sectionInfo.haveProject[0].numOfStudentMax
-                                                %>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="text-align:center">
-                                        <%= model.groupDescription=="" ? '---' : model.groupDescription %>
-                                    </div>
-                                </td>
-
-                            </tr>
-
-                            <% }); %>
-
-                                <% } else { %>
-
-                                    <tr>
-                                        <td colspan="5" style="text-align: center;">
-                                            No completed group at this moment.
-                                        </td>
-                                    </tr>
-
-                                    <% }%>
-                </tbody>
-            </table>
+                                        <% }%>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

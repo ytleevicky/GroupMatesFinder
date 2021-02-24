@@ -2,15 +2,6 @@
 
     <br>
 
-    <h1><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-book text-primary" fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
-        </svg>
-        &nbsp;<%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %> (Section <%= sectioninfo.sectionNum
-                    %>)
-    </h1>
-
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/teacher/homepage/<%= userid %>">Home</a></li>
@@ -21,8 +12,6 @@
             </li>
         </ol>
     </nav>
-
-    <br>
 
     <!-- Alert 1 -->
     <% if (sectioninfo.haveStudent.length==0 ) { %>
@@ -60,218 +49,242 @@
                         </svg> Participants</a>
 
 
-                    <!-- Display project in this section (accordion) -->
-
+                    <!-- Alert 2 -->
                     <% if(sectioninfo.haveProject.length==0) { %>
 
-                        <% } else { %>
+                        <br><br><br><br><br><br><br><br><br><br><br>
 
-                            <div class="my-4">
+                        <% } %>
 
-                                <% var i=0; %>
 
-                                    <div class="accordion" id="accordionExample">
+                            <!-- Display project in this section (accordion) -->
 
-                                        <% sectioninfo.haveProject.forEach( function(project){ %>
+                            <% if(sectioninfo.haveProject.length==0) { %>
 
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="heading_<%= i %>">
-                                                    <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse" data-bs-target="#collapse_<%= i %>"
-                                                        aria-expanded="false" aria-controls="collapse_<%= i %>">
-                                                        <h3>
-                                                            <%= project.projectName %>
-                                                        </h3>
-                                                    </button>
-                                                </h2>
+                                <% } else { %>
 
-                                                <% if (sectioninfo.haveProject.length==1) { %>
-                                                    <div id="collapse_<%= i %>" class="accordion-collapse show"
-                                                        aria-labelledby="heading_<%= i %>"
-                                                        data-bs-parent="#accordionExample">
-                                                        <% } else { %>
+                                    <div class="my-4">
 
-                                                            <div id="collapse_<%= i %>"
-                                                                class="accordion-collapse collapse"
+                                        <% var i=0; %>
+
+                                            <div class="accordion" id="accordionExample">
+
+                                                <% sectioninfo.haveProject.forEach( function(project){ %>
+
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="heading_<%= i %>">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#collapse_<%= i %>"
+                                                                aria-expanded="false" aria-controls="collapse_<%= i %>">
+                                                                <h3>
+                                                                    <%= project.projectName %>
+                                                                </h3>
+                                                            </button>
+                                                        </h2>
+
+                                                        <% if (sectioninfo.haveProject.length==1) { %>
+                                                            <div id="collapse_<%= i %>" class="accordion-collapse show"
                                                                 aria-labelledby="heading_<%= i %>"
                                                                 data-bs-parent="#accordionExample">
+                                                                <% } else { %>
 
-                                                                <% } %>
+                                                                    <div id="collapse_<%= i %>"
+                                                                        class="accordion-collapse collapse"
+                                                                        aria-labelledby="heading_<%= i %>"
+                                                                        data-bs-parent="#accordionExample">
 
-                                                                    <div class="accordion-body">
+                                                                        <% } %>
 
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>"
-                                                                                    class="btn btn-link"
-                                                                                    style="float: right;">Edit
-                                                                                    Project</a>
+                                                                            <div class="accordion-body">
+
+                                                                                <div class="row">
+                                                                                    <div class="col-12">
+                                                                                        <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>"
+                                                                                            class="btn btn-link"
+                                                                                            style="float: right;">Edit
+                                                                                            Project</a>
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                                <dl class="row my-2">
+                                                                                    <dt class="col-sm-4">Project
+                                                                                        Description:
+                                                                                    </dt>
+                                                                                    <dd class="col-sm-8">
+                                                                                        <%= project.projectDescription
+                                                                                            %>
+                                                                                    </dd>
+                                                                                </dl>
+
+                                                                                <dl class="row my-2">
+                                                                                    <dt class="col-sm-4">Student Per
+                                                                                        Group:
+                                                                                    </dt>
+                                                                                    <dd class="col-sm-8">
+                                                                                        <%= project.numOfStudentMin %>
+                                                                                            to <%=
+                                                                                                project.numOfStudentMax
+                                                                                                %>
+                                                                                    </dd>
+                                                                                </dl>
+
+                                                                                <dl class="row my-2">
+                                                                                    <dt class="col-sm-4">
+                                                                                        Group Formation Due Date:
+                                                                                    </dt>
+                                                                                    <dd class="col-sm-8">
+                                                                                        <%= new
+                                                                                            Intl.DateTimeFormat('en-GB',
+                                                                                            { dateStyle: 'medium' ,
+                                                                                            timeStyle: 'short' ,
+                                                                                            hour12: 'true'
+                                                                                            }).format(project.groupFormationDate)
+                                                                                            %>
+                                                                                    </dd>
+                                                                                </dl>
+
+                                                                                <dl class="row my-2">
+                                                                                    <dt class="col-sm-4">
+                                                                                        Project Submission Due Date:
+                                                                                    </dt>
+                                                                                    <dd class="col-sm-8">
+                                                                                        <%= new
+                                                                                            Intl.DateTimeFormat('en-GB',
+                                                                                            { dateStyle: 'medium' ,
+                                                                                            timeStyle: 'short' ,
+                                                                                            hour12: 'true'
+                                                                                            }).format(project.projectSubmitDate)
+                                                                                            %>
+                                                                                    </dd>
+                                                                                </dl>
+
+                                                                                <br>
+
+                                                                                <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>/evaluation"
+                                                                                    class="btn btn-success"
+                                                                                    style="float: right; margin-left: 10px;">Peer
+                                                                                    Evaluation</a>
+                                                                                <a href="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>/viewProgress"
+                                                                                    class="btn btn-primary"
+                                                                                    style="float: right; ">Group
+                                                                                    Formation
+                                                                                    Progress</a>
+                                                                                <br>
+                                                                                <br>
+
                                                                             </div>
 
-                                                                        </div>
-
-                                                                        <dl class="row my-2">
-                                                                            <dt class="col-sm-4">Project Description:
-                                                                            </dt>
-                                                                            <dd class="col-sm-8">
-                                                                                <%= project.projectDescription %>
-                                                                            </dd>
-                                                                        </dl>
-
-                                                                        <dl class="row my-2">
-                                                                            <dt class="col-sm-4">Student Per
-                                                                                Group:
-                                                                            </dt>
-                                                                            <dd class="col-sm-8">
-                                                                                <%= project.numOfStudentMin %> to <%=
-                                                                                        project.numOfStudentMax %>
-                                                                            </dd>
-                                                                        </dl>
-
-                                                                        <dl class="row my-2">
-                                                                            <dt class="col-sm-4">
-                                                                                Group Formation Due Date:
-                                                                            </dt>
-                                                                            <dd class="col-sm-8">
-                                                                                <%= new Intl.DateTimeFormat('en-GB', {
-                                                                                    dateStyle: 'medium' ,
-                                                                                    timeStyle: 'short' , hour12: 'true'
-                                                                                    }).format(project.groupFormationDate)
-                                                                                    %>
-                                                                            </dd>
-                                                                        </dl>
-
-                                                                        <dl class="row my-2">
-                                                                            <dt class="col-sm-4">
-                                                                                Project Submission Due Date:
-                                                                            </dt>
-                                                                            <dd class="col-sm-8">
-                                                                                <%= new Intl.DateTimeFormat('en-GB', {
-                                                                                    dateStyle: 'medium' ,
-                                                                                    timeStyle: 'short' , hour12: 'true'
-                                                                                    }).format(project.projectSubmitDate)
-                                                                                    %>
-                                                                            </dd>
-                                                                        </dl>
-
-                                                                        <br>
-
-                                                                        <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>/evaluation"
-                                                                            class="btn btn-success"
-                                                                            style="float: right; margin-left: 10px;">Peer
-                                                                            Evaluation</a>
-                                                                        <a href="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>/viewProgress"
-                                                                            class="btn btn-primary"
-                                                                            style="float: right; ">Group
-                                                                            Formation
-                                                                            Progress</a>
-                                                                        <br>
-                                                                        <br>
-
                                                                     </div>
-
                                                             </div>
-                                                    </div>
 
-                                                    <% i++; %>
-                                                        <% }); %>
+                                                            <% i++; %>
+                                                                <% }); %>
+
+                                                    </div>
 
                                             </div>
 
+                                            <% } %>
+
                                     </div>
 
-                                    <% } %>
-
-                            </div>
-
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true" data-bs-backdrop="static">
-                                <div class="modal-dialog modal-lg modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Initiate
-                                                Group
-                                                Project</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <form action="/createProject/<%= sectioninfo.id %>/<%= userid %>" method="POST"
-                                            onsubmit="createForm(this);return false" class="was-validated">
-                                            <div class="modal-body" style="padding: 20px 50px;">
-
-                                                <div class="mb-3">
-                                                    <label for="recipient-name" class="col-form-label">Project
-                                                        Name:</label>
-                                                    <input type="text" class="form-control" name="Project[projectName]"
-                                                        required>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true"
+                                        data-bs-backdrop="static">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Initiate
+                                                        Group
+                                                        Project</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <div class="row"><label for="numberOfStudent"
-                                                            class="col-form-label">Number
-                                                            of
-                                                            Student Per
-                                                            Group:</label></div>
+                                                <form action="/createProject/<%= sectioninfo.id %>/<%= userid %>"
+                                                    method="POST" onsubmit="createForm(this);return false"
+                                                    class="was-validated">
+                                                    <div class="modal-body" style="padding: 20px 50px;">
 
-                                                    <div class="container">
-                                                        <div class="row" style="align-content: center;">
-                                                            <div class="col-6 my-2">
-                                                                <div class="row">
-                                                                    <label class="col-2" for="numberOfStudentMin"
-                                                                        class="col-form-label">Min:</label>
-                                                                    <div class="col-10">
-                                                                        <input type="number" class="form-control"
-                                                                            style="width: 50%;"
-                                                                            name="Project[numOfStudentMin]" required
-                                                                            min="1" max="" id="minStu"
-                                                                            onchange="validateMinStu();">
-                                                                        <div id="displayMinError"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6 my-2">
-                                                                <div class="row">
-                                                                    <label class="col-2" for="numberOfStudentMax"
-                                                                        class="col-form-label">Max:</label>
-                                                                    <div class="col-10">
-                                                                        <input type="number" class="form-control"
-                                                                            style="width: 50%;"
-                                                                            name="Project[numOfStudentMax]" required
-                                                                            min="1" id="maxStu"
-                                                                            onchange="validateMaxStu();">
-                                                                        <div id="displayMaxError"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                        <div class="mb-3">
+                                                            <label for="recipient-name" class="col-form-label">Project
+                                                                Name:</label>
+                                                            <input type="text" class="form-control"
+                                                                name="Project[projectName]" required>
                                                         </div>
-                                                    </div>
+                                                        <div class="mb-3">
+                                                            <div class="row"><label for="numberOfStudent"
+                                                                    class="col-form-label">Number
+                                                                    of
+                                                                    Student Per
+                                                                    Group:</label></div>
 
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="numberOfStudent" class="col-form-label">Group
-                                                        Formation
-                                                        Due Date:</label>
-                                                    <input type="datetime-local" class="form-control" name="formDate"
-                                                        onchange="validateFormationDate();" max="" id="formationDate"
-                                                        required>
-                                                    <div id="displayFDateError"></div>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="numberOfStudent" class="col-form-label">Project
-                                                        Submission
-                                                        Due Date:</label>
-                                                    <input type="datetime-local" class="form-control" name="submitDate"
-                                                        id="submissionDate" onchange="validateSubmissionDate();" min=""
-                                                        required>
-                                                    <div id="displaySDateError"></div>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="message-text" class="col-form-label">Project
-                                                        Description:</label>
-                                                    <textarea class="form-control" name="Project[projectDescription]"
-                                                        required></textarea>
-                                                </div>
+                                                            <div class="container">
+                                                                <div class="row"
+                                                                    style="align-content: center; padding: 5px 50px;">
+                                                                    <div class="col-6 my-2">
+                                                                        <div class="row">
+                                                                            <label class="col-3"
+                                                                                for="numberOfStudentMin"
+                                                                                class="col-form-label">Min:</label>
+                                                                            <div class="col-9">
+                                                                                <input type="number"
+                                                                                    class="form-control"
+                                                                                    style="width: 50%;"
+                                                                                    name="Project[numOfStudentMin]"
+                                                                                    required min="1" max="" id="minStu"
+                                                                                    onchange="validateMinStu();">
+                                                                                <div id="displayMinError"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 my-2">
+                                                                        <div class="row">
+                                                                            <label class="col-3"
+                                                                                for="numberOfStudentMax"
+                                                                                class="col-form-label">Max:</label>
+                                                                            <div class="col-9">
+                                                                                <input type="number"
+                                                                                    class="form-control"
+                                                                                    style="width: 50%;"
+                                                                                    name="Project[numOfStudentMax]"
+                                                                                    required min="1" id="maxStu"
+                                                                                    onchange="validateMaxStu();">
+                                                                                <div id="displayMaxError"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                                <!-- <div class="mb-3">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="numberOfStudent" class="col-form-label">Group
+                                                                Formation
+                                                                Due Date:</label>
+                                                            <input type="datetime-local" class="form-control"
+                                                                name="formDate" onchange="validateFormationDate();"
+                                                                max="" id="formationDate" required>
+                                                            <div id="displayFDateError"></div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="numberOfStudent" class="col-form-label">Project
+                                                                Submission
+                                                                Due Date:</label>
+                                                            <input type="datetime-local" class="form-control"
+                                                                name="submitDate" id="submissionDate"
+                                                                onchange="validateSubmissionDate();" min="" required>
+                                                            <div id="displaySDateError"></div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">Project
+                                                                Description:</label>
+                                                            <textarea class="form-control"
+                                                                name="Project[projectDescription]" required></textarea>
+                                                        </div>
+
+                                                        <!-- <div class="mb-3">
                                                             <label for="message-text" class="col-form-label">Ways to
                                                                 form group:</label>
 
@@ -301,17 +314,17 @@
                                                             </div>
                                                         </div> -->
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Create</button>
-                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Create</button>
+                                                    </div>
 
-                                        </form>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
 
 
