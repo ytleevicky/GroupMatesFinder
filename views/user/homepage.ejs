@@ -21,10 +21,10 @@
             <div class="card-body ">
                 <div class="row">
                     <div class="mb-2 ">
-                        <h4 class="card-title "><b><a href="/student/<%= userid %>/viewProject/<%= course.id %>">
-                                    <%= course.in[0].courseID %> - <%= course.in[0].courseName %>
-                                            [<%= course.in[0].courseTerm %>]
-                                </a></b></h4>
+                        <h4 class="card-title "><a href="/student/<%= userid %>/viewProject/<%= course.id %>">
+                                <%= course.in[0].courseID %> - <%= course.in[0].courseName %>
+                                        [<%= course.in[0].courseTerm %>]
+                            </a></h4>
                     </div>
 
                     <% if (course.in.length> 0) { %>
@@ -68,6 +68,7 @@
 <style>
     a {
         text-decoration: none;
+        color: rgb(0, 0, 0);
     }
 
     .card {
