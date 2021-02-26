@@ -67,7 +67,7 @@ module.exports.bootstrap = async function () {
     await Course.createEach([
       { courseID: 'COMP4115', courseName: 'Data Visualization', courseTerm: '2019-2020 Semester 1', numOfSection: 1 },
       { courseID: 'COMP4116', courseName: 'Information System', courseTerm: '2019-2020 Semester 1', numOfSection: 1 },
-      { courseID: 'COMP4117', courseName: 'Software Developement and Testing', courseTerm: '2019-2020 Semester 1', numOfSection: 1 },
+      { courseID: 'COMP4117', courseName: 'Software Development and Testing', courseTerm: '2019-2020 Semester 1', numOfSection: 1 },
 
     ]);
 

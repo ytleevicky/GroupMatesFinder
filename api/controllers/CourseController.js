@@ -163,6 +163,28 @@ module.exports = {
 
     },
 
+    removeCourse: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        var course = await Course.findOne({ where: { id: req.params.cid } });
+
+        var section = await Course.findOne(course.id).populate('haveSection');
+
+        for (var i = 0; i < section.haveSection.length; i++) {
+            await Section.destroy(section.haveSection[i].id).fetch();
+        }
+
+        var models = await Course.destroy(course.id).fetch();
+
+        if (models.length == 0) { return res.notFound(); }
+
+        if (req.wantsJSON) {
+            return res.json({ message: 'Course has been deleted.', url: '/teacher/homepage/' + req.session.userid });    // for ajax request
+        }
+
+    },
+
     // Course teachBy Teacher
     populate: async function (req, res) {
 

@@ -37,6 +37,7 @@ module.exports.routes = {
   '/createCourse/:id': 'CourseController.createCourse',
   'POST /createCourse/:id': 'CourseController.createCourse',
   '/teacher/:fk/viewCourse/:id': 'CourseController.viewCourse',
+  'DELETE /removeCourse/:cid': 'CourseController.removeCourse',
   '/teacher/:fk/viewSection/:id': 'CourseController.viewSection',
   '/teacher/:uid/viewSection/:sid/project/:pid/viewProgress': 'ProjectController.viewProgress',
   'POST /teacher/:uid/viewSection/:sid/project/:pid/formGroupReminder': 'ProjectController.formGroupReminder',

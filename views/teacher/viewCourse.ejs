@@ -11,7 +11,14 @@
         </ol>
     </nav>
 
-    <h4>Course Overview:</h4>
+    <div class="row">
+        <div class="col-6">
+            <h4>Course Overview:</h4>
+        </div>
+        <div class="col-6"><button class="btn btn-outline-danger btn-sm" style="float: right;" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">Delete course</button>
+        </div>
+    </div>
 
     <table class="table center table-bordered">
 
@@ -63,6 +70,38 @@
     </ul>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title text-danger w-100" id="staticBackdropLabel">Delete course</h5>
+                    <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" id="deleteForm">
+                    <div class="modal-body">
+                        <p>Deleting your course is irreversible. Enter your course's name (<b class="text-danger">
+                                <%= courseinfo.courseName %>
+                            </b>) below to confirm you want to permanently delete it:
+                        </p>
+
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="inputDelete">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-danger" id="deleteBtn" disabled="disabled"
+                            onclick="deleteCourse();">Delete
+                            course</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <br><br><br><br><br>
 
 
@@ -70,10 +109,41 @@
 </body>
 
 
-<style>
-    /* .table {
-        margin-left: auto;
-        margin-right: auto;
-        width: 70%;
-    } */
-</style>
+<script>
+
+
+    var input = document.getElementById('inputDelete');
+    var courseName = "<%= courseinfo.courseName %>";
+
+    var id = "<%= courseinfo.id %>";
+    var courseID = parseInt(id);
+
+    deleteForm.addEventListener('input', () => {
+
+        if (input.value == courseName) {
+            deleteBtn.removeAttribute('disabled');
+            deleteBtn.setAttribute('class', 'btn btn-danger');
+        } else {
+            deleteBtn.setAttribute('disabled', 'disabled');
+            deleteBtn.setAttribute('class', 'btn btn-outline-danger');
+        }
+
+    });
+
+
+    async function deleteCourse() {
+
+        var response = await fetch("/removeCourse/" + courseID, {
+            method: "DELETE",
+            credentials: 'same-origin',
+        });
+
+        if (response.ok) {
+            var data = await response.json();
+            alert(data.message);
+            window.location = data.url;
+        }
+
+    };
+
+</script>
