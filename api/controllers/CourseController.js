@@ -26,7 +26,7 @@ module.exports = {
 
         var userID = req.params.id;
 
-        var courses = await User.findOne(userID).populate('instruct', { sort: 'courseTerm DESC' });
+        var courses = await User.findOne(userID).populate('instruct', { sort: 'createdAt DESC' });
 
         return res.view('teacher/homepage', { allCourses: courses, userid: userID });
 

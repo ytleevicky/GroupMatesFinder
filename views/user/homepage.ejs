@@ -31,7 +31,7 @@
 
                         <div class="col">
                             <h6 class="card-subtitle mb-2 text-muted">
-                                <p class="card-text text-muted small ">
+                                <p class="card-text text-muted small">
 
                                     <% course.haveTeacher.forEach( function(model) { %>
                                         Teacher: <span class="font-weight-bold"></span>
@@ -74,5 +74,9 @@
     .card {
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
+    }
+
+    .card:hover {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.2);
     }
 </style>
