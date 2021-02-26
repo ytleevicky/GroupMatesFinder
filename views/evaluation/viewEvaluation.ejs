@@ -2,6 +2,14 @@
 
     <br>
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/teacher/evaluation">Evaluation</a></li>
+            <li class="breadcrumb-item active" aria-current="page">View Evaluation Template</li>
+        </ol>
+    </nav>
+    <br>
+
     <div class="mb-5">
         <button type="button" class="btn btn-outline-danger" style="float: right" data-bs-toggle="modal"
             data-bs-target="#exampleModal">
@@ -21,7 +29,7 @@
 
     <br>
 
-    <div class="my-4" style="padding: 10px 80px;">
+    <div class="my-2" style="padding: 10px 80px;">
 
         <h4 style="text-align: center;">Preview Event - Demo Group</h4>
 
@@ -64,7 +72,7 @@
 
                         <div class="mb-5">
 
-                            <b>Q<%= i %>. <%= question.question %></b>
+                            <b style="font-size: large;">Q<%= i %>. <%= question.question %></b>
 
                             <% if(question.type=="Rating" ) { %>
 
@@ -117,7 +125,7 @@
 
                         <div class="mb-5">
 
-                            <b>Q<%= i %>. <%= question.question %></b>
+                            <b style="font-size: large;">Q<%= i %>. <%= question.question %></b>
 
 
                             <% if(question.type=="Rating" ) { %>
@@ -172,7 +180,7 @@
 
                         <div class="mb-5">
 
-                            <b>Q<%= i %>. <%= question.question %></b>
+                            <b style="font-size: large;">Q<%= i %>. <%= question.question %></b>
 
 
                             <% if(question.type=="Rating" ) { %>
@@ -243,7 +251,7 @@
                                     <% evaluationInfo.createdQuestion.selfEvaluation.forEach( function(question) { %>
 
                                         <div class="mb-5">
-                                            <b>Q<%= i %>. <%= question.question %></b>
+                                            <b style="font-size: large;">Q<%= i %>. <%= question.question %></b>
 
                                             <% if(question.type=="Rating" ) { %>
 
@@ -327,7 +335,7 @@
 <style>
     b {
         color: #324880;
-        font-size: large;
+        /* font-size: large; */
     }
 </style>
 

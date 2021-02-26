@@ -163,7 +163,9 @@ module.exports = {
 
             var groupMember = await Group.findOne(req.params.gid).populate('createdBy', { where: { id: { '!=': req.session.userid } } });
 
-            return res.view('event/evaluationForm', { eventInfo: event, groupMemberInfo: groupMember, userid: req.session.userid, projectid: req.params.pid, groupid: req.params.gid, sectionid: req.params.sid });
+            var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
+
+            return res.view('event/evaluationForm', { eventInfo: event, groupMemberInfo: groupMember, userid: req.session.userid, projectid: req.params.pid, groupid: req.params.gid, sectionid: req.params.sid, sectioninfo: section });
 
         } else {
 
@@ -194,7 +196,9 @@ module.exports = {
 
             var groupMember = await Group.findOne(req.params.gid).populate('createdBy', { where: { id: { '!=': req.session.userid } } });
 
-            return res.view('event/viewCompletedEval', { eventInfo: event, responseInfo: response.formResponse, groupMemberInfo: groupMember, userid: req.session.userid, projectid: req.params.pid, groupid: req.params.gid, sectionid: req.params.sid, formid: response.id });
+            var section = await Section.findOne({ where: { id: req.params.sid } }).populate('in').populate('haveProject', { where: { id: req.params.pid } });
+
+            return res.view('event/viewCompletedEval', { eventInfo: event, responseInfo: response.formResponse, groupMemberInfo: groupMember, userid: req.session.userid, projectid: req.params.pid, groupid: req.params.gid, sectionid: req.params.sid, formid: response.id, sectioninfo: section });
 
         } else {
 

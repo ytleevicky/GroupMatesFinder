@@ -2,7 +2,24 @@
 
     <br>
 
-    <h3 style="text-align: center;">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/homepage/<%= userid %>">Home</a></li>
+            <li class="breadcrumb-item"><a href="/student/<%= userid %>/viewProject/<%= sectioninfo.id %>">
+                    <%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %> (Section <%=
+                                sectioninfo.sectionNum %>)
+                </a></li>
+            <li class="breadcrumb-item"><a
+                    href="/student/section/<%= sectioninfo.id %>/project/<%=sectioninfo.haveProject[0].id %>/evaluationEvent">
+                    <%= sectioninfo.haveProject[0].projectName %>
+                </a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <%= eventInfo.eventName %>
+            </li>
+        </ol>
+    </nav>
+
+    <h3 class="my-4" style="text-align: center;">
         <%= eventInfo.eventName %> - Group <%= groupMemberInfo.groupNum %>
     </h3>
 
@@ -192,8 +209,9 @@
                                                                                             required>
                                                                                             <option value="">Please rate
                                                                                             </option>
-                                                                                            <option value="1: Very
-                                                                                                Unsatisfactory">1: Very
+                                                                                            <option
+                                                                                                value="1: Very Unsatisfactory">
+                                                                                                1: Very
                                                                                                 Unsatisfactory</option>
                                                                                             <option
                                                                                                 value="2: Unsatisfactory">
