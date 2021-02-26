@@ -108,12 +108,11 @@ module.exports = {
             var ws = workbook.Sheets[workbook.SheetNames[0]];
             var data = XLSX.utils.sheet_to_json(ws);
 
-            var findStudent = await User.find({ where: { givenId: data.map(v => v.givenId) } });
+            var findStudent = await User.find({ where: { givenId: data.map(v => v.Student_ID) } });
 
             await Section.addToCollection(req.params.id, 'haveStudent').members(findStudent.map(d => d.id));
 
             return res.redirect('/teacher/' + req.params.fk + '/section/' + req.params.id + '/participants');
-
 
         });
     },
