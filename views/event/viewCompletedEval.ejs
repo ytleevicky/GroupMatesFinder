@@ -90,7 +90,7 @@
 
                                 <div class="mb-5">
 
-                                    <b>Q<%= i %>. <%= response.question %></b>
+                                    <b style="font-size: large;">Q<%= i %>. <%= response.question %></b>
 
                                     <input type="hidden"
                                         name="EvalResponse[formResponse][peerEvaluation][<%= n %>][response][<%= i %>][question]"
@@ -234,7 +234,8 @@
                                                                         function(question) { %>
 
                                                                         <div class="mb-5">
-                                                                            <b>Q<%= i %>. <%= question.question %>
+                                                                            <b style="font-size: large;">Q<%= i %>.
+                                                                                    <%= question.question %>
                                                                             </b>
 
                                                                             <input type="hidden"
@@ -457,7 +458,6 @@
 <style>
     b {
         color: #324880;
-        font-size: large;
     }
 </style>
 
