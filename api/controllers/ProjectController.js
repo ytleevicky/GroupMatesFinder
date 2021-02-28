@@ -8,6 +8,10 @@
 const { google } = require("calendar-link");
 let nodemailer = require('nodemailer');
 
+var cron = require('node-cron');
+
+var schedule = require('node-schedule');
+
 module.exports = {
 
     createProject: async function (req, res) {
@@ -35,6 +39,86 @@ module.exports = {
         }).fetch();
 
         await Project.addToCollection(createProject.id, 'inSection').members(req.params.id);
+
+        var earlyDate = new Date(timestamp - (24 * 60 * 60 * 1000) * 3);
+
+        var j = schedule.scheduleJob(earlyDate, async function () {
+
+            var currentP = await Project.findOne(createProject.id);
+
+            if (timestamp == currentP.groupFormationDate) {
+
+                console.log('job is running');
+
+                var project123 = await Project.findOne(createProject.id).populate('haveGroup', { where: { formationStatus: 'completed' } });
+
+                var grp = await Group.find(project123.haveGroup.map(v => v.id)).populate('createdBy');
+
+                var s = await Section.findOne(req.params.id).populate('haveStudent');
+
+                var studentList = [];
+
+                for (var y = 0; y < s.haveStudent.length; y++) {
+                    studentList.push(s.haveStudent[y].givenId);
+                }
+
+                var studentHaveGroup = [];
+
+                for (var i = 0; i < grp.length; i++) {
+                    for (var a = 0; a < grp[i].createdBy.length; a++) {
+                        studentHaveGroup.push(grp[i].createdBy[a].givenId)
+                    }
+                }
+
+                var filteredList = studentList.filter((word) => !studentHaveGroup.includes(word));
+
+                var emailList = [];     // Obtain all the email address of student who do not have Group.
+
+                for (var t = 0; t < filteredList.length; t++) {
+                    var findUser = await User.findOne({ where: { givenId: filteredList[t] } });
+                    emailList.push(findUser.contact_mail);
+                }
+
+                console.log("Email List:");     // Send email to those who haven't form group yet
+                console.log(emailList);
+
+                var deadline = new Intl.DateTimeFormat('en-GB', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short', hour12: 'true'
+                }).format(timestamp);
+
+                // Send Email
+
+                let mailOptions = {
+                    from: 'noreply.GroupMatesFinder@gmail.com',
+                    to: emailList,
+                    subject: 'GroupMatesFinder',
+                    text: '*** This is an automatically generated email, please do not reply. ***\n\nDear students,\n\nA friendly reminder that you have not yet completed the group formation for the group project.\n\n' + 'The group formation deadline for the group project - ' + createProject.projectName + ' is on ' + deadline + '.\nYou still have 3 days left for submitting the group formation. \n\nPlease log in to GroupMatesFinder System to form a group as soon as possible.\n\nThank you,\n\nGroupMatesFinder System'
+                };
+
+                let transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'noreply.GroupMatesFinder@gmail.com',
+                        pass: 'GroupMatesFinder2021'
+                    }
+                });
+
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+
+            } else {
+                j.cancel();
+                console.log("Cancel email sending.");
+            }
+
+
+        });
 
         if (req.wantsJSON) {
             return res.json({ message: 'Project has been successfully initialized.', url: '/teacher/' + req.params.fk + '/viewSection/' + req.params.id });    // for ajax request
@@ -184,8 +268,6 @@ module.exports = {
 
         var data = typeof req.body.remindStudent === 'string' ? [req.body.remindStudent] : req.body.remindStudent;
 
-        console.log(data);
-
         var projectInfo = await Project.findOne(req.params.pid);
 
         var deadline = new Intl.DateTimeFormat('en-GB', {
@@ -238,6 +320,102 @@ module.exports = {
             var date2 = new Date(req.body.submitDate);
             var timestamp2 = date2.getTime();
 
+            var newProjectName = req.body.Project.projectName;
+
+
+            var beforeUpdate = await Project.findOne(req.params.pid);   // Project info (Before update)
+
+            if (beforeUpdate.groupFormationDate != timestamp) {
+
+                console.log("Start Modify the schedule");
+
+                // Modify the scheduling 
+
+                var earlyDate = new Date(timestamp - (24 * 60 * 60 * 1000) * 3);
+
+                var j = schedule.scheduleJob(earlyDate, async function () {
+
+                    var currentP = await Project.findOne(req.params.pid);
+
+                    if (timestamp == currentP.groupFormationDate) {
+
+                        console.log('job is running');
+
+                        var project123 = await Project.findOne(req.params.pid).populate('haveGroup', { where: { formationStatus: 'completed' } });
+
+                        var grp = await Group.find(project123.haveGroup.map(v => v.id)).populate('createdBy');
+
+                        var s = await Section.findOne(req.params.sid).populate('haveStudent');
+
+                        var studentList = [];
+
+                        for (var y = 0; y < s.haveStudent.length; y++) {
+                            studentList.push(s.haveStudent[y].givenId);
+                        }
+
+                        var studentHaveGroup = [];
+
+                        for (var i = 0; i < grp.length; i++) {
+                            for (var a = 0; a < grp[i].createdBy.length; a++) {
+                                studentHaveGroup.push(grp[i].createdBy[a].givenId)
+                            }
+                        }
+
+                        var filteredList = studentList.filter((word) => !studentHaveGroup.includes(word));
+
+                        var emailList = [];     // Obtain all the email address of student who do not have Group.
+
+                        for (var t = 0; t < filteredList.length; t++) {
+                            var findUser = await User.findOne({ where: { givenId: filteredList[t] } });
+                            emailList.push(findUser.contact_mail);
+                        }
+
+                        console.log("Email List:");     // Send email to those who haven't form group yet
+                        console.log(emailList);
+
+                        var deadline = new Intl.DateTimeFormat('en-GB', {
+                            dateStyle: 'medium',
+                            timeStyle: 'short', hour12: 'true'
+                        }).format(timestamp);
+
+                        // Send Email
+
+                        let mailOptions = {
+                            from: 'noreply.GroupMatesFinder@gmail.com',
+                            to: emailList,
+                            subject: 'GroupMatesFinder',
+                            text: '*** This is an automatically generated email, please do not reply. ***\n\nDear students,\n\nA friendly reminder that you have not yet completed the group formation for the group project.\n\n' + 'The group formation deadline for the group project - ' + newProjectName + ' is on ' + deadline + '.\nYou still have 3 days left for submitting the group formation. \n\nPlease log in to GroupMatesFinder System to form a group as soon as possible.\n\nThank you,\n\nGroupMatesFinder System'
+                        };
+
+                        let transporter = nodemailer.createTransport({
+                            service: 'gmail',
+                            auth: {
+                                user: 'noreply.GroupMatesFinder@gmail.com',
+                                pass: 'GroupMatesFinder2021'
+                            }
+                        });
+
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                console.log('Email sent: ' + info.response);
+                            }
+                        });
+
+                    } else {
+                        j.cancel();
+                        console.log("Cancel email sending.");
+                    }
+
+
+                });
+
+
+            }
+
+
+            // Update Project 
             await Project.update(req.params.pid).set({
                 projectName: req.body.Project.projectName,
                 numOfStudentMin: req.body.Project.numOfStudentMin,
