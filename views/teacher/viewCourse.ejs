@@ -4,7 +4,7 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/teacher/homepage/<%= userid %>">Home</a></li>
+            <li class="breadcrumb-item"><a href="/teacher/homepage">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">
                 <%= courseinfo.courseID %>: <%= courseinfo.courseName %>
             </li>
@@ -60,7 +60,7 @@
 
         <% courseinfo.haveSection.forEach( function(section){ %>
 
-            <li class="list-group-item"><a href="/teacher/<%= userid %>/viewSection/<%= section.id %>">Section:
+            <li class="list-group-item"><a href="/teacher/viewSection/<%= section.id %>">Section:
                     <%= section.sectionNum %>
                 </a>
             </li>

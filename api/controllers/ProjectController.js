@@ -121,7 +121,7 @@ module.exports = {
         });
 
         if (req.wantsJSON) {
-            return res.json({ message: 'Project has been successfully initialized.', url: '/teacher/' + req.params.fk + '/viewSection/' + req.params.id });    // for ajax request
+            return res.json({ message: 'Project has been successfully initialized.', url: '/teacher/viewSection/' + req.params.id });    // for ajax request
         }
 
     },
@@ -132,7 +132,7 @@ module.exports = {
 
             var section = await Section.findOne(req.params.id).populate("haveProject").populate('in');
 
-            return res.view('project/viewProject', { sectionInfo: section, userid: req.params.sid });
+            return res.view('project/viewProject', { sectionInfo: section, userid: req.session.userid });
 
         }
 
@@ -198,7 +198,7 @@ module.exports = {
 
             var list = await User.find(student.haveStudent.map(v => v.id)).populate('create', { where: { id: project.haveGroup.map(a => a.id) } }).sort(['givenId']);
 
-            return res.view('project/groupFormation', { sectionInfo: section, userid: req.params.sid, projectid: req.params.pid, groupInfo: groups, projectInfo: project, completedGroup: groups2, availableGroup: avaGroup, listInfo: list });
+            return res.view('project/groupFormation', { sectionInfo: section, userid: req.session.userid, projectid: req.params.pid, groupInfo: groups, projectInfo: project, completedGroup: groups2, availableGroup: avaGroup, listInfo: list });
 
         }
 
@@ -256,7 +256,7 @@ module.exports = {
 
             var list = await User.find(student.haveStudent.map(v => v.id)).populate('create', { where: { id: p.haveGroup.map(a => a.id) } }).sort(['givenId']);
 
-            return res.view('teacher/viewProgress', { groupInfo: group, completedGroupNum: completed.haveGroup.length, inCompletedGroupNum: inCompleted.haveGroup.length, haveGroup: cnt, noGroup: noGroupNum, studentInfo: list, userid: req.params.uid, sectioninfo: section, projectid: req.params.pid });
+            return res.view('teacher/viewProgress', { groupInfo: group, completedGroupNum: completed.haveGroup.length, inCompletedGroupNum: inCompleted.haveGroup.length, haveGroup: cnt, noGroup: noGroupNum, studentInfo: list, userid: req.session.userid, sectioninfo: section, projectid: req.params.pid });
 
         }
 
@@ -298,7 +298,7 @@ module.exports = {
             }
         });
 
-        return res.json({ message: 'Reminder(s) have been sent.', url: '/teacher/' + req.session.userid + '/viewSection/' + req.params.sid + '/project/' + req.params.pid + '/viewProgress' });
+        return res.json({ message: 'Reminder(s) have been sent.', url: '/teacher/viewSection/' + req.params.sid + '/project/' + req.params.pid + '/viewProgress' });
 
     },
 
@@ -426,7 +426,7 @@ module.exports = {
 
             }).fetch();
 
-            return res.json({ message: 'Project has been updated.', url: '/teacher/' + req.session.userid + '/viewSection/' + req.params.sid });
+            return res.json({ message: 'Project has been updated.', url: '/teacher/viewSection/' + req.params.sid });
 
         }
 

@@ -4,13 +4,13 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/homepage/<%= userid %>">Home</a></li>
-            <li class="breadcrumb-item"><a href="/student/<%= userid %>/viewProject/<%= sectionInfo.id %>">
+            <li class="breadcrumb-item"><a href="/homepage">Home</a></li>
+            <li class="breadcrumb-item"><a href="/student/viewProject/<%= sectionInfo.id %>">
                     <%= sectionInfo.in[0].courseID %>: <%= sectionInfo.in[0].courseName %> (Section <%=
                                 sectionInfo.sectionNum %>)
                 </a></li>
             <li class="breadcrumb-item"><a
-                    href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>">
+                    href="/student/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>">
                     <%= sectionInfo.haveProject[0].projectName %>
                 </a></li>
             <li class="breadcrumb-item active" aria-current="page">
@@ -28,7 +28,7 @@
         </h3>
         <div class="my-3">
             <form
-                action="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/updateGrpDescription/<%= groupInfo.id %>"
+                action="/student/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/updateGrpDescription/<%= groupInfo.id %>"
                 method="POST">
                 <textarea class="form-control" placeholder="Add Group Description (Optional)"
                     name="Group[groupDescription]"><%= groupInfo.groupDescription %></textarea>
@@ -155,8 +155,8 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="acceptMemberModalLabel">Accept Member
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="acceptMemberModalLabel">Accept Member
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -178,8 +178,8 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="rejectMemberModalLabel">Reject Member
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="rejectMemberModalLabel">Reject Member
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -201,8 +201,8 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="completeFormationModalLabel">Confirm Group Completion
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="completeFormationModalLabel">Group Completion
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -224,8 +224,8 @@
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="inviteUserModalLabel">Invite Members</h5>
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="inviteUserModalLabel">Invite Members</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -546,8 +546,8 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exitGroupModalModalLabel">Exit Group
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="exitGroupModalModalLabel">Exit Group
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -618,7 +618,7 @@
 
     async function acceptToGroup() {
 
-        var response = await fetch('/student/' + <%= userid %> + '/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/' + studentid + '/acceptToGroup/' + <%= groupInfo.id %>, {
+        var response = await fetch('/student/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/' + studentid + '/acceptToGroup/' + <%= groupInfo.id %>, {
             method: "POST",
             credentials: 'same-origin',
         });
@@ -653,7 +653,7 @@
 
     async function rejectFromGroup() {
 
-        var response = await fetch('/student/' + <%= userid %> + '/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/' + studentid + '/rejectFromGroup/' + <%= groupInfo.id %>, {
+        var response = await fetch('/student/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/' + studentid + '/rejectFromGroup/' + <%= groupInfo.id %>, {
             method: "POST",
             credentials: 'same-origin',
         });
@@ -671,7 +671,7 @@
 
     async function completeGroupFormation() {
 
-        var response = await fetch('/student/' + <%= userid %> + '/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/completeGroupFormation/' + <%= groupInfo.id %>, {
+        var response = await fetch('/student/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/completeGroupFormation/' + <%= groupInfo.id %>, {
             method: "POST",
             credentials: 'same-origin',
         });
@@ -688,7 +688,7 @@
 
     async function exitGroup() {
 
-        var response = await fetch('/student/' + <%= userid %> + '/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/exitGroup/' + <%= groupInfo.id %>, {
+        var response = await fetch('/student/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/exitGroup/' + <%= groupInfo.id %>, {
             method: "POST",
             credentials: 'same-origin',
         });

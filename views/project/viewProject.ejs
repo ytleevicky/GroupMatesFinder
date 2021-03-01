@@ -4,7 +4,7 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/homepage/<%= userid %>">Home</a></li>
+            <li class="breadcrumb-item"><a href="/homepage">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">
                 <%= sectionInfo.in[0].courseID %>: <%= sectionInfo.in[0].courseName %> (Section <%=
                             sectionInfo.sectionNum %>)
@@ -123,7 +123,7 @@
                                                         style="float: right; margin-left: 10px;"
                                                         class="btn btn-success">Peer
                                                         Evaluation</a>
-                                                    <a href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= project.id %>"
+                                                    <a href="/student/section/<%= sectionInfo.id %>/project/<%= project.id %>"
                                                         style="float: right;" class="btn btn-primary">Group
                                                         Formation</a>
 

@@ -38,7 +38,7 @@
             <div class="card-body ">
                 <div class="row">
                     <div class="col-12 ">
-                        <h4 class="card-title "><a href="/teacher/<%= userid %>/viewCourse/<%= course.id %>">
+                        <h4 class="card-title "><a href="/teacher/viewCourse/<%= course.id %>">
                                 <%= course.courseID %> -
                                     <%= course.courseName %>
                                         [<%= course.courseTerm %>]
@@ -75,8 +75,8 @@
                         aria-hidden="true" data-bs-backdrop="static">
                         <div class="modal-dialog modal-lg modal-dialog-centered">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Create Course</h5>
+                                <div class="modal-header text-center">
+                                    <h5 class="modal-title w-100" id="exampleModalLabel">Create Course</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>

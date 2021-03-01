@@ -3,8 +3,8 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/homepage/<%= userid %>">Home</a></li>
-            <li class="breadcrumb-item"><a href="/student/<%= userid %>/viewProject/<%= sectionInfo.id %>">
+            <li class="breadcrumb-item"><a href="/homepage">Home</a></li>
+            <li class="breadcrumb-item"><a href="/student/viewProject/<%= sectionInfo.id %>">
                     <%= sectionInfo.in[0].courseID %>: <%= sectionInfo.in[0].courseName %> (Section <%=
                                 sectionInfo.sectionNum %>)
                 </a></li>
@@ -58,7 +58,7 @@
 
                         <% if(a!=0) { %>
 
-                            <a href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/viewCreatedGroup/<%= a %>"
+                            <a href="/student/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/viewCreatedGroup/<%= a %>"
                                 style="font-size: 18px;">View my Group</a>
 
                             <% }else { %>
@@ -124,7 +124,7 @@
 
                                                         <% } else { %>
                                                             <a
-                                                                href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= projectInfo.id %>/viewGroup/<%= model.id %>">Group
+                                                                href="/student/section/<%= sectionInfo.id %>/project/<%= projectInfo.id %>/viewGroup/<%= model.id %>">Group
                                                                 <%= model.groupNum %>
                                                             </a>
                                                             <% } %>
@@ -203,7 +203,7 @@
 
                                                     <% } else { %>
                                                         <a
-                                                            href="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= projectInfo.id %>/viewGroup/<%= model.id %>">Group
+                                                            href="/student/section/<%= sectionInfo.id %>/project/<%= projectInfo.id %>/viewGroup/<%= model.id %>">Group
                                                             <%= model.groupNum %>
                                                         </a>
                                                         <% } %>
@@ -248,8 +248,8 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">View all students</h5>
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel">View all students</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -345,8 +345,8 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createGroupModalLabel">Create Group</h5>
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="createGroupModalLabel">Create Group</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -355,7 +355,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <form
-                        action="/student/<%= userid %>/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/createGroup"
+                        action="/student/section/<%= sectionInfo.id %>/project/<%= sectionInfo.haveProject[0].id %>/createGroup"
                         method="POST" onsubmit="createForm(this);return false">
                         <button type="submit" class="btn btn-primary">Create group</button>
                     </form>

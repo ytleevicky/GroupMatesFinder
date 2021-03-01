@@ -23,8 +23,8 @@ module.exports.routes = {
 
   '/': 'UserController.landing',
 
-  '/homepage/:id': 'CourseController.homepage',
-  '/teacher/homepage/:id': 'CourseController.teacherHomepage',
+  '/homepage': 'CourseController.homepage',
+  '/teacher/homepage': 'CourseController.teacherHomepage',
 
   'GET /user/login': 'UserController.login',
   'POST /user/login': 'UserController.login',
@@ -36,27 +36,27 @@ module.exports.routes = {
 
   '/createCourse/:id': 'CourseController.createCourse',
   'POST /createCourse/:id': 'CourseController.createCourse',
-  '/teacher/:fk/viewCourse/:id': 'CourseController.viewCourse',
+  '/teacher/viewCourse/:id': 'CourseController.viewCourse',
   'DELETE /removeCourse/:cid': 'CourseController.removeCourse',
-  '/teacher/:fk/viewSection/:id': 'CourseController.viewSection',
-  '/teacher/:uid/viewSection/:sid/project/:pid/viewProgress': 'ProjectController.viewProgress',
+  '/teacher/viewSection/:id': 'CourseController.viewSection',
+  '/teacher/viewSection/:sid/project/:pid/viewProgress': 'ProjectController.viewProgress',
   'POST /teacher/:uid/viewSection/:sid/project/:pid/formGroupReminder': 'ProjectController.formGroupReminder',
   'GET /teacher/viewSection/:sid/project/:pid': 'ProjectController.editProject',
   'PATCH /teacher/viewSection/:sid/project/:pid': 'ProjectController.editProject',
 
-  '/import_student/:id/:fk': 'CourseController.import_student',
+  '/import_student/:id': 'CourseController.import_student',
 
   'POST /createProject/:id/:fk': 'ProjectController.createProject',
-  'POST /student/:uid/section/:sid/project/:pid/createGroup': 'GroupController.createGroup',
-  '/student/:uid/section/:sid/project/:pid/viewCreatedGroup/:gid': 'GroupController.viewCreatedGroup',
-  'POST /student/:uid/section/:sid/project/:pid/updateGrpDescription/:gid': 'GroupController.updateGrpDescription',
+  'POST /student/section/:sid/project/:pid/createGroup': 'GroupController.createGroup',
+  '/student/section/:sid/project/:pid/viewCreatedGroup/:gid': 'GroupController.viewCreatedGroup',
+  'POST /student/section/:sid/project/:pid/updateGrpDescription/:gid': 'GroupController.updateGrpDescription',
 
 
-  '/student/:sid/viewProject/:id': 'ProjectController.viewProject',
+  '/student/viewProject/:id': 'ProjectController.viewProject',
   '/student/section/:sid/project/:pid/calendarSubmitDate': 'ProjectController.calendarSubmitDate',
   '/student/section/:sid/project/:pid/calendarFormDate': 'ProjectController.calendarFormDate',
-  '/student/:sid/section/:id/project/:pid': 'ProjectController.groupFormation',
-  '/teacher/:id/section/:fk/participants': 'CourseController.addParticipants',
+  '/student/section/:id/project/:pid': 'ProjectController.groupFormation',
+  '/teacher/section/:fk/participants': 'CourseController.addParticipants',
   '/viewStudentProfile/:id': 'ProjectController.viewStudentProfile',
   'POST /addParticipant/:id/:fk': 'CourseController.addParticipants',
   'POST /participant/:id/:fk/:uid': 'CourseController.removeParticipants',
@@ -68,16 +68,15 @@ module.exports.routes = {
   '/invitation': 'GroupController.invitation',
   'POST /student/:uid/acceptInvitation/:gid': 'GroupController.acceptInvitation',
   'POST /student/:uid/rejectInvitation/:gid': 'GroupController.rejectInvitation',
-  '/student/:uid/section/:sid/project/:pid/viewGroup/:gid': 'GroupController.viewGroup',
-  'POST /student/:uid/section/:sid/project/:pid/applyToGroup/:gid': 'GroupController.viewGroup',  // User apply to Group 
-  'POST /student/:uid/section/:sid/project/:pid/:tid/acceptToGroup/:gid': 'GroupController.acceptToGroup', // Group accept User request
-  'POST /student/:uid/section/:sid/project/:pid/:tid/rejectFromGroup/:gid': 'GroupController.rejectFromGroup', // Group reject User request
+  '/student/section/:sid/project/:pid/viewGroup/:gid': 'GroupController.viewGroup',
+  'POST /student/section/:sid/project/:pid/applyToGroup/:gid': 'GroupController.viewGroup',  // User apply to Group 
+  'POST /student/section/:sid/project/:pid/:tid/acceptToGroup/:gid': 'GroupController.acceptToGroup', // Group accept User request
+  'POST /student/section/:sid/project/:pid/:tid/rejectFromGroup/:gid': 'GroupController.rejectFromGroup', // Group reject User request
 
-  'POST /student/:uid/section/:sid/project/:pid/completeGroupFormation/:gid': 'GroupController.completeGroupFormation',
-  'POST /student/:uid/section/:sid/project/:pid/exitGroup/:gid': 'GroupController.exitGroup',
+  'POST /student/section/:sid/project/:pid/completeGroupFormation/:gid': 'GroupController.completeGroupFormation',
+  'POST /student/section/:sid/project/:pid/exitGroup/:gid': 'GroupController.exitGroup',
 
   // Peer Evaluation
-  // '/teacher/viewSection/:sid/project/:pid/peerEvaluation': 'EvaluationController.peerEvaluation',
   '/teacher/evaluation': 'EvaluationController.evaluation',
   '/teacher/evaluation/add': 'EvaluationController.addEvaluation',
   'POST /teacher/evaluation/add': 'EvaluationController.addEvaluation',
@@ -110,8 +109,6 @@ module.exports.routes = {
 
   'GET /teacher/:id/instruct': 'UserController.populate',
   'GET /course/:id/teachBy': 'CourseController.populate',
-  // 'POST /user/:id/supervises/add/:fk': 'UserController.add',
-  // 'POST /user/:id/supervises/remove/:fk': 'UserController.remove',
 
   'GET /user/:id/enroll': 'UserController.populate',
   'GET /course/:id/contain': 'CourseController.populate',

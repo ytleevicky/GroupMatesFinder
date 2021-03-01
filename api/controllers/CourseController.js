@@ -12,7 +12,7 @@ module.exports = {
 
     homepage: async function (req, res) {
 
-        var userID = req.params.id;
+        var userID = req.session.userid;
 
         var d = await User.findOne(userID).populate('enrollSection');
 
@@ -24,11 +24,15 @@ module.exports = {
 
     teacherHomepage: async function (req, res) {
 
-        var userID = req.params.id;
+        var userID = req.session.userid;
+
+        var u = await User.findOne(userID);
+
+        if (!u) return res.notFound();
 
         var courses = await User.findOne(userID).populate('instruct', { sort: 'createdAt DESC' });
 
-        return res.view('teacher/homepage', { allCourses: courses, userid: userID });
+        return res.view('teacher/homepage', { allCourses: courses, userid: u });
 
     },
 
@@ -50,9 +54,7 @@ module.exports = {
                 sectionNum: assignSectionNum
             }).fetch();
 
-            var uid = parseInt(req.params.id);
-
-            var thisUser = await User.findOne({ where: { id: uid, role: 'teacher' } });
+            var thisUser = await User.findOne({ where: { id: req.session.userid, role: 'teacher' } });
 
             await Course.addToCollection(createCourse.id, 'haveSection').members(section.id);
             await User.addToCollection(thisUser.id, 'instructSection').members(section.id);
@@ -64,7 +66,7 @@ module.exports = {
         await User.addToCollection(thisUser.id, 'instruct').members(createCourse.id);
 
         if (req.wantsJSON) {
-            return res.json({ message: 'Course has been successfully created.', url: '/teacher/homepage/' + thisUser.id });    // for ajax request
+            return res.json({ message: 'Course has been successfully created.', url: '/teacher/homepage' });    // for ajax request
         }
 
 
@@ -77,7 +79,7 @@ module.exports = {
 
             var viewSelectedCourse = await Course.findOne({ id: req.params.id }).populate('haveSection');
 
-            return res.view('teacher/viewCourse', { userid: req.params.fk, courseinfo: viewSelectedCourse });
+            return res.view('teacher/viewCourse', { userid: req.session.userid, courseinfo: viewSelectedCourse });
 
         }
 
@@ -89,7 +91,7 @@ module.exports = {
 
             var viewSelectedSection = await Section.findOne({ id: req.params.id }).populate('in').populate('haveStudent').populate('haveProject');
 
-            return res.view('teacher/viewSection', { userid: req.params.fk, sectioninfo: viewSelectedSection });
+            return res.view('teacher/viewSection', { userid: req.session.userid, sectioninfo: viewSelectedSection });
 
         }
 
@@ -112,7 +114,7 @@ module.exports = {
 
             await Section.addToCollection(req.params.id, 'haveStudent').members(findStudent.map(d => d.id));
 
-            return res.redirect('/teacher/' + req.params.fk + '/section/' + req.params.id + '/participants');
+            return res.redirect('/teacher/section/' + req.params.id + '/participants');
 
         });
     },
@@ -123,13 +125,13 @@ module.exports = {
 
             var section = await Section.findOne(req.params.fk).populate('in').populate('haveStudent', { sort: 'givenId' });
 
-            return res.view('teacher/addParticipants', { userid: req.params.id, sectionid: req.params.fk, sectioninfo: section });
+            return res.view('teacher/addParticipants', { userid: req.session.userid, sectionid: req.params.fk, sectioninfo: section });
 
         } else {
 
             var student = await User.findOne({ where: { givenId: req.body.studentid } });
 
-            if (!student) return res.redirect('/teacher/' + req.params.fk + '/section/' + req.params.id + '/participants');
+            if (!student) return res.redirect('/teacher/section/' + req.params.id + '/participants');
 
             var sessionid = parseInt(req.params.id);
 
@@ -137,7 +139,7 @@ module.exports = {
 
             await Section.addToCollection(thisSection.id, 'haveStudent').members(student.id);
 
-            return res.redirect('/teacher/' + req.params.fk + '/section/' + req.params.id + '/participants');
+            return res.redirect('/teacher/section/' + req.params.id + '/participants');
 
         }
 
@@ -157,7 +159,7 @@ module.exports = {
         await Section.removeFromCollection(thisSection.id, 'haveStudent').members(student.id);
 
         if (req.wantsJSON) {
-            return res.json({ url: '/teacher/' + req.params.uid + '/section/' + req.params.fk + '/participants' });    // for ajax request
+            return res.json({ url: '/teacher/section/' + req.params.fk + '/participants' });    // for ajax request
         }
 
     },
@@ -179,7 +181,7 @@ module.exports = {
         if (models.length == 0) { return res.notFound(); }
 
         if (req.wantsJSON) {
-            return res.json({ message: 'Course has been deleted.', url: '/teacher/homepage/' + req.session.userid });    // for ajax request
+            return res.json({ message: 'Course has been deleted.', url: '/teacher/homepage' });    // for ajax request
         }
 
     },

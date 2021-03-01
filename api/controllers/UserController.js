@@ -51,9 +51,9 @@ module.exports = {
 
                     req.session.invitationNum = student.apply.length;
 
-                    return res.redirect('/homepage/' + req.session.userid);
+                    return res.redirect('/homepage');
                 } else {
-                    return res.redirect('/teacher/homepage/' + req.session.userid);
+                    return res.redirect('/teacher/homepage');
                 }
 
             }

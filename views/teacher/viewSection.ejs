@@ -4,8 +4,8 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/teacher/homepage/<%= userid %>">Home</a></li>
-            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewCourse/<%= sectioninfo.in[0].id %>">
+            <li class="breadcrumb-item"><a href="/teacher/homepage">Home</a></li>
+            <li class="breadcrumb-item"><a href="/teacher/viewCourse/<%= sectioninfo.in[0].id %>">
                     <%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %>
                 </a></li>
             <li class="breadcrumb-item active" aria-current="page">Section <%= sectioninfo.sectionNum %>
@@ -41,9 +41,9 @@
                                 d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z" />
                         </svg> &nbsp;Initiate Group Project</button>
 
-                    <a href="/teacher/<%= userid %>/section/<%= sectioninfo.id %>/participants"
-                        class="btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                            fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                    <a href="/teacher/section/<%= sectioninfo.id %>/participants" class="btn btn-outline-primary"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            class="bi bi-people-fill" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                         </svg> &nbsp;Participants</a>
@@ -172,7 +172,7 @@
                                                                                     class="btn btn-success"
                                                                                     style="float: right; margin-left: 10px;">Peer
                                                                                     Evaluation</a>
-                                                                                <a href="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>/viewProgress"
+                                                                                <a href="/teacher/viewSection/<%= sectioninfo.id %>/project/<%= project.id %>/viewProgress"
                                                                                     class="btn btn-primary"
                                                                                     style="float: right; ">Group
                                                                                     Formation
@@ -201,8 +201,8 @@
                                         data-bs-backdrop="static">
                                         <div class="modal-dialog modal-lg modal-dialog-centered">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Initiate
+                                                <div class="modal-header text-center">
+                                                    <h5 class="modal-title w-100" id="exampleModalLabel">Initiate
                                                         Group
                                                         Project</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"

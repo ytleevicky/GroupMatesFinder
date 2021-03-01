@@ -4,11 +4,11 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/teacher/homepage/<%= userid %>">Home</a></li>
-            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewCourse/<%= sectioninfo.in[0].id %>">
+            <li class="breadcrumb-item"><a href="/teacher/homepage">Home</a></li>
+            <li class="breadcrumb-item"><a href="/teacher/viewCourse/<%= sectioninfo.in[0].id %>">
                     <%= sectioninfo.in[0].courseID %>: <%= sectioninfo.in[0].courseName %>
                 </a></li>
-            <li class="breadcrumb-item"><a href="/teacher/<%= userid %>/viewSection/<%= sectioninfo.id %>">
+            <li class="breadcrumb-item"><a href="/teacher/viewSection/<%= sectioninfo.id %>">
                     Section <%= sectioninfo.sectionNum %>
                 </a></li>
             <li class="breadcrumb-item"><a

@@ -16,8 +16,7 @@ module.exports = {
         var pid = parseInt(req.params.pid);
         var project = await Project.findOne({ where: { id: pid } });
 
-        var uid = parseInt(req.params.uid);
-        var user = await User.findOne({ where: { id: uid } });
+        var user = await User.findOne({ where: { id: req.session.userid } });
 
         var currentGroup = await Project.findOne(req.params.pid).populate('haveGroup');
 
@@ -80,7 +79,7 @@ module.exports = {
 
 
         if (req.wantsJSON) {
-            return res.json({ url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + group.id });    // for ajax request
+            return res.json({ url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + group.id });    // for ajax request
         }
 
     },
@@ -101,7 +100,7 @@ module.exports = {
 
             var list = await User.find(student.haveStudent.map(v => v.id)).populate('create', { where: { id: project.haveGroup.map(a => a.id) } }).sort(['givenId']);
 
-            return res.view('project/viewCreatedGroup', { userid: req.params.uid, sectionInfo: section, groupInfo: group, requestToJoin: pplRequest, listInfo: list });
+            return res.view('project/viewCreatedGroup', { userid: req.session.userid, sectionInfo: section, groupInfo: group, requestToJoin: pplRequest, listInfo: list });
         }
 
     },
@@ -115,22 +114,19 @@ module.exports = {
         // student does not exist in this sytem.
         var studentExist = await User.findOne({ where: { givenId: req.body.studentid } });
 
-        if (!studentExist) return res.json({ message: 'Invalid student ID', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+        if (!studentExist) return res.json({ message: 'Invalid student ID', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
 
         // student does not exist in this course
         var inSection = await User.findOne(studentExist.id).populate('enrollSection', { where: { id: sectionid } });
 
         if (inSection.enrollSection.length == 0) {
-            return res.json({ message: 'Could not find this student in this course. Please check the student ID again.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+            return res.json({ message: 'Could not find this student in this course. Please check the student ID again.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
         }
-
 
 
         await Group.addToCollection(req.params.gid, 'invite').members(studentExist.id);
 
-        return res.json({ message: 'Invitation has been sent. ', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
-
-
+        return res.json({ message: 'Invitation has been sent. ', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
 
     },
 
@@ -245,16 +241,16 @@ module.exports = {
 
             var ppl = await Group.find(project.haveGroup.map(v => v.id)).populate('createdBy');
 
-            return res.view('project/viewGroup', { userid: req.params.uid, groupInfo: group, sectionInfo: section, peopleHaveGroup: ppl });
+            return res.view('project/viewGroup', { userid: req.session.userid, groupInfo: group, sectionInfo: section, peopleHaveGroup: ppl });
 
 
         } else {
 
-            await User.addToCollection(req.params.uid, 'applyGroup').members(req.params.gid);
+            await User.addToCollection(req.session.userid, 'applyGroup').members(req.params.gid);
 
             var group = await Group.findOne(req.params.gid);
 
-            return res.json({ message: 'You have successfully sent the request to Group ' + group.groupNum + '.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+            return res.json({ message: 'You have successfully sent the request to Group ' + group.groupNum + '.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid });
 
         }
 
@@ -273,7 +269,7 @@ module.exports = {
         if (alreadyFormGroup.create.length > 0) {
 
             return res.json({
-                message: 'You cannot add this user to your group. This user has already formed group in this project.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid
+                message: 'You cannot add this user to your group. This user has already formed group in this project.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid
             });
         }
 
@@ -284,7 +280,7 @@ module.exports = {
         if (g.formationStatus == 'completed') {
 
             return res.json({
-                message: 'You cannot add this user to your group. Because the group list has been submitted.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid
+                message: 'You cannot add this user to your group. Because the group list has been submitted.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid
             });
 
         }
@@ -312,16 +308,13 @@ module.exports = {
 
             await Group.addToCollection(req.params.gid, 'createdBy').members(req.params.tid);
 
-            return res.json({ message: 'You have successfully added this member to your group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+            return res.json({ message: 'You have successfully added this member to your group.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
 
         } else {
 
-            return res.json({ message: 'This group is full. You cannot add this student to your group', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+            return res.json({ message: 'This group is full. You cannot add this student to your group', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
 
         }
-
-
-
 
     },
 
@@ -331,7 +324,7 @@ module.exports = {
 
         await Group.removeFromCollection(req.params.gid, 'consider').members(req.params.tid);
 
-        return res.json({ url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+        return res.json({ url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
 
     },
 
@@ -353,10 +346,10 @@ module.exports = {
                 formationStatus: 'completed',
             }).fetch();
 
-            return res.json({ message: 'Group formation has been completed.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+            return res.json({ message: 'Group formation has been completed.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid });
 
         } else {
-            return res.json({ message: 'Fail to complete the group formation. Number of students in each group should be ' + minNum + '-' + maxNum + '. Please check again.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+            return res.json({ message: 'Fail to complete the group formation. Number of students in each group should be ' + minNum + '-' + maxNum + '. Please check again.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
         }
 
     },
@@ -371,18 +364,18 @@ module.exports = {
 
         if (exitGroup.formationStatus == "completed") {
 
-            return res.json({ message: 'Sorry! Since the group formation has been submitted, you cannot exit the group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+            return res.json({ message: 'Sorry! Since the group formation has been submitted, you cannot exit the group.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
 
         }
 
         // Remove User from Group
-        await User.removeFromCollection(req.params.uid, 'create').members(req.params.gid);
+        await User.removeFromCollection(req.session.userid, 'create').members(req.params.gid);
 
         var g = await Group.findOne(req.params.gid).populate('createdBy');
 
         if (g.createdBy.length > 0) {
 
-            return res.json({ message: 'Successfully exit from group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+            return res.json({ message: 'Successfully exit from group.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid });
 
         } else {
 
@@ -396,7 +389,7 @@ module.exports = {
 
             await Group.removeFromCollection(req.params.gid, 'consider').members(assUser.consider.map(v => v.id));
 
-            return res.json({ message: 'Successfully exit from group.', url: '/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid });
+            return res.json({ message: 'Successfully exit from group.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid });
 
         }
 
@@ -410,7 +403,7 @@ module.exports = {
             groupDescription: req.body.Group.groupDescription,
         }).fetch();
 
-        return res.redirect('/student/' + req.params.uid + '/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid);
+        return res.redirect('/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid);
 
     },
 

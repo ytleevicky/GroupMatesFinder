@@ -95,18 +95,17 @@
                         <% if(req.path=='/teacher/evaluation/add' || (req.path).includes('/teacher/viewEvaluation') ) {
                           %>
 
-                          <a class="left" href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
+                          <a class="left" href="/teacher/homepage">Courses</a>
 
                           <% } else { %>
 
-                            <a class="nav-is-active left"
-                              href="/teacher/homepage/<%= req.session.userid %>"><b>Courses</b></a>
+                            <a class="nav-is-active left" href="/teacher/homepage"><b>Courses</b></a>
 
                             <% } %>
 
                               <% } else { %>
 
-                                <a class="left" href="/teacher/homepage/<%= req.session.userid %>">Courses</a>
+                                <a class="left" href="/teacher/homepage">Courses</a>
 
                                 <% } %>
 
@@ -119,11 +118,10 @@
                                     <% if (req.path!='/invitation' && req.path !='/user/profile' && req.path
                                       !='/user/editProfile' ) { %>
 
-                                      <a class="nav-is-active left"
-                                        href="/homepage/<%= req.session.userid %>"><b>Courses</b></a>
+                                      <a class="nav-is-active left" href="/homepage"><b>Courses</b></a>
                                       <% } else { %>
 
-                                        <a class="left" href="/homepage/<%= req.session.userid %>">Courses</a>
+                                        <a class="left" href="/homepage">Courses</a>
 
                                         <% } %>
 
@@ -340,7 +338,7 @@
   .left:hover {
     color: #039d69;
     font-weight: bold;
-    border-bottom: 3px solid rgb(72, 196, 214);
+    border-bottom: 3px solid powderblue;
   }
 
   .left {
@@ -370,7 +368,7 @@
 
 
   .nav-is-active {
-    border-bottom: 3px solid rgb(72, 196, 214);
+    border-bottom: 3px solid powderblue;
   }
 
 
@@ -424,23 +422,6 @@
     color: #039d69;
 
   }
-
-
-  /* .btn-primary {
-    font-family: Montserrat, sans-serif;
-    font-size: 1rem;
-    background: var(--clr-primary);
-    border: none;
-    outline: none;
-    border-radius: var(--radius);
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: all 200ms ease-in;
-  }
-
-  .btn-primary:hover {
-    background: var(--clr-primary-hover);
-  } */
 </style>
 
 
