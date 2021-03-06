@@ -344,11 +344,9 @@
 
     var getTemplateID = "<%= evaluationInfo.id %>";
 
-    var deleteTemplateID = parseInt(getTemplateID);
-
     async function removeTemplate() {
 
-        var response = await fetch("/removeEvalTemplate/" + deleteTemplateID, {
+        var response = await fetch("/removeEvalTemplate/" + getTemplateID, {
             method: "DELETE",
             credentials: 'same-origin',
         });

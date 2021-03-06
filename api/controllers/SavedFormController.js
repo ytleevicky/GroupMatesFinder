@@ -17,9 +17,7 @@ module.exports = {
 
             for (var i = 0; i < f.length; i++) {
 
-                var formid = parseInt(f[i].num);
-
-                await SavedForm.update(formid).set({
+                await SavedForm.update(f[i].num).set({
                     availability: f[i].ava
                 }).fetch();
 

@@ -15,7 +15,7 @@ module.exports = {
 
     // temp - maybe create associations later
     evaluator: {
-      type: 'number',
+      type: 'string',
     },
 
     evaluatorInfo: {
@@ -29,12 +29,12 @@ module.exports = {
 
     // create associations with EvalEvent
     eventid: {
-      type: 'number',
+      type: 'string',
     },
 
     // create association with group
     groupid: {
-      type: 'number',
+      type: 'string',
     },
 
     formResponse: {

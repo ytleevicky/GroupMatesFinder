@@ -32,7 +32,7 @@
                 method="POST">
                 <textarea class="form-control" placeholder="Add Group Description (Optional)"
                     name="Group[groupDescription]"><%= groupInfo.groupDescription %></textarea>
-                <button class="btn btn-outline-primary my-2" type="submit" style="float: right;">Update Group
+                <button class="btn btn-outline-primary btn-sm my-2" type="submit" style="float: right;">Update Group
                     Description</button>
             </form>
         </div>
@@ -597,6 +597,10 @@
 
     };
 
+    var sectionID = "<%= sectionInfo.id %>";
+    var projectID = "<%= sectionInfo.haveProject[0].id %>";
+    var groupInfoID = "<%= groupInfo.id %>";
+
 
     // For accept member modal
     var exampleModal = document.getElementById('acceptMemberModal');
@@ -618,7 +622,7 @@
 
     async function acceptToGroup() {
 
-        var response = await fetch('/student/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/' + studentid + '/acceptToGroup/' + <%= groupInfo.id %>, {
+        var response = await fetch('/student/section/' + sectionID + '/project/' + projectID + '/' + studentid + '/acceptToGroup/' + groupInfoID, {
             method: "POST",
             credentials: 'same-origin',
         });
@@ -653,7 +657,7 @@
 
     async function rejectFromGroup() {
 
-        var response = await fetch('/student/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/' + studentid + '/rejectFromGroup/' + <%= groupInfo.id %>, {
+        var response = await fetch('/student/section/' + sectionID + '/project/' + projectID + '/' + studentid + '/rejectFromGroup/' + groupInfoID, {
             method: "POST",
             credentials: 'same-origin',
         });
@@ -671,7 +675,7 @@
 
     async function completeGroupFormation() {
 
-        var response = await fetch('/student/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/completeGroupFormation/' + <%= groupInfo.id %>, {
+        var response = await fetch('/student/section/' + sectionID + '/project/' + projectID + '/completeGroupFormation/' + groupInfoID, {
             method: "POST",
             credentials: 'same-origin',
         });
@@ -688,7 +692,7 @@
 
     async function exitGroup() {
 
-        var response = await fetch('/student/section/' + <%= sectionInfo.id %> + '/project/' + <%= sectionInfo.haveProject[0].id %> + '/exitGroup/' + <%= groupInfo.id %>, {
+        var response = await fetch('/student/section/' + sectionID + '/project/' + projectID + '/exitGroup/' + groupInfoID, {
             method: "POST",
             credentials: 'same-origin',
         });

@@ -16,7 +16,7 @@ module.exports = {
 
         var d = await User.findOne(userID).populate('enrollSection');
 
-        var courseInfo = await Section.find(d.enrollSection.map(c => c.id)).populate('in').populate('haveTeacher');
+        var courseInfo = await Section.find(d.enrollSection.map(c => c.id)).populate('in').populate('haveTeacher').sort([{ createdAt: 'DESC' }]);
 
         return res.view('user/homepage', { allCourses: courseInfo, userid: userID });
 
@@ -133,9 +133,7 @@ module.exports = {
 
             if (!student) return res.redirect('/teacher/section/' + req.params.id + '/participants');
 
-            var sessionid = parseInt(req.params.id);
-
-            var thisSection = await Section.findOne({ where: { id: sessionid } });
+            var thisSection = await Section.findOne({ where: { id: req.params.id } });
 
             await Section.addToCollection(thisSection.id, 'haveStudent').members(student.id);
 
@@ -152,9 +150,7 @@ module.exports = {
 
         var student = await User.findOne({ where: { givenId: req.params.id } });
 
-        var sessionid = parseInt(req.params.fk);
-
-        var thisSection = await Section.findOne({ where: { id: sessionid } });
+        var thisSection = await Section.findOne({ where: { id: req.params.fk } });
 
         await Section.removeFromCollection(thisSection.id, 'haveStudent').members(student.id);
 

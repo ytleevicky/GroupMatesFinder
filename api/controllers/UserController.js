@@ -94,23 +94,13 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-            console.log("Update Profile is here GET");
-            console.log(req.params.id);
-
             var user = await User.findOne(req.session.userid);
 
             if (!user) { return res.notFound(); }
 
-            console.log("Edit Profile Here:")
-            console.log(user);
-            // console.log(user.name);
-
             return res.view('user/editProfile', { userinfo: user, userid: req.session.userid });
 
         } else {
-
-            console.log("Update Profile is here POST");
-            console.log(req.params.id);
 
             var user = await User.findOne(req.params.id);
 

@@ -73,7 +73,7 @@ module.exports = {
 
                 for (var y = 0; y < response[i].formResponse.peerEvaluation.length; y++) {
 
-                    if (parseInt(response[i].formResponse.peerEvaluation[y].evaluatee) == req.session.userid) {
+                    if (response[i].formResponse.peerEvaluation[y].evaluatee == req.session.userid) {
                         content[i] = response[i].formResponse.peerEvaluation[y];
                     }
 

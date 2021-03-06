@@ -14,19 +14,19 @@ module.exports = {
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
     projectid: {
-      type: 'number',
+      type: 'string',
     },
 
     eventid: {
-      type: 'number',
+      type: 'string',
     },
 
     groupid: {
-      type: 'number'
+      type: 'string'
     },
 
     userid: {
-      type: 'number'
+      type: 'string'
     },
 
     availability: {

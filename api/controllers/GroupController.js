@@ -13,8 +13,7 @@ module.exports = {
 
         var group;
 
-        var pid = parseInt(req.params.pid);
-        var project = await Project.findOne({ where: { id: pid } });
+        var project = await Project.findOne({ where: { id: req.params.pid } });
 
         var user = await User.findOne({ where: { id: req.session.userid } });
 
@@ -109,20 +108,7 @@ module.exports = {
 
         if (req.method == 'GET') { return res.forbidden(); }
 
-        var sectionid = parseInt(req.params.sid);
-
-        // student does not exist in this sytem.
         var studentExist = await User.findOne({ where: { givenId: req.body.studentid } });
-
-        if (!studentExist) return res.json({ message: 'Invalid student ID', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
-
-        // student does not exist in this course
-        var inSection = await User.findOne(studentExist.id).populate('enrollSection', { where: { id: sectionid } });
-
-        if (inSection.enrollSection.length == 0) {
-            return res.json({ message: 'Could not find this student in this course. Please check the student ID again.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
-        }
-
 
         await Group.addToCollection(req.params.gid, 'invite').members(studentExist.id);
 

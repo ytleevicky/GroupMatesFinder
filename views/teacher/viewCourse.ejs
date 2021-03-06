@@ -117,7 +117,6 @@
     var courseName = "<%= courseinfo.courseName %>";
 
     var id = "<%= courseinfo.id %>";
-    var courseID = parseInt(id);
 
     deleteForm.addEventListener('input', () => {
 
@@ -134,7 +133,7 @@
 
     async function deleteCourse() {
 
-        var response = await fetch("/removeCourse/" + courseID, {
+        var response = await fetch("/removeCourse/" + id, {
             method: "DELETE",
             credentials: 'same-origin',
         });
