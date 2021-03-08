@@ -35,64 +35,67 @@
         </div>
 
 
-        <div class="card-body" style="padding: 8px;">
-
-            <table class="table table-bordered">
-                <thead style="vertical-align: middle;">
-                    <tr class="table-secondary">
-                        <th scope="col" span="1" style="text-align: center; width: 20%;">Name</th>
-                        <th scope="col" span="1" style="text-align: center; width: 15%;">Peer Evaluation Question
-                        </th>
-                        <th scope="col" span="1" style="text-align: center; width: 15%;">Self Evaluation Question
-                        </th>
-                        <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <% if (myEvaluationInfo.length> 0) { %>
 
 
-                        <% myEvaluationInfo.forEach( function(model) { %>
-
-                            <tr>
-                                <td style="text-align:center">
-                                    <a href="/teacher/viewEvaluation/<%= model.id %>" class="text-decoration-none">
-                                        <%= model.name %>
-                                    </a>
-                                </td>
-                                <td style="text-align:center">
-                                    <%= model.createdQuestion.peerEvaluation!=null ?
-                                        model.createdQuestion.peerEvaluation.length : 0 %>
-                                </td>
-                                <td style="text-align:center">
-                                    <%= model.createdQuestion.selfEvaluation!=null ?
-                                        model.createdQuestion.selfEvaluation.length : 0 %>
-                                </td>
-
-                                <td style="text-align:center">
-                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' ,
-                                        hour12: 'true' }).format(model.createdAt) %>
-                                </td>
-                            </tr>
-
-                            <% }); %>
-                </tbody>
-            </table>
-
-            <% } else { %>
-
-                <tr>
-                    <td colspan="4" style="text-align: center;">
-                        No Mixed Evaluation at this moment.
-                    </td>
+        <table class="table table-bordered">
+            <thead style="vertical-align: middle;">
+                <tr class="table-secondary">
+                    <th scope="col" span="1" style="text-align: center; width: 20%;">Name</th>
+                    <th scope="col" span="1" style="text-align: center; width: 15%;">Peer Evaluation Question
+                    </th>
+                    <th scope="col" span="1" style="text-align: center; width: 15%;">Self Evaluation Question
+                    </th>
+                    <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th>
                 </tr>
+            </thead>
+            <tbody>
 
-                <% } %>
+                <% if (myEvaluationInfo.length> 0) { %>
+
+
+                    <% myEvaluationInfo.forEach( function(model) { %>
+
+                        <tr>
+                            <td style="text-align:center">
+                                <a href="/teacher/viewEvaluation/<%= model.id %>" class="text-decoration-none">
+                                    <%= model.name %>
+                                </a>
+                            </td>
+                            <td style="text-align:center">
+                                <%= model.createdQuestion.peerEvaluation!=null ?
+                                    model.createdQuestion.peerEvaluation.length : 0 %>
+                            </td>
+                            <td style="text-align:center">
+                                <%= model.createdQuestion.selfEvaluation!=null ?
+                                    model.createdQuestion.selfEvaluation.length : 0 %>
+                            </td>
+
+                            <td style="text-align:center">
+                                <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' ,
+                                    hour12: 'true' }).format(model.createdAt) %>
+                            </td>
+                        </tr>
+
+                        <% }); %>
+
+
+                            <% } else { %>
+
+                                <tr>
+                                    <td colspan="4" style="text-align: center;">
+                                        No Mixed Evaluation at this moment.
+                                    </td>
+                                </tr>
+
+                                <% } %>
+            </tbody>
+        </table>
 
 
 
-        </div>
+
+
+
 
 
     </div>
@@ -102,10 +105,6 @@
         <br><br><br><br><br><br><br>
 
         <% } %>
-
-
-
-
 
 
 
