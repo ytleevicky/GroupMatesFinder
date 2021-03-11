@@ -214,6 +214,22 @@ module.exports = {
 
     },
 
+    removeEvent: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        var event = await EvalEvent.findOne({ where: { id: req.params.eid } });
+
+        var models = await EvalEvent.destroy(event.id).fetch();
+
+        if (models.length == 0) { return res.notFound(); }
+
+        if (req.wantsJSON) {
+            return res.json({ message: 'Evaluation Event has been deleted.', url: '/teacher/viewSection/' + req.params.sid + '/project/' + req.params.pid + '/evaluation' });    // for ajax request
+        }
+
+    },
+
 
 
     // EvalEvent belongTo Project

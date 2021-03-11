@@ -38,6 +38,8 @@ module.exports.routes = {
   'POST /createCourse/:id': 'CourseController.createCourse',
   '/teacher/viewCourse/:id': 'CourseController.viewCourse',
   'DELETE /removeCourse/:cid': 'CourseController.removeCourse',
+  'DELETE /section/:sid/removeProject/:pid': 'ProjectController.removeProject',
+  'DELETE /section/:sid/project/:pid/removeEvent/:eid': 'EvalEventController.removeEvent',
   '/teacher/viewSection/:id': 'CourseController.viewSection',
   '/teacher/viewSection/:sid/project/:pid/viewProgress': 'ProjectController.viewProgress',
   'POST /teacher/:uid/viewSection/:sid/project/:pid/formGroupReminder': 'ProjectController.formGroupReminder',

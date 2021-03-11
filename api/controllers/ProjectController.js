@@ -432,6 +432,22 @@ module.exports = {
 
     },
 
+    removeProject: async function (req, res) {
+
+        if (req.method == 'GET') { return res.forbidden(); }
+
+        var project = await Project.findOne({ where: { id: req.params.pid } });
+
+        var models = await Project.destroy(project.id).fetch();
+
+        if (models.length == 0) { return res.notFound(); }
+
+        if (req.wantsJSON) {
+            return res.json({ message: 'Project has been deleted.', url: '/teacher/viewSection/' + req.params.sid });    // for ajax request
+        }
+
+    },
+
 
 
     // Project inSection Section
