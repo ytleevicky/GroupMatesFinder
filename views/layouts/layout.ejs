@@ -77,16 +77,17 @@
 
           <div class="card main-card">
 
-            <div class="card-header" style="background-color: #dcf5f8; border: 0px;">
+            <div class="card-header" style="background-color: #dcf5f8; border: 0px;" id="appTitle">
               <h2 style="padding: 1px 20px; padding-top: 20px; margin: 0px;"><img src="/images/logo3.png" width="50"
-                  height="45" alt="" class="d-inline-block align-top">&nbsp;
+                  height="45" alt="" class="d-inline-block align-top" id="appTitle">&nbsp;
                 GroupMatesFinder</h2>
             </div>
 
             <section style="background-color: #dcf5f8; height: 40px;">
 
               <navbar>
-                <ul class="nav-list">
+
+                <ul class="nav-list" id="js-menu">
                   <!-- Course Nav -->
                   <li class="nav-item" style="margin-right: 40px; margin-left: 2rem;">
                     <% if(req.session.role=='teacher' ) { %>
@@ -422,23 +423,45 @@
     color: #039d69;
 
   }
+
+
+
+  @media only screen and (max-width: 770px) {
+
+    .nav-list {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin-top: 0 !important;
+
+      display: block;
+    }
+
+    .nav-item {
+      text-align: center;
+    }
+
+    .nav-is-active {
+      border-bottom: 0px;
+    }
+
+    #dropdownMenuLink {
+      padding: 0 !important;
+    }
+
+    #appTitle {
+      padding: 0px;
+
+    }
+
+  }
 </style>
 
 
 
 <script>
 
-  var currentP = "<%= req.path %>";
 
-  var n = false;
 
-  if (currentP.includes("/teacher/viewEvaluation")) {
-    n = true;
-  }
-
-  if (n == true) {
-
-  }
 
 </script>
 

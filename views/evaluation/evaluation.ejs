@@ -11,85 +11,89 @@
     <!-- My Evaluation -->
     <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="allEvaluation-tab">
 
-        <div class="row">
-            <h3 class="col-md-6"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
-                    fill="currentColor" class="bi bi-bar-chart-line text-warning" viewBox="0 0 16 16">
-                    <path
-                        d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z" />
-                </svg> &nbsp;My Evaluation Template</h3>
-            <div class="col-md-4 ms-auto">
-
-                <a class="btn btn-primary" href="/teacher/evaluation/add"
-                    style="font-size: 18px; text-decoration: none; float: right;"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                        class="bi bi-clipboard-plus" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
-                        <path
-                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                        <path
-                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                    </svg> &nbsp;Add Evaluation Template</a>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6" style="padding: 0px;">
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor"
+                            class="bi bi-bar-chart-line text-warning" viewBox="0 0 16 16">
+                            <path
+                                d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z" />
+                        </svg> &nbsp;My Evaluation Template</h3>
+                </div>
+                <div class="col-lg-6" style="padding: 0px;">
+                    <a class="btn btn-primary" href="/teacher/evaluation/add"
+                        style="font-size: 18px; text-decoration: none; float: right;"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
+                            <path
+                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                            <path
+                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                        </svg> &nbsp;Add Evaluation Template</a>
+                </div>
             </div>
         </div>
 
 
 
+        <div style="overflow-x:auto">
+            <table class="table table-bordered">
+                <thead style="vertical-align: middle;">
+                    <tr class="table-secondary">
+                        <th scope="col" span="1" style="text-align: center; width: 20%;">Name</th>
+                        <th scope="col" span="1" style="text-align: center; width: 15%;">Peer Evaluation Question
+                        </th>
+                        <th scope="col" span="1" style="text-align: center; width: 15%;">Self Evaluation Question
+                        </th>
+                        <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-        <table class="table table-bordered">
-            <thead style="vertical-align: middle;">
-                <tr class="table-secondary">
-                    <th scope="col" span="1" style="text-align: center; width: 20%;">Name</th>
-                    <th scope="col" span="1" style="text-align: center; width: 15%;">Peer Evaluation Question
-                    </th>
-                    <th scope="col" span="1" style="text-align: center; width: 15%;">Self Evaluation Question
-                    </th>
-                    <th scope="col" span="1" style="text-align: center; width: 15%;">Creation Date</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <% if (myEvaluationInfo.length> 0) { %>
-
-
-                    <% myEvaluationInfo.forEach( function(model) { %>
-
-                        <tr>
-                            <td style="text-align:center">
-                                <a href="/teacher/viewEvaluation/<%= model.id %>" class="text-decoration-none">
-                                    <%= model.name %>
-                                </a>
-                            </td>
-                            <td style="text-align:center">
-                                <%= model.createdQuestion.peerEvaluation!=null ?
-                                    model.createdQuestion.peerEvaluation.length : 0 %>
-                            </td>
-                            <td style="text-align:center">
-                                <%= model.createdQuestion.selfEvaluation!=null ?
-                                    model.createdQuestion.selfEvaluation.length : 0 %>
-                            </td>
-
-                            <td style="text-align:center">
-                                <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' ,
-                                    hour12: 'true' }).format(model.createdAt) %>
-                            </td>
-                        </tr>
-
-                        <% }); %>
+                    <% if (myEvaluationInfo.length> 0) { %>
 
 
-                            <% } else { %>
+                        <% myEvaluationInfo.forEach( function(model) { %>
 
-                                <tr>
-                                    <td colspan="4" style="text-align: center;">
-                                        No Evaluation Template at this moment.
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td style="text-align:center">
+                                    <a href="/teacher/viewEvaluation/<%= model.id %>" class="text-decoration-none">
+                                        <%= model.name %>
+                                    </a>
+                                </td>
+                                <td style="text-align:center">
+                                    <%= model.createdQuestion.peerEvaluation!=null ?
+                                        model.createdQuestion.peerEvaluation.length : 0 %>
+                                </td>
+                                <td style="text-align:center">
+                                    <%= model.createdQuestion.selfEvaluation!=null ?
+                                        model.createdQuestion.selfEvaluation.length : 0 %>
+                                </td>
 
-                                <% } %>
-            </tbody>
-        </table>
+                                <td style="text-align:center">
+                                    <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' , timeStyle: 'short' ,
+                                        hour12: 'true' }).format(model.createdAt) %>
+                                </td>
+                            </tr>
+
+                            <% }); %>
+
+
+                                <% } else { %>
+
+                                    <tr>
+                                        <td colspan="4" style="text-align: center;">
+                                            No Evaluation Template at this moment.
+                                        </td>
+                                    </tr>
+
+                                    <% } %>
+                </tbody>
+            </table>
+
+        </div>
 
 
 
