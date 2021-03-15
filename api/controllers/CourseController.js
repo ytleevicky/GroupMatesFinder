@@ -103,6 +103,7 @@ module.exports = {
 
         req.file('file').upload({ maxBytes: 10000000 }, async function whenDone(err, uploadedFiles) {
             if (err) { return res.serverError(err); }
+
             if (uploadedFiles.length === 0) { return res.badRequest('No file was uploaded'); }
 
             var XLSX = require('xlsx');
@@ -112,9 +113,13 @@ module.exports = {
 
             var findStudent = await User.find({ where: { givenId: data.map(v => v.Student_ID) } });
 
+            if (findStudent.length == 0) {
+                return res.json({ url: '/teacher/section/' + req.params.id + '/participants', message: 'Unable to add students to this section. Please check your file again.' });
+            }
+
             await Section.addToCollection(req.params.id, 'haveStudent').members(findStudent.map(d => d.id));
 
-            return res.redirect('/teacher/section/' + req.params.id + '/participants');
+            return res.json({ url: '/teacher/section/' + req.params.id + '/participants', message: findStudent.length + ' students have been added to this section.' });
 
         });
     },
@@ -140,7 +145,6 @@ module.exports = {
             return res.redirect('/teacher/section/' + req.params.id + '/participants');
 
         }
-
 
     },
 

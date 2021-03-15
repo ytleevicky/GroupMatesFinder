@@ -22,7 +22,7 @@
                 d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
         </svg> &nbsp;Participants</h3>
 
-    <form action="/import_student/<%= sectioninfo.id %>" method="post" enctype="multipart/form-data">
+    <form action="/import_student/<%= sectioninfo.id %>" method="POST" onsubmit="importFile(this);return false">
 
         <div class="row my-2">
             <div class="col-4">
@@ -56,7 +56,6 @@
                             <path fill-rule="evenodd"
                                 d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z" />
                         </svg> &nbsp; Upload File</button>
-
 
                 </div>
             </div>
@@ -254,6 +253,32 @@
         if (response.ok) {
             var data = await response.json();
             window.location = data.url;
+        }
+
+    };
+
+    async function importFile(oFormElement) {
+
+        console.log("In here");
+
+        var response = await fetch(oFormElement.action, {
+            method: "POST",
+            credentials: 'same-origin',
+            body: new FormData(oFormElement),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        } else if (response.status == 401) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
         }
 
     };
