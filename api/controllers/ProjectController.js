@@ -121,7 +121,7 @@ module.exports = {
         });
 
         if (req.wantsJSON) {
-            return res.json({ message: 'Project has been successfully initialized.', url: '/teacher/viewSection/' + req.params.id });    // for ajax request
+            return res.json({ message: 'Project has been successfully created.', url: '/teacher/viewSection/' + req.params.id });    // for ajax request
         }
 
     },

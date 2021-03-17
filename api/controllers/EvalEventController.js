@@ -180,7 +180,7 @@ module.exports = {
             await EvalResponse.addToCollection(response.id, 'inGroup').members(response.groupid);
             await EvalResponse.addToCollection(response.id, 'inEvent').members(response.eventid);
 
-            return res.json({ message: 'Evaluation has been submitted', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/evaluationEvent' });    // for ajax request
+            return res.json({ message: 'Evaluation has been submitted.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/evaluationEvent' });    // for ajax request
 
         }
 
@@ -208,7 +208,7 @@ module.exports = {
                 formResponse: req.body.EvalResponse.formResponse,
             }).fetch();
 
-            return res.json({ message: 'Evaluation has been updated', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/evaluationEvent' });
+            return res.json({ message: 'Evaluation has been updated.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/evaluationEvent' });
 
         }
 

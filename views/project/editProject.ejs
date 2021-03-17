@@ -98,7 +98,8 @@
                     <label for="message-text" class="col-4 col-form-label">Group Formation Due Date:</label>
                     <div class="col-8">
                         <input type="datetime-local" class="form-control" name="formDate" id="date"
-                            onchange="validateFormDate();" required>
+                            onchange="validateFormDate();" required
+                            placeholder="Please enter a date in the format of 'YYYY-MM-DDThh:mm'.">
                         <div id="displayDueDateError"></div>
                     </div>
                 </div>
@@ -109,7 +110,8 @@
                     <label for="message-text" class="col-4 col-form-label">Project Submission Due Date:</label>
                     <div class="col-8">
                         <input type="datetime-local" class="form-control" name="submitDate" id="date2"
-                            onchange="validateSubmitDate();" required>
+                            onchange="validateSubmitDate();" required
+                            placeholder="Please enter a date in the format of 'YYYY-MM-DDThh:mm'.">
                         <div id="displayRDateError"></div>
                     </div>
                 </div>
@@ -263,6 +265,24 @@
 
     async function createForm(oFormElement) {
 
+        var fDate = document.getElementById("date");
+
+        var sDate = document.getElementById("date2");
+
+        var check = new Date(fDate.value);
+        var check2 = new Date(sDate.value);
+
+        if (isNaN((check).getTime())) {
+            alert("Invalid date format. Please enter a date in the format of 'YYYY-MM-DDThh:mm'");
+            return;
+        }
+
+        if (isNaN((check2).getTime())) {
+            alert("Invalid date format. Please enter a date in the format of 'YYYY-MM-DDThh:mm'");
+            return;
+        }
+
+
         var response = await fetch("/teacher/viewSection/<%= sectioninfo.id %>/project/<%= projectinfo.id %>", {
             method: "PATCH",
             credentials: 'same-origin',
@@ -289,8 +309,6 @@
 
 
     async function deleteProject() {
-
-        console.log("Hi");
 
         var response = await fetch("/section/<%= sectioninfo.id %>/removeProject/" + id, {
             method: "DELETE",

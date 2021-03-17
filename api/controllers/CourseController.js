@@ -136,13 +136,13 @@ module.exports = {
 
             var student = await User.findOne({ where: { givenId: req.body.studentid } });
 
-            if (!student) return res.redirect('/teacher/section/' + req.params.id + '/participants');
+            if (!student) return res.json({ url: '/teacher/section/' + req.params.id + '/participants', message: 'Invalid student ID. Please try again.' });
 
             var thisSection = await Section.findOne({ where: { id: req.params.id } });
 
             await Section.addToCollection(thisSection.id, 'haveStudent').members(student.id);
 
-            return res.redirect('/teacher/section/' + req.params.id + '/participants');
+            return res.json({ url: '/teacher/section/' + req.params.id + '/participants', message: 'Student - ' + student.fullName + ' has been added to this section.' });
 
         }
 

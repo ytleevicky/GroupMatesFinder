@@ -133,7 +133,8 @@
                     <label for="message-text" class="col-4 col-form-label">Due Date:</label>
                     <div class="col-8">
                         <input type="datetime-local" class="form-control" name="dueDate" id="date"
-                            onchange="validateDueDate();" required>
+                            onchange="validateDueDate();" required
+                            placeholder="Please enter a date in the format of 'YYYY-MM-DDThh:mm'.">
                         <div id="displayDueDateError"></div>
                     </div>
                 </div>
@@ -174,7 +175,8 @@
                     <label for="message-text" class="col-4 col-form-label">Result Release Date:</label>
                     <div class="col-8">
                         <input type="datetime-local" class="form-control" name="releaseDate" id="date2"
-                            onchange="validateReleaseDate();" required>
+                            onchange="validateReleaseDate();" required
+                            placeholder="Please enter a date in the format of 'YYYY-MM-DDThh:mm'.">
                         <div id="displayRDateError"></div>
                     </div>
                 </div>
@@ -301,6 +303,23 @@
 
 
     async function createForm(oFormElement) {
+
+        var fDate = document.getElementById("date");
+
+        var sDate = document.getElementById("date2");
+
+        var check = new Date(fDate.value);
+        var check2 = new Date(sDate.value);
+
+        if (isNaN((check).getTime())) {
+            alert("Invalid date format. Please enter a date in the format of 'YYYY-MM-DDThh:mm'");
+            return;
+        }
+
+        if (isNaN((check2).getTime())) {
+            alert("Invalid date format. Please enter a date in the format of 'YYYY-MM-DDThh:mm'");
+            return;
+        }
 
         var response = await fetch("/teacher/viewSection/<%= sectioninfo.id %>/project/<%= sectioninfo.haveProject[0].id %>/event/<%= eventInfo.id %>/editEventDetails", {
             method: "PATCH",

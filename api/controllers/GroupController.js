@@ -153,7 +153,7 @@ module.exports = {
 
         if (g.formationStatus == 'completed') {
 
-            return res.json({ message: 'This group is completed. You cannot accept this invitation', url: '/invitation' });
+            return res.json({ message: 'This group is completed. You cannot accept this invitation.', url: '/invitation' });
 
         }
 
@@ -198,7 +198,7 @@ module.exports = {
         var student = await User.findOne(req.params.uid).populate('apply');
         req.session.invitationNum = student.apply.length;
 
-        return res.json({ message: 'You have successfully reject the invitation.', url: '/invitation' });
+        return res.json({ message: 'You have successfully rejected the invitation.', url: '/invitation' });
 
     },
 
@@ -236,7 +236,7 @@ module.exports = {
 
             var group = await Group.findOne(req.params.gid);
 
-            return res.json({ message: 'You have successfully sent the request to Group ' + group.groupNum + '.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid });
+            return res.json({ message: 'You have successfully sent the request to Group.' + group.groupNum + '.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid });
 
         }
 
@@ -298,7 +298,7 @@ module.exports = {
 
         } else {
 
-            return res.json({ message: 'This group is full. You cannot add this student to your group', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+            return res.json({ message: 'This group is full. You cannot add this student to your group.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
 
         }
 
@@ -389,7 +389,7 @@ module.exports = {
             groupDescription: req.body.Group.groupDescription,
         }).fetch();
 
-        return res.redirect('/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid);
+        return res.json({ message: 'Group Description has been updated.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
 
     },
 

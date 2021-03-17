@@ -162,7 +162,8 @@
                             <h5 class="modal-title w-100" id="exampleModalLabel">Add participant</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="/addParticipant/<%= sectionid %>/<%= userid %>" method="POST">
+                        <form action="/addParticipant/<%= sectionid %>/<%= userid %>" method="POST"
+                            onsubmit="addOneParticipant(this);return false">
                             <div class="modal-body">
 
                                 <div class="mb-3">
@@ -259,8 +260,6 @@
 
     async function importFile(oFormElement) {
 
-        console.log("In here");
-
         var response = await fetch(oFormElement.action, {
             method: "POST",
             credentials: 'same-origin',
@@ -281,6 +280,26 @@
             alert(response.statusText);
         }
 
+    };
+
+    async function addOneParticipant(oFormElement) {
+
+        var response = await fetch(oFormElement.action, {
+            method: "POST",
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }, //enctype code of form
+            //put into array            //map into input and encode                                                         //join it
+            body: Array.from(oFormElement).map(input => encodeURIComponent(input.name) + '=' + encodeURIComponent(input.value)).join('&'),
+        });
+
+
+        if (response.ok) {
+            // validatePwd()
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data.message);
+            window.location = data.url;
+            //location.reload(true);
+        }
     };
 
 </script>
