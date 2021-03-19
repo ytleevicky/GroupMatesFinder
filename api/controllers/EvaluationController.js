@@ -28,11 +28,8 @@ module.exports = {
 
         if (req.method == 'GET') {
 
-
             return res.view('evaluation/addEvaluation');
-
         }
-
 
         var evaluation = await Evaluation.create(req.body.Evaluation).fetch();
 
@@ -40,7 +37,7 @@ module.exports = {
 
         await Evaluation.addToCollection(evaluation.id, 'creator').members(user.id);
 
-        return res.json({ url: '/teacher/evaluation' });
+        return res.json({ url: '/teacher/evaluation', message: 'Evaluation template has been created.' });
 
     },
 

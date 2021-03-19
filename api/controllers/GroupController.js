@@ -310,7 +310,7 @@ module.exports = {
 
         await Group.removeFromCollection(req.params.gid, 'consider').members(req.params.tid);
 
-        return res.json({ url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid });
+        return res.json({ url: '/student/section/' + req.params.sid + '/project/' + req.params.pid + '/viewCreatedGroup/' + req.params.gid, message: 'You have successfully rejected the request.' });
 
     },
 
