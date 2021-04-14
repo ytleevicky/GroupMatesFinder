@@ -236,7 +236,7 @@ module.exports = {
 
             var group = await Group.findOne(req.params.gid);
 
-            return res.json({ message: 'You have successfully sent the request to Group.' + group.groupNum + '.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid });
+            return res.json({ message: 'You have successfully sent the request to Group ' + group.groupNum + '.', url: '/student/section/' + req.params.sid + '/project/' + req.params.pid });
 
         }
 
