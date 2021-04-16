@@ -84,7 +84,7 @@ module.exports = {
 
         var forms = await User.findOne(req.session.userid).populate('haveForm');
 
-        var form2 = await SavedForm.find(forms.haveForm.map(v => v.id)).populate('getFrom').populate('formBelongTo');
+        var form2 = await SavedForm.find(forms.haveForm.map(v => v.id)).populate('getFrom').populate('formBelongTo').sort([{ createdAt: 'DESC' }]);
 
         return res.view('user/profile', { userinfo: user, userid: req.session.userid, allForm: form2 });
 

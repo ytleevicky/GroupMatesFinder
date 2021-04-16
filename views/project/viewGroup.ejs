@@ -55,10 +55,12 @@
 
                     <% groupInfo.createdBy.forEach( function(model) { %>
 
-                        <a href="#" class="list-group-item list-group-item-action">
+                        <div class="list-group-item list-group-item-action">
                             <img src="<%= model.imgURL %>" alt="Admin" class="rounded-circle" width="45">
-                            &nbsp; <%= model.fullName %>
-                        </a>
+                            <a href="/viewStudentProfile/<%= model.id %>" target="_blank"
+                                rel="noopener noreferrer">&nbsp; <%= model.fullName %></a>
+                        </div>
+
                         <% }); %>
                 </div>
 

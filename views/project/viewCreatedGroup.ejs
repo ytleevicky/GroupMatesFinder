@@ -68,11 +68,15 @@
                             </svg> &nbsp; Invite Members</button></a>
 
                     <% groupInfo.createdBy.forEach( function(model) { %>
-                        <a href="#" class="list-group-item">
+
+                        <div class="list-group-item">
                             <img src="<%= model.imgURL %>" alt="Admin" class="rounded-circle" width="45">
-                            &nbsp; <%= model.fullName %>
-                                <%= model.id==userid ? '(You)' : '' %>
-                        </a>
+                            <a href="/viewStudentProfile/<%= model.id %>" target="_blank"
+                                rel="noopener noreferrer">&nbsp; <%= model.fullName %>
+                                    <%= model.id==userid ? '(You)' : '' %>
+                            </a>
+                        </div>
+
                         <% }); %>
                 </div>
 
