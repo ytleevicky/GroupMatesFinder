@@ -40,7 +40,7 @@ module.exports.bootstrap = async function () {
       { givenId: '20456123', password: hash, role: 'student', preferred_name: 'Judy Wu ', fullName: 'WU Tze Tung', gender: 'Female', contact_mobile: '9866 2678', contact_mail: 'fyp.demostudent3@gmail.com', study_year: 1, study_programme: "Bachelor of Science in Nursing", imgURL: "/images/user2.png" },
 
 
-      // NameList2
+      // NameList2 - Student
       { givenId: '17228300', password: hash, role: 'student', preferred_name: 'Noah Lee', fullName: 'LEE Pui Ki', gender: 'Male', contact_mobile: '9811 2000', contact_mail: '17228300@life.hkbu.edu.hk', study_year: 4, study_programme: "Bachelor of Design", imgURL: "/images/user4.png" },
       { givenId: '17228301', password: hash, role: 'student', preferred_name: 'Ethan Chan', fullName: 'CHAN Ho Yuen', gender: 'Male', contact_mobile: '9812 2001', contact_mail: '17228301@life.hkbu.edu.hk', study_year: 4, study_programme: "Bachelor of Administrative Studies", imgURL: "/images/user5.png" },
       { givenId: '17228302', password: hash, role: 'student', preferred_name: 'Henry Ng', fullName: 'NG Chak Fung', gender: 'Male', contact_mobile: '9813 2002', contact_mail: '17228302@life.hkbu.edu.hk', study_year: 4, study_programme: "Bachelor of Journalism", imgURL: "/images/user6.png" },
@@ -55,6 +55,7 @@ module.exports.bootstrap = async function () {
       { givenId: '18220334', password: hash, role: 'student', preferred_name: 'Anne Tam', fullName: 'TAM Wai Tung', gender: 'Female', contact_mobile: '9833 5004', contact_mail: '18220334@life.hkbu.edu.hk', study_year: 3, study_programme: "Bachelor of Science in Psychology", imgURL: "/images/user1.png" },
       { givenId: '18220335', password: hash, role: 'student', preferred_name: 'Elisa Wu ', fullName: 'WU Tsz Yin', gender: 'Female', contact_mobile: '9833 5005', contact_mail: '18220335@life.hkbu.edu.hk', study_year: 3, study_programme: "Bachelor of Tourism Studies", imgURL: "/images/user2.png" },
 
+      // NameList - teacher
       { givenId: 'chrislee', password: hash, role: 'teacher', preferred_name: 'Dr. Chris Lee', fullName: 'LEE Sum Wing', gender: 'Male', contact_mail: 'chriselee@life.hkbu.edu.hk' },
       { givenId: 'alexwong', password: hash, role: 'teacher', preferred_name: 'Dr. Alex Wong', fullName: 'WONG Siu Ming', gender: 'Male', contact_mail: 'alexwong@life.hkbu.edu.hk' },
       { givenId: 'kennethma', password: hash, role: 'teacher', preferred_name: 'Dr. Kenneth Ma', fullName: 'MA Kok Ming', gender: 'Male', contact_mail: 'kennethma@life.hkbu.edu.hk' },
