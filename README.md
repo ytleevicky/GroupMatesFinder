@@ -1,4 +1,4 @@
-# fyp
+# Final Year Project - GroupMatesFinder System
 
 a [Sails v1](https://sailsjs.com) application
 
