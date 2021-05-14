@@ -1,18 +1,31 @@
 # Final Year Project - GroupMatesFinder System
 
-a [Sails v1](https://sailsjs.com) application
+In the present day, most university courses require students to complete group projects. But most of the time, working on a group project can be a nightmare for many students due to the group formation issue and the free-riding problem. After all, group work can be either a blessing or a curse for a project if you don’t find the right group-mates.
 
+In the current market, various collaboration tools have already developed to engage students to work collaboratively during the project development stage. However, no tools are currently available to enhance the beginning phase of a group project. 
 
-### Links
+In light of the above situations, the proposed GroupMatesFinder system (web-based system) is going to solve these issues by improving the group formation process, helping students to find quality group-mates and facilitating the peer evaluation process. 
+  
+  
+Reference Information:
++ Documentation
++ [Video Demonstration](https://fyp.comp.hkbu.edu.hk/poster/2020/poster.php?id=192)
 
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
+##
 
+### Installation Guide:
 
-### Version info
++ First time system setup 
+  1. Open the source code and then open the terminal.
+  1. In the terminal, type "npm install" to install the dependencies in the local node_modules folder.
+  1. In the terminal, type "sails lift" to start the program.
+
++ Login to the system:
+  * Go to "fyp/config/bootstrap.js" to view the local database (including the login information)
+
+##
+
+#### Version info
 
 This app was originally generated on Sat Oct 24 2020 17:25:46 GMT+0800 (香港標準時間) using Sails v1.2.3.
 
