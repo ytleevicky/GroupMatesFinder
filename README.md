@@ -8,8 +8,8 @@ In light of the above situations, the proposed GroupMatesFinder system (web-base
   
   
 Reference Information:
-+ Documentation
 + [Video Demonstration](https://fyp.comp.hkbu.edu.hk/poster/2020/poster.php?id=192)
++ [System Documentation](https://drive.google.com/drive/folders/1LlTD2rMromX3LcJBTpktEsn6CkNeR8o6?usp=sharing)
 
 ##
 
