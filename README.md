@@ -1,4 +1,4 @@
-# Final Year Project - GroupMatesFinder System
+# GroupMatesFinder System
 
 In the present day, most university courses require students to complete group projects. But most of the time, working on a group project can be a nightmare for many students due to the group formation issue and the free-riding problem. After all, group work can be either a blessing or a curse for a project if you don’t find the right group-mates.
 
